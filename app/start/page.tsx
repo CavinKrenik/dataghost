@@ -24,8 +24,9 @@ export default function StartPage() {
             } else {
                 setError(result.error || 'Something went wrong. Please try again.');
             }
-        } catch (err) {
-            setError('An unexpected error occurred.');
+        } catch (err: any) {
+            console.error('Form submission error:', err);
+            setError(err.message || 'An unexpected error occurred.');
         } finally {
             setPending(false);
         }

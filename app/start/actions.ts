@@ -1,9 +1,9 @@
 'use server';
 
-import crypto from 'crypto';
-import { upsertDataBrokerUser } from '@/lib/db';
 import { getBrokerList, US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 import { sendOptOutEmails } from '@/lib/email-sending';
+import { createAdminClient } from '@/lib/supabase/admin';
+import { revalidatePath } from 'next/cache';
 
 // Manual validation types and logic to avoid adding zod dependency
 interface FormDataTypes {
@@ -44,16 +44,31 @@ export async function startGhosting(prevState: State | undefined, formData: Form
     const { fullName, city, state, ageRange, email, country } = rawData;
 
     try {
-        // 1. Save user to DB (for 45-day rescans)
-        const hash = crypto.createHash('sha256');
-        hash.update(email);
-        const hashedEmail = hash.digest('hex');
+        const supabase = createAdminClient();
 
-        await upsertDataBrokerUser({
-            id: hashedEmail,
-            verified: true, // Auto-verify since they paid
-            last_sent_at: new Date().toISOString(),
-        });
+        // Check for existing user
+        const { data: existingUser } = await supabase
+            .from('data_broker_users')
+            .select('id')
+            .eq('email', email)
+            .single();
+
+        if (existingUser) {
+            return { success: false, error: 'You have already ghosted with this email. One per person.' };
+        }
+
+        // Insert new user
+        const { error: insertError } = await supabase
+            .from('data_broker_users')
+            .insert({
+                email: email,
+                full_name: fullName,
+                city: city,
+                state: state,
+                age_range: ageRange,
+            });
+
+        if (insertError) throw insertError;
 
         // 2. Get and Filter Brokers
         let brokers: { name: string, email: string }[] = getBrokerList();
@@ -62,10 +77,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         if (brokers.length === 0) {
             try {
                 // Determine path or just require it if we are in server context
-                // Note: using require with dynamic path can be tricky in webpack, but static path is fine.
-                // We need to import the JSON file. 
-                // Since this file is in app/start/actions.ts and brokers is in data/brokers.json...
-                // Using a relative import or alias
                 const allBrokers = require('@/data/brokers.json');
                 brokers = allBrokers
                     .filter((b: any) => b.type === 'email' && b.email)
@@ -102,9 +113,11 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             companies,
         });
 
+        revalidatePath('/');
         return { success: true, count: companies.length };
-    } catch (error) {
+
+    } catch (error: any) {
         console.error('Ghosting error:', error);
-        return { success: false, error: 'Failed to start ghosting. Please try again.' };
+        return { success: false, error: error.message || 'Unknown error' };
     }
 }
