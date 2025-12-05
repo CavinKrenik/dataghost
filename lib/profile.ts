@@ -1,10 +1,12 @@
-import { createClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
 export const getProfile = cache(async (userId: string) => {
-    const supabase = createClient();
+    const supabase = createSupabaseServerClient();
+
     const { data: profile } = await supabase
         .from("profiles")
         .select("*")

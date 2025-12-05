@@ -1,18 +1,23 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+export const runtime = 'nodejs'
+
 export default function LoginPage() {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
-    const supabase = createClient();
+    const supabase = createSupabaseBrowserClient();
+
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();

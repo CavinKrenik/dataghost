@@ -1,9 +1,11 @@
-import { createClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
 export const getCurrentUser = cache(async () => {
-    const supabase = createClient();
+    const supabase = createSupabaseServerClient();
+
     const {
         data: { user },
     } = await supabase.auth.getUser();
