@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
-export default function AuthConfirmPage() {
+function AuthConfirmContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const plan = searchParams.get("plan");
@@ -37,5 +37,13 @@ export default function AuthConfirmPage() {
                 Redirecting you to {plan ? "checkout" : "dashboard"}...
             </p>
         </div>
+    );
+}
+
+export default function AuthConfirmPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-ghost-bg" />}>
+            <AuthConfirmContent />
+        </Suspense>
     );
 }
