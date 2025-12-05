@@ -1,42 +1,28 @@
 'use server';
 
-import { PutItemCommand, GetItemCommand } from '@aws-sdk/client-dynamodb';
-import { SendTemplatedEmailCommand } from '@aws-sdk/client-ses';
 import crypto from 'crypto';
 import dayjs from 'dayjs';
-import { getDynamoDBClient, getSESClient, getTableName } from '@/lib/data-broker-remover/aws-clients';
+import { getDataBrokerUser, upsertDataBrokerUser } from '@/lib/db';
+import { sendVerificationEmail } from '@/lib/email-sending';
 import { SendCodeResponse } from '@/lib/data-broker-remover/types';
 
 export async function sendVerificationCode(email: string): Promise<SendCodeResponse> {
   try {
     // Generate OTP code
-    const otpCode = crypto.randomBytes(6).toString('hex');
+    const otpCode = crypto.randomInt(100000, 999999).toString();
 
     // Hash email for storage
     const hash = crypto.createHash('sha256');
     hash.update(email);
     const hashedEmail = hash.digest('hex');
 
-    const dynamoClient = getDynamoDBClient();
-    const sesClient = getSESClient();
-    const tableName = getTableName();
-
-    // Check if email was already used recently
-    const checkParams = {
-      TableName: tableName,
-      Key: {
-        id: { S: hashedEmail },
-      },
-    };
-
-    const checkCommand = new GetItemCommand(checkParams);
-    const existingData = await dynamoClient.send(checkCommand);
+    // Check existing user
+    const existingUser = await getDataBrokerUser(hashedEmail);
 
     // Check if already sent within 45 days
-    if (existingData.Item && existingData.Item.lastSent) {
-      const lastSent = parseInt(existingData.Item.lastSent.N || '0');
+    if (existingUser && existingUser.last_sent_at) {
+      const lastSentDate = dayjs(existingUser.last_sent_at);
       const now = dayjs();
-      const lastSentDate = dayjs.unix(lastSent);
       const daysSinceLastSent = now.diff(lastSentDate, 'day');
 
       if (daysSinceLastSent < 45) {
@@ -48,34 +34,15 @@ export async function sendVerificationCode(email: string): Promise<SendCodeRespo
       }
     }
 
-    // Store email hash and OTP in DynamoDB
-    const putParams = {
-      TableName: tableName,
-      Item: {
-        id: { S: hashedEmail },
-        code: { S: otpCode },
-      },
-    };
+    // Store email hash and OTP in Supabase
+    await upsertDataBrokerUser({
+      id: hashedEmail,
+      verification_code: otpCode,
+      code_generated_at: new Date().toISOString()
+    });
 
-    const putCommand = new PutItemCommand(putParams);
-    await dynamoClient.send(putCommand);
-
-    // Send verification email via SES
-    const templateData = {
-      code: otpCode,
-    };
-
-    const sesParams = {
-      Destination: {
-        ToAddresses: [email],
-      },
-      Source: 'noreply@visiblelabs.org',
-      Template: 'VerificationCode',
-      TemplateData: JSON.stringify(templateData),
-    };
-
-    const sesCommand = new SendTemplatedEmailCommand(sesParams);
-    await sesClient.send(sesCommand);
+    // Send verification email via Resend
+    await sendVerificationEmail(email, otpCode);
 
     return { success: true };
   } catch (error) {

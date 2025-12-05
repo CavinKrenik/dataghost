@@ -38,4 +38,24 @@ $$ language plpgsql security definer;
 create trigger on_auth_user_created
 after insert on auth.users
 for each row
-execute procedure public.handle_new_user();
+
+-- Create data_broker_users table to replace DynamoDB
+create table public.data_broker_users (
+  id text not null, -- Stores hashed email
+  verification_code text,
+  verified boolean default false,
+  last_sent_at timestamptz,
+  code_generated_at timestamptz,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now(),
+  primary key (id)
+);
+
+-- Enable RLS
+alter table public.data_broker_users enable row level security;
+
+-- Create policies (Service Role only by default as actions are server-side)
+create policy "Service role can manage all data broker users"
+  on public.data_broker_users
+  using ( true )
+  with check ( true );

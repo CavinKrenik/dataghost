@@ -1,16 +1,13 @@
 "use server";
 
-import { GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
-import { SendBulkTemplatedEmailCommand } from "@aws-sdk/client-ses";
 import crypto from "crypto";
 import dayjs from "dayjs";
+import { getDataBrokerUser, upsertDataBrokerUser } from "@/lib/db";
 import {
-  getDynamoDBClient,
-  getSESClient,
-  getTableName,
   getBrokerList,
   US_ONLY_BROKERS,
-} from "@/lib/data-broker-remover/aws-clients";
+} from "@/lib/data-broker-remover/utils";
+import { sendOptOutEmails } from "@/lib/email-sending";
 import {
   SendEmailsResponse,
   UserDetails,
@@ -26,22 +23,9 @@ export async function sendEmails(
     hash.update(email);
     const hashedEmail = hash.digest("hex");
 
-    const dynamoClient = getDynamoDBClient();
-    const sesClient = getSESClient();
-    const tableName = getTableName();
+    const user = await getDataBrokerUser(hashedEmail);
 
-    // Get user record from DynamoDB
-    const getParams = {
-      TableName: tableName,
-      Key: {
-        id: { S: hashedEmail },
-      },
-    };
-
-    const getCommand = new GetItemCommand(getParams);
-    const data = await dynamoClient.send(getCommand);
-
-    if (!data.Item) {
+    if (!user) {
       return {
         success: false,
         error: "Email not found. Please start over.",
@@ -49,7 +33,7 @@ export async function sendEmails(
     }
 
     // Check if verified
-    if (!data.Item.verified || !data.Item.verified.BOOL) {
+    if (!user.verified) {
       return {
         success: false,
         error: "Email not verified. Please verify your email first.",
@@ -57,10 +41,9 @@ export async function sendEmails(
     }
 
     // Check if already sent within 45 days
-    if (data.Item.lastSent) {
-      const lastSent = parseInt(data.Item.lastSent.N || "0");
+    if (user.last_sent_at) {
+      const lastSentDate = dayjs(user.last_sent_at);
       const now = dayjs();
-      const lastSentDate = dayjs.unix(lastSent);
       const daysSinceLastSent = now.diff(lastSentDate, "day");
 
       if (daysSinceLastSent < 45) {
@@ -88,72 +71,29 @@ export async function sendEmails(
       };
     }
 
-    // Split brokers into chunks of 50 (SES bulk limit)
-    const splitIntoChunks = <T>(array: T[], chunkSize: number): T[][] => {
-      const chunks: T[][] = [];
-      for (let i = 0; i < array.length; i += chunkSize) {
-        chunks.push(array.slice(i, i + chunkSize));
-      }
-      return chunks;
-    };
+    // Prepare company list
+    const companies = brokers.map(broker => ({
+      name: broker.name,
+      email: broker.email,
+      subject: "Data Removal Request",
+      body: `Dear ${broker.name},\n\nI am writing to request the removal of my personal information from your database in accordance with applicable data privacy laws.\n\nMy Information:\n- Name: {{name}}\n- Address: ${details.street}, {{city}}, ${details.postcode}, {{state}}\n- Email: {{email}}\n\nPlease confirm receipt of this request and provide information about the removal process and timeline.\n\nThank you for your prompt attention to this matter.\n\nSincerely,\n{{name}}`
+    }));
 
-    const chunks = splitIntoChunks(brokers, 50);
+    // Send emails
+    await sendOptOutEmails({
+      fullName: details.name,
+      city: details.city,
+      state: details.country,
+      ageRange: "N/A",
+      userEmail: email,
+      companies: companies
+    });
 
-    // Send emails in chunks with delay between each chunk
-    for (const chunk of chunks) {
-      const bulkCommand = new SendBulkTemplatedEmailCommand({
-        Destinations: chunk.map((broker) => ({
-          Destination: {
-            ToAddresses: [broker.email],
-            CcAddresses: [email],
-          },
-          ReplacementTemplateData: JSON.stringify({
-            name: details.name,
-            street: details.street,
-            city: details.city,
-            country: details.country,
-            postcode: details.postcode,
-            email: email,
-            companyName: broker.name,
-          }),
-        })),
-        DefaultTemplateData: JSON.stringify({
-          name: "John Doe",
-          street: "123 Main St",
-          city: "Anytown",
-          country: "USA",
-          postcode: "12345",
-          email: "example@example.com",
-          companyName: "Acme",
-        }),
-        Source: "requests@visiblelabs.org",
-        Template: "CompanyEmail",
-        ReplyToAddresses: [email],
-      });
-
-      await sesClient.send(bulkCommand);
-
-      // Wait 1 second between chunks to avoid rate limits
-      if (chunks.indexOf(chunk) < chunks.length - 1) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      }
-    }
-
-    // Update lastSent timestamp in DynamoDB
-    const updateParams = {
-      TableName: tableName,
-      Key: {
-        id: { S: hashedEmail },
-      },
-      UpdateExpression: "SET lastSent = :lastSent, dateDate = :dateDate",
-      ExpressionAttributeValues: {
-        ":lastSent": { N: dayjs().unix().toString() },
-        ":dateDate": { N: dayjs().date().toString() },
-      },
-    };
-
-    const updateCommand = new UpdateItemCommand(updateParams);
-    await dynamoClient.send(updateCommand);
+    // Update lastSent timestamp in Supabase
+    await upsertDataBrokerUser({
+      id: hashedEmail,
+      last_sent_at: new Date().toISOString()
+    });
 
     return { success: true };
   } catch (error) {

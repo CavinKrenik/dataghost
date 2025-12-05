@@ -39,3 +39,28 @@ export async function getUserJobs(emailHash: string) {
   if (error) throw error;
   return data || [];
 }
+
+export async function getDataBrokerUser(emailHash: string) {
+  const { data, error } = await supabase
+    .from("data_broker_users")
+    .select("*")
+    .eq("id", emailHash)
+    .single();
+
+  if (error && error.code !== 'PGRST116') throw error; // PGRST116 is "not found"
+  return data;
+}
+
+export async function upsertDataBrokerUser(data: {
+  id: string,
+  verification_code?: string,
+  verified?: boolean,
+  last_sent_at?: string,
+  code_generated_at?: string
+}) {
+  const { error } = await supabase
+    .from("data_broker_users")
+    .upsert(data);
+
+  if (error) throw error;
+}
