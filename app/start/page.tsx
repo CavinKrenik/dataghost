@@ -12,6 +12,8 @@ export default function StartPage() {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [count, setCount] = useState(0);
+    const [manualBrokersCount, setManualBrokersCount] = useState(0);
+    const [pdfBase64, setPdfBase64] = useState<string | null>(null);
 
     async function handleSubmit(formData: FormData) {
         setPending(true);
@@ -19,7 +21,9 @@ export default function StartPage() {
         try {
             const result = await startGhosting(undefined, formData);
             if (result.success) {
-                setCount(result.count || 80);
+                setCount(result.count || 0);
+                setManualBrokersCount(result.manualBrokersCount || 0);
+                setPdfBase64(result.pdfBase64 || null);
                 setSuccess(true);
             } else {
                 setError(result.error || 'Something went wrong. Please try again.');
@@ -58,7 +62,13 @@ export default function StartPage() {
                             Last step: tell us the basics so we can nuke your data from 80+ brokers.
                         </p>
 
-                        <form action={handleSubmit} className="space-y-5">
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                handleSubmit(new FormData(e.currentTarget));
+                            }}
+                            className="space-y-5"
+                        >
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div className="space-y-2">
@@ -156,20 +166,38 @@ export default function StartPage() {
                             </svg>
                         </div>
 
-                        <h2 className="text-3xl font-bold text-white"> Protocol Initiated! </h2>
-                        <p className="text-ghost-text text-lg">
-                            We've fired off {count} removal requests on your behalf.
-                        </p>
-                        <p className="text-ghost-muted">
-                            Check your inbox ({error ? 'your email' : 'the one you provided'}). You should see them rolling in now.
-                        </p>
+                        <h2 className="text-3xl font-bold text-white"> Protocol Initiated! 👻 </h2>
 
-                        <div className="mt-8 p-4 bg-ghost-card rounded-xl border border-ghost-grid/50">
-                            <p className="text-sm text-ghost-muted">
-                                <strong>What happens next?</strong><br />
-                                Most brokers will process the request automatically. Some may ask for one-click confirmation. We will re-scan this list every 45 days to ensure they stay gone.
+                        <div className="text-ghost-text text-lg space-y-4 text-left bg-ghost-purple/30 p-6 rounded-xl border border-ghost-grid">
+                            <p>
+                                We auto-removed you from <strong>{count} brokers</strong> via email — check your inbox (and Spam) for the CCs.
+                            </p>
+                            <p>
+                                The remaining <strong>{manualBrokersCount} brokers</strong> require manual forms (they reject automated emails).
+                            </p>
+                            <p>
+                                Download your personalized removal checklist below — it has pre-filled links. Takes ~15 minutes total.
                             </p>
                         </div>
+
+                        {pdfBase64 && (
+                            <div className="pt-4">
+                                <a
+                                    href={`data:application/pdf;base64,${pdfBase64}`}
+                                    download="DataGhost_Manual_Removal_Checklist.pdf"
+                                    className="inline-flex items-center justify-center w-full bg-ghost-cyan text-ghost-navy font-bold text-lg h-14 rounded-lg hover:bg-ghost-cyan-light shadow-glow transition-all duration-300 transform hover:scale-[1.02]"
+                                >
+                                    <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download Manual Removal PDF
+                                </a>
+                            </div>
+                        )}
+
+                        <p className="text-ghost-muted text-sm mt-6">
+                            We'll re-scan everything for 45 days and kill anything that comes back.
+                        </p>
                     </div>
                 )}
             </div>

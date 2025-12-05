@@ -21,7 +21,7 @@ export default function HomePage() {
         <h1 className="text-5xl md:text-6xl font-bold leading-tight">
           Ghost your data from{" "}
           <span className="text-ghost-cyan drop-shadow-[0_0_25px_rgba(0,229,255,0.65)]">
-            80+ data brokers
+            80+ brokers (auto + manual checklist)
           </span>
         </h1>
 
@@ -58,7 +58,7 @@ export default function HomePage() {
           <ul className="text-left space-y-3 mb-8 text-ghost-text/90">
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
-              <span>Automated opt-outs to 80+ data brokers</span>
+              <span>80+ brokers (auto + manual checklist)</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
