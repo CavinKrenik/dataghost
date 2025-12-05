@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[functions]
+  included_files = ["!node_modules/sharp/**/*"]
+  external_node_modules = ["@prisma/client", "prisma"]
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
