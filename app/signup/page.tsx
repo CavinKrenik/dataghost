@@ -3,7 +3,7 @@
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -22,6 +22,12 @@ export default function SignupPage({
     const router = useRouter();
     const supabase = createSupabaseBrowserClient();
     const plan = searchParams.plan;
+
+    useEffect(() => {
+        if (!plan) {
+            router.replace("/pricing");
+        }
+    }, [plan, router]);
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();

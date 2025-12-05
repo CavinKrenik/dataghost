@@ -120,12 +120,12 @@ export default function LoginPage({
                 </form>
 
                 <p className="text-center text-sm text-ghost-muted">
-                    Don&apos;t have an account?{" "}
+                    Don&apos;t have an account yet?{" "}
                     <Link
-                        href={`/signup${plan ? `?plan=${plan}` : ""}`}
+                        href="/pricing"
                         className="font-semibold text-ghost-cyan hover:text-ghost-cyanSoft"
                     >
-                        Sign up
+                        View plans
                     </Link>
                 </p>
             </div>
