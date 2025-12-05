@@ -110,6 +110,14 @@ const jsonLd = {
         "@id": "https://dataghost.me/#organization",
       },
       inLanguage: "en-US",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://dataghost.me/?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
     {
       "@type": "BreadcrumbList",
