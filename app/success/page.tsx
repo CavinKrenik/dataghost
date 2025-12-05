@@ -6,7 +6,7 @@ export default function SuccessPage() {
     <div className="min-h-screen bg-ghost-bg flex flex-col items-center justify-center p-4 text-center">
       <Image
         src="/ghost.png"
-        alt="DataGhost"
+        alt="DataGhost successful data removal"
         width={80}
         height={80}
         className="drop-shadow-[0_0_12px_#00e5ff]"

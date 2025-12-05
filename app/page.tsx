@@ -12,7 +12,7 @@ export default function HomePage() {
         <div className="flex justify-center mb-8">
           <Image
             src="/ghost.png"
-            alt="DataGhost Mascot"
+            alt="DataGhost privacy removal service illustration"
             width={140}
             height={140}
             className="animate-float drop-shadow-[0_0_30px_#00e5ff]"

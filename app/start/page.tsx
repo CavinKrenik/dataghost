@@ -43,7 +43,7 @@ export default function StartPage() {
             <div className="mb-8">
                 <Image
                     src="/ghost.png"
-                    alt="DataGhost Mascot"
+                    alt="DataGhost removes your personal information from data brokers"
                     width={120}
                     height={120}
                     className="animate-float drop-shadow-[0_0_30px_#00e5ff]"
