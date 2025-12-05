@@ -110,15 +110,7 @@ export function LandingInfo() {
                 </p>
             </SectionCard>
 
-            {/* CTA under the info */}
-            <div className="mt-4 flex justify-center">
-                <Link
-                    href="/checkout"
-                    className="inline-flex items-center justify-center rounded-full bg-ghost-cyan px-8 py-3 text-sm font-semibold text-black shadow-glow hover:opacity-90 transition"
-                >
-                    View Pricing & Continue
-                </Link>
-            </div>
+            {/* CTA removed as per request */}
         </section>
     );
 }

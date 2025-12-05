@@ -24,22 +24,12 @@ export default function HomePage() {
           </span>
         </h1>
 
-        <p className="max-w-3xl mx-auto mt-6 text-lg text-ghost-muted">
-          One-click opt-outs. Weekly re-scans. Transparent CC emails. Data deleted from our servers after 45 days.
-        </p>
-
         <div className="mt-10 flex flex-col md:flex-row gap-4 justify-center">
           <Link
-            href="/checkout"
+            href="/pricing"
             className="bg-ghost-cyan text-black px-10 py-4 rounded-full font-semibold shadow-glow hover:opacity-90 transition"
           >
             Start Ghosting My Data
-          </Link>
-          <Link
-            href="/pricing"
-            className="border border-ghost-cyan px-10 py-4 rounded-full font-semibold text-ghost-cyan hover:bg-ghost-cyan/10 shadow-aura transition"
-          >
-            View Pricing
           </Link>
         </div>
 
