@@ -52,8 +52,16 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
+     * - public routes like pricing, login, signup are implicitly allowed by not matching a specific "protected" pattern
+     *   OR we can just match the protected ones.
+     *
+     * The user requested:
+     * matcher: ['/dashboard/:path*'],
+     *
+     * But the current matcher is a negative lookahead for static files.
+     * To strictly follow the user's request "Remove /pricing from any auth middleware matcher... change it to matcher: ['/dashboard/:path*']",
+     * I will update it to target the protected routes specifically, as that is cleaner for this requirement.
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/dashboard/:path*",
   ],
 };

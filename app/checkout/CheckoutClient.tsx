@@ -15,16 +15,25 @@ export default function CheckoutClient({
         ? process.env.NEXT_PUBLIC_LEMON_YEARLY_ID
         : process.env.NEXT_PUBLIC_LEMON_MONTHLY_ID;
 
+    if (!variantId) {
+        if (process.env.NODE_ENV === 'development') {
+            throw new Error(
+                'Lemon Squeezy variant IDs are not configured. Set NEXT_PUBLIC_LEMON_MONTHLY_ID and NEXT_PUBLIC_LEMON_YEARLY_ID in your environment variables.'
+            );
+        }
+        // In production, we'll show the error message in the UI below
+    }
+
     // Construct checkout URL
-    const checkoutUrl = `https://dataghost.lemonsqueezy.com/buy/${variantId}?checkout[email]=${encodeURIComponent(
+    const checkoutUrl = variantId ? `https://dataghost.lemonsqueezy.com/buy/${variantId}?checkout[email]=${encodeURIComponent(
         user.email
     )}&checkout[custom][user_id]=${user.id}&checkout[success_url]=${encodeURIComponent(
         `${process.env.NEXT_PUBLIC_APP_URL}/success`
-    )}`;
+    )}` : '';
 
     useEffect(() => {
         // Redirect to Lemon Squeezy
-        if (variantId) {
+        if (variantId && checkoutUrl) {
             window.location.href = checkoutUrl;
         }
     }, [variantId, checkoutUrl]);
@@ -45,8 +54,9 @@ export default function CheckoutClient({
                 Please wait while we transfer you to our payment provider.
             </p>
             {!variantId && (
-                <div className="mt-8 p-4 bg-red-500/10 border border-red-500 rounded text-red-500">
-                    Error: Missing Lemon Squeezy Variant ID. Please check your configuration.
+                <div className="mt-8 p-4 bg-red-500/10 border border-red-500 rounded text-red-500 max-w-md">
+                    <p className="font-bold">Something went wrong preparing your checkout.</p>
+                    <p className="text-sm mt-1">Please try again in a few minutes or contact support.</p>
                 </div>
             )}
         </div>

@@ -9,15 +9,18 @@ import Image from "next/image";
 
 export const runtime = 'nodejs'
 
-export default function LoginPage() {
-
+export default function LoginPage({
+    searchParams,
+}: {
+    searchParams: { plan?: string };
+}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
     const supabase = createSupabaseBrowserClient();
-
+    const plan = searchParams.plan;
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,11 +33,19 @@ export default function LoginPage() {
         });
 
         if (error) {
-            setError(error.message);
+            if (error.message.includes("Email not confirmed")) {
+                setError("You created an account, but your email isn’t confirmed yet. Please click the confirmation link we sent to your inbox, then try logging in again.");
+            } else {
+                setError(error.message);
+            }
             setLoading(false);
         } else {
             router.refresh();
-            router.push("/pricing");
+            if (plan) {
+                router.push(`/checkout?plan=${plan}`);
+            } else {
+                router.push("/dashboard");
+            }
         }
     };
 
@@ -111,7 +122,7 @@ export default function LoginPage() {
                 <p className="text-center text-sm text-ghost-muted">
                     Don&apos;t have an account?{" "}
                     <Link
-                        href="/signup"
+                        href={`/signup${plan ? `?plan=${plan}` : ""}`}
                         className="font-semibold text-ghost-cyan hover:text-ghost-cyanSoft"
                     >
                         Sign up

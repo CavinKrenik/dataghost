@@ -9,15 +9,19 @@ import Image from "next/image";
 
 export const runtime = 'nodejs'
 
-export default function SignupPage() {
-
+export default function SignupPage({
+    searchParams,
+}: {
+    searchParams: { plan?: string };
+}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState(false);
     const router = useRouter();
     const supabase = createSupabaseBrowserClient();
-
+    const plan = searchParams.plan;
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,7 +32,7 @@ export default function SignupPage() {
             email,
             password,
             options: {
-                emailRedirectTo: `${location.origin}/auth/callback`,
+                emailRedirectTo: `${location.origin}/auth/callback${plan ? `?plan=${plan}` : ""}`,
             },
         });
 
@@ -36,18 +40,44 @@ export default function SignupPage() {
             setError(error.message);
             setLoading(false);
         } else {
-            // For email/password without confirmation, we might be logged in immediately
-            // or need to check email. Assuming auto-confirm or session creation for now.
-            // If email confirmation is on, this flow might need adjustment.
-            // But user requested "logs in -> redirects to /pricing".
-            // If Supabase is set to "Enable email confirmations", they won't be logged in yet.
-            // Assuming standard dev setup or "Disable email confirmations" for smoother flow,
-            // or we just tell them to check email.
-            // Let's try to refresh and push.
-            router.refresh();
-            router.push("/pricing");
+            // Do not auto-login. Show success state.
+            setSuccess(true);
+            setLoading(false);
         }
     };
+
+    if (success) {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center p-4">
+                <div className="w-full max-w-md space-y-8 text-center">
+                    <Image
+                        src="/ghost.png"
+                        alt="DataGhost"
+                        width={60}
+                        height={60}
+                        className="mx-auto drop-shadow-[0_0_12px_#00e5ff]"
+                    />
+                    <h2 className="mt-6 text-3xl font-bold tracking-tight text-white">
+                        Check your email
+                    </h2>
+                    <p className="mt-2 text-ghost-muted">
+                        We’ve sent a confirmation link to <span className="text-white font-medium">{email}</span>.
+                    </p>
+                    <p className="text-sm text-ghost-muted">
+                        After you confirm, come back here and log in to continue to checkout.
+                    </p>
+                    <div className="mt-8">
+                        <Link
+                            href={`/login${plan ? `?plan=${plan}` : ""}`}
+                            className="block w-full rounded-md bg-ghost-cyan px-3 py-2.5 text-center text-sm font-semibold text-ghost-bg hover:bg-ghost-cyanSoft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ghost-cyan transition-all shadow-glow"
+                        >
+                            I’ve confirmed my email — Log me in
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-4">
@@ -122,7 +152,7 @@ export default function SignupPage() {
                 <p className="text-center text-sm text-ghost-muted">
                     Already have an account?{" "}
                     <Link
-                        href="/login"
+                        href={`/login${plan ? `?plan=${plan}` : ""}`}
                         className="font-semibold text-ghost-cyan hover:text-ghost-cyanSoft"
                     >
                         Sign in
