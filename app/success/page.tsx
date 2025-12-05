@@ -15,13 +15,13 @@ export default function SuccessPage() {
         Payment Successful!
       </h1>
       <p className="mt-4 text-xl text-ghost-muted max-w-md">
-        You are now a DataGhost subscriber. Your dashboard will unlock within a few seconds.
+        Thank you for your payment. Please check your email for next steps.
       </p>
       <Link
-        href="/dashboard"
+        href="/"
         className="mt-8 rounded-md bg-ghost-cyan px-8 py-3 text-lg font-semibold text-ghost-bg shadow-sm hover:bg-ghost-cyanSoft transition-all shadow-glow"
       >
-        Go to Dashboard
+        Return to Home
       </Link>
     </div>
   );

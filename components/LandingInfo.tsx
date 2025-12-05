@@ -58,22 +58,22 @@ export function LandingInfo() {
             <SectionCard title="HOW DOES DATAGHOST WORK?">
                 <ol className="list-decimal space-y-2 pl-4">
                     <li>
-                        <strong className="text-white">Create your account.</strong> Sign up in seconds to unlock the dashboard.
+                        <strong className="text-white">Pay $49 one-time.</strong> No subscription, no account created.
                     </li>
                     <li>
-                        <strong className="text-white">Tell us what they know.</strong> We need just enough to find your records—name, city, and age.
+                        <strong className="text-white">Tell us the basics.</strong> After payment we ask only for your name, city, state, and age range (takes about 20 seconds).
                     </li>
                     <li>
-                        <strong className="text-white">We blast legal opt-out requests.</strong> We generate strict CCPA/GDPR demands and fire them off to 80+ brokers. You get CC&apos;d on everything.
+                        <strong className="text-white">We blast legal opt-out requests.</strong> CCPA/GDPR-style deletion and opt-out requests are sent to 80+ data brokers on your behalf. You are CC’d on every email.
                     </li>
                     <li>
-                        <strong className="text-white">Watch the deletions roll in.</strong> We track every response. You get a permanent paper trail of who complied and when.
+                        <strong className="text-white">Watch the deletions roll in.</strong> As brokers respond, you receive their confirmation emails plus a full PDF summary report from us.
                     </li>
                     <li>
-                        <strong className="text-white">We don&apos;t stop.</strong> Brokers are stubborn. We re-scan and re-send requests automatically when your data pops back up.
+                        <strong className="text-white">We keep going for 45 days.</strong> For 45 days we automatically re-scan and re-send removal requests if your data reappears. All updates go to your email.
                     </li>
                     <li>
-                        <strong className="text-white">We hold nothing.</strong> Your data is wiped from our servers after 45 days. We&apos;re a ghost, remember?
+                        <strong className="text-white">Then we ghost your data.</strong> After 45 days we delete your information from our systems. You keep the confirmation emails and reports forever.
                     </li>
                 </ol>
                 <p className="pt-2 text-[0.7rem] text-[#b8b0ff]">

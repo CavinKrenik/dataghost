@@ -7,10 +7,23 @@ export default function Footer() {
                 {/* Left block */}
                 <div className="space-y-1">
                     <div className="font-semibold text-slate-200">DataGhost.me</div>
-                    <div>© 2025 DataGhost.me</div>
                     <div className="text-xs text-slate-500">
-                        Built on open-source from Visible Labs (MIT License)
+                        Built open-source by privacy activists
                     </div>
+                    <a
+                        href="mailto:hello@dataghost.me"
+                        className="text-xs text-cyan-400 hover:underline block"
+                    >
+                        hello@dataghost.me
+                    </a>
+                    <a
+                        href="https://github.com/cavinkrenik/dataghost"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-slate-500 hover:text-white transition-colors flex items-center gap-1 mt-1"
+                    >
+                        <span>View on GitHub</span>
+                    </a>
                 </div>
 
                 {/* Right block (legal links) */}

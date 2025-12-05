@@ -5,6 +5,7 @@ import Link from "next/link";
 import type React from "react";
 import { getCurrentUser } from "@/lib/auth";
 import Footer from "@/components/Footer";
+import { StickyCTA } from "@/components/StickyCTA";
 
 export const metadata: Metadata = {
   title: "DataGhost.me – Vanish from Data Brokers",
@@ -45,26 +46,11 @@ export default async function RootLayout({
 
               <nav className="flex items-center gap-4 text-sm">
                 <Link
-                  href="/pricing"
-                  className="hover:text-ghost-cyan transition"
+                  href="/payment"
+                  className="bg-ghost-cyan text-black px-5 py-2 rounded-full font-semibold hover:opacity-90 transition shadow-glow text-xs md:text-sm"
                 >
-                  Plans & Pricing
+                  Ghost My Data – $49
                 </Link>
-                {user ? (
-                  <Link
-                    href="/dashboard"
-                    className="hover:text-ghost-cyan transition"
-                  >
-                    Dashboard
-                  </Link>
-                ) : (
-                  <Link
-                    href="/login"
-                    className="hover:text-ghost-cyan transition"
-                  >
-                    Sign In
-                  </Link>
-                )}
               </nav>
             </div>
           </header>
@@ -74,6 +60,7 @@ export default async function RootLayout({
 
           {/* Footer */}
           <Footer />
+          <StickyCTA />
         </div>
       </body>
     </html>

@@ -40,7 +40,7 @@ export default function SecurityPage() {
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">4. Data Retention & Deletion</h2>
                     <p className="leading-relaxed">
-                        We practice data minimization. User data used for scanning and opt-out requests is <strong>automatically deleted</strong> from our active servers 45 days after account closure or cancellation, reducing the risk of long-term data exposure.
+                        We practice data minimization. User data used for scanning and opt-out requests is <strong>automatically deleted</strong> from our active servers 45 days after your purchase, reducing the risk of long-term data exposure.
                     </p>
                 </section>
 

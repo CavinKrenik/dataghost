@@ -16,7 +16,7 @@ export default function CookiePage() {
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">1. What Are Cookies?</h2>
                     <p className="leading-relaxed">
-                        Cookies are small text files stored on your device when you visit a website. They help us recognize your device, remember your preferences, and ensure the security of your account.
+                        Cookies are small text files stored on your device when you visit a website. They help us recognize your device, remember your preferences, and ensure security.
                     </p>
                 </section>
 

@@ -16,7 +16,7 @@ export default function RefundPage() {
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">1. No Refunds After Service Begins</h2>
                     <p className="leading-relaxed">
-                        DataGhost.me initiates work immediately upon your subscription. This involves automated scanning of data broker databases and the submission of opt-out requests. Because this work is irreversible and incurs immediate costs, <strong>we do not offer refunds once the opt-out process has begun</strong>.
+                        DataGhost.me initiates work immediately upon your payment. This involves automated scanning of data broker databases and the submission of opt-out requests. Because this work is irreversible and incurs immediate costs, <strong>we do not offer refunds once the opt-out process has begun</strong>.
                     </p>
                 </section>
 
@@ -41,7 +41,7 @@ export default function RefundPage() {
                         Please include:
                     </p>
                     <ul className="mt-2 list-disc pl-5 space-y-2">
-                        <li>Your account email address.</li>
+                        <li>Your email address.</li>
                         <li>Date of the transaction.</li>
                         <li>Reason for the request.</li>
                     </ul>

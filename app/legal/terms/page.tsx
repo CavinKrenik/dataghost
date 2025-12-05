@@ -30,22 +30,18 @@ export default function TermsPage() {
                     </p>
                     <ul className="mt-2 list-disc pl-5 space-y-2">
                         <li>Provide accurate, current, and complete information required for the opt-out process.</li>
-                        <li>Maintain the security of your account credentials.</li>
                         <li>Use the Service only for your own personal data or for individuals for whom you have legal authority to act.</li>
                         <li>Not use the Service for any illegal or unauthorized purpose.</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">3. Payment & Subscription</h2>
+                    <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">3. Payment</h2>
                     <p className="leading-relaxed">
-                        <strong>Billing:</strong> Services are billed on a subscription basis (monthly or yearly) via our payment processor, Lemon Squeezy.
+                        <strong>Billing:</strong> Services are billed as a one-time payment via our payment processor, Lemon Squeezy.
                     </p>
                     <p className="mt-2 leading-relaxed">
-                        <strong>Renewals:</strong> Subscriptions automatically renew at the end of each billing cycle unless cancelled. You may cancel your subscription at any time through your dashboard or by contacting support.
-                    </p>
-                    <p className="mt-2 leading-relaxed">
-                        <strong>Cancellation:</strong> Cancellation stops future billing. Your service will continue until the end of the current paid period.
+                        <strong>No Subscription:</strong> This is a one-time purchase. There are no recurring fees or automatic renewals.
                     </p>
                 </section>
 

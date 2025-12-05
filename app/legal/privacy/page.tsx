@@ -20,7 +20,7 @@ export default function PrivacyPage() {
                     </p>
                     <ul className="mt-2 list-disc pl-5 space-y-2">
                         <li><strong>Personal Information:</strong> Name, email address, phone number, date of birth, and home addresses. This data is required to identify your records on data broker sites.</li>
-                        <li><strong>Account Data:</strong> Payment history (processed via Lemon Squeezy) and login credentials.</li>
+                        <li><strong>Payment Data:</strong> Payment history (processed via Lemon Squeezy).</li>
                         <li><strong>Technical Data:</strong> IP address, browser type, and device information for security and analytics.</li>
                         <li><strong>Scan Results:</strong> Data found on public data broker databases during our scans.</li>
                     </ul>
@@ -34,7 +34,6 @@ export default function PrivacyPage() {
                     <ul className="mt-2 list-disc pl-5 space-y-2">
                         <li>Scanning data broker databases for your personal information.</li>
                         <li>Submitting opt-out and removal requests on your behalf.</li>
-                        <li>Managing your account and subscription.</li>
                         <li>Providing customer support.</li>
                         <li>Improving our Service security and functionality.</li>
                     </ul>
@@ -46,7 +45,7 @@ export default function PrivacyPage() {
                         We retain your personal information only as long as necessary to provide the Service.
                     </p>
                     <p className="mt-2 leading-relaxed">
-                        <strong>Automatic Deletion:</strong> Upon cancellation or account closure, your personal data used for scans is deleted from our active servers within <strong>45 days</strong>, unless a longer retention period is required by law.
+                        <strong>Automatic Deletion:</strong> Your personal data used for scans is deleted from our active servers within <strong>45 days</strong> after your purchase, unless a longer retention period is required by law.
                     </p>
                 </section>
 
@@ -73,7 +72,7 @@ export default function PrivacyPage() {
                     <ul className="mt-2 list-disc pl-5 space-y-2">
                         <li>Access the personal data we hold about you.</li>
                         <li>Request correction of inaccurate data.</li>
-                        <li>Request deletion of your account and data.</li>
+                        <li>Request deletion of your data.</li>
                         <li>Export your data.</li>
                     </ul>
                     <p className="mt-2 leading-relaxed">
