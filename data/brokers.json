@@ -1,0 +1,255 @@
+[
+  {
+    "name": "Spokeo",
+    "type": "email",
+    "email": "privacy@spokeo.com",
+    "subject": "CCPA Deletion Request"
+  },
+  {
+    "name": "Intelius",
+    "type": "email",
+    "email": "privacy@intelius.com",
+    "subject": "CCPA/GDPR Deletion Request"
+  },
+  {
+    "name": "BeenVerified",
+    "type": "form",
+    "url": "https://www.beenverified.com/app/optout/search"
+  },
+  {
+    "name": "PeopleFinders",
+    "type": "form",
+    "url": "https://www.peoplefinders.com/manage/optout"
+  },
+  {
+    "name": "FastPeopleSearch",
+    "type": "form",
+    "url": "https://www.fastpeoplesearch.com/removal"
+  },
+  {
+    "name": "TruePeopleSearch",
+    "type": "form",
+    "url": "https://www.truepeoplesearch.com/removal"
+  },
+  {
+    "name": "TruthFinder",
+    "type": "form",
+    "url": "https://www.truthfinder.com/opt-out/"
+  },
+  {
+    "name": "InstantCheckmate",
+    "type": "form",
+    "url": "https://www.instantcheckmate.com/opt-out/"
+  },
+  {
+    "name": "Whitepages",
+    "type": "form",
+    "url": "https://www.whitepages.com/suppression-requests"
+  },
+  {
+    "name": "MyLife",
+    "type": "form",
+    "url": "https://www.mylife.com/privacy"
+  },
+  {
+    "name": "Radaris",
+    "type": "form",
+    "url": "https://radaris.com/removal/"
+  },
+  {
+    "name": "Nuwber",
+    "type": "form",
+    "url": "https://nuwber.com/removal"
+  },
+  {
+    "name": "FamilyTreeNow",
+    "type": "form",
+    "url": "https://www.familytreenow.com/optout"
+  },
+  {
+    "name": "PeekYou",
+    "type": "form",
+    "url": "https://www.peekyou.com/about/contact/optout"
+  },
+  {
+    "name": "Clustrmaps",
+    "type": "form",
+    "url": "https://clustrmaps.com/page/opt_out"
+  },
+  {
+    "name": "That'sThem",
+    "type": "email",
+    "email": "optout@thatsthem.com",
+    "subject": "Opt-Out Request"
+  },
+  {
+    "name": "Xlek",
+    "type": "form",
+    "url": "https://xlek.com/removal"
+  },
+  {
+    "name": "UnMask",
+    "type": "form",
+    "url": "https://unmask.com/optout/"
+  },
+  {
+    "name": "NeighborWho",
+    "type": "form",
+    "url": "https://www.neighborwho.com/optout"
+  },
+  {
+    "name": "PrivateEye",
+    "type": "form",
+    "url": "https://www.privateeye.com/optout/"
+  },
+  {
+    "name": "PeopleSmart",
+    "type": "email",
+    "email": "privacy@peoplesmart.com"
+  },
+  {
+    "name": "USSearch",
+    "type": "email",
+    "email": "support@ussearch.com"
+  },
+  {
+    "name": "IdStrong",
+    "type": "form",
+    "url": "https://www.idstrong.com/remove-my-information/"
+  },
+  {
+    "name": "CheckPeople",
+    "type": "form",
+    "url": "https://www.checkpeople.com/optout"
+  },
+  {
+    "name": "CocoFinder",
+    "type": "form",
+    "url": "https://cocofinder.com/optout"
+  },
+  {
+    "name": "NumLookup",
+    "type": "form",
+    "url": "https://www.numlookup.com/remove"
+  },
+  {
+    "name": "PeopleLookup",
+    "type": "form",
+    "url": "https://www.peoplelookup.com/optout"
+  },
+  {
+    "name": "SearchPeopleFree",
+    "type": "form",
+    "url": "https://www.searchpeoplefree.com/remove"
+  },
+  {
+    "name": "SmartBackgroundChecks",
+    "type": "form",
+    "url": "https://www.smartbackgroundchecks.com/optout"
+  },
+  {
+    "name": "Spytox",
+    "type": "form",
+    "url": "https://www.spytox.com/remove-me"
+  },
+  {
+    "name": "USA-People-Search",
+    "type": "form",
+    "url": "https://www.usa-people-search.com/manage/optout"
+  },
+  {
+    "name": "Veripages",
+    "type": "form",
+    "url": "https://veripages.com/optout"
+  },
+  {
+    "name": "VoterRecords",
+    "type": "form",
+    "url": "https://voterrecords.com/optout"
+  },
+  {
+    "name": "Xome",
+    "type": "form",
+    "url": "https://www.xome.com/optout"
+  },
+  {
+    "name": "Zabasearch",
+    "type": "form",
+    "url": "https://www.zabasearch.com/optout/"
+  },
+  {
+    "name": "Anywho",
+    "type": "form",
+    "url": "https://www.anywho.com/optout"
+  },
+  {
+    "name": "411.com",
+    "type": "form",
+    "url": "https://www.411.com/optout"
+  },
+  {
+    "name": "Addresses.com",
+    "type": "form",
+    "url": "https://www.addresses.com/optout"
+  },
+  {
+    "name": "AdvancedBackgroundChecks",
+    "type": "form",
+    "url": "https://www.advancedbackgroundchecks.com/removal"
+  },
+  {
+    "name": "Arrests.org",
+    "type": "form",
+    "url": "https://www.arrests.org/optout"
+  },
+  {
+    "name": "BackgroundChecks.com",
+    "type": "email",
+    "email": "privacy@backgroundchecks.com"
+  },
+  {
+    "name": "Checkr",
+    "type": "email",
+    "email": "privacy@checkr.com"
+  },
+  {
+    "name": "Cyberbackgroundchecks",
+    "type": "form",
+    "url": "https://cyberbackgroundchecks.com/optout"
+  },
+  {
+    "name": "DexKnows",
+    "type": "form",
+    "url": "https://www.dexknows.com/optout"
+  },
+  {
+    "name": "InfoTracer",
+    "type": "form",
+    "url": "https://infotracer.com/optout/"
+  },
+  {
+    "name": "LocatePeople",
+    "type": "form",
+    "url": "https://www.locatepeople.org/optout"
+  },
+  {
+    "name": "OfficialUSA",
+    "type": "form",
+    "url": "https://www.officialusa.com/optout"
+  },
+  {
+    "name": "Ownerly",
+    "type": "form",
+    "url": "https://www.ownerly.com/optout"
+  },
+  {
+    "name": "PeopleByName",
+    "type": "form",
+    "url": "https://www.peoplebyname.com/optout"
+  },
+  {
+    "name": "PublicRecords.com",
+    "type": "form",
+    "url": "https://www.publicrecords.com/optout"
+  }
+]

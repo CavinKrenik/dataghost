@@ -1,37 +1,62 @@
-import { DataBrokerWizard } from '@/components/data-broker-remover/DataBrokerWizard';
-import { DataBrokerInfo } from '@/components/data-broker-remover/DataBrokerInfo';
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import Image from "next/image";
+import { LandingInfo } from "@/components/LandingInfo";
+
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#2E2A44] py-12 px-4">
-      <div className="max-w-5xl mx-auto space-y-12">
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-warmgray">
-            Data Broker
-            <br />
-            Remover Tool
-          </h1>
-          <p className="text-lg text-warmgray/80 max-w-3xl mx-auto">
-            A data broker crawls the internet for information and buys it from
-            companies whose services you use. The broker then bundles it up for
-            their own use, or sells it to 3rd parties. The third parties can then
-            use the information collected how they like.
-          </p>
-          <p className="text-xl text-warmgray/90 font-medium">
-            This tool generates and sends emails to Data Brokers in order to get
-            them to remove you from their databases
-          </p>
+    <main className="min-h-screen bg-ghost-navy text-ghost-text relative">
+      <section className="relative bg-holo px-6 pt-28 pb-24 text-center overflow-hidden">
+        <div className="flex justify-center mb-8">
+          <Image
+            src="/ghost.png"
+            alt="DataGhost Mascot"
+            width={140}
+            height={140}
+            className="animate-float drop-shadow-[0_0_30px_#00e5ff]"
+          />
+        </div>
+        <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+          Ghost your data from{" "}
+          <span className="text-ghost-cyan drop-shadow-[0_0_25px_rgba(0,229,255,0.65)]">
+            80+ data brokers
+          </span>
+        </h1>
+
+        <p className="max-w-3xl mx-auto mt-6 text-lg text-ghost-muted">
+          One-click opt-outs. Weekly re-scans. Transparent CC emails. Data deleted from our servers after 45 days.
+        </p>
+
+        <div className="mt-10 flex flex-col md:flex-row gap-4 justify-center">
+          <Link
+            href="/checkout"
+            className="bg-ghost-cyan text-black px-10 py-4 rounded-full font-semibold shadow-glow hover:opacity-90 transition"
+          >
+            Start Ghosting My Data
+          </Link>
+          <Link
+            href="#pricing"
+            className="border border-ghost-cyan px-10 py-4 rounded-full font-semibold text-ghost-cyan hover:bg-ghost-cyan/10 shadow-aura transition"
+          >
+            View Pricing
+          </Link>
         </div>
 
-        {/* Wizard */}
-        <DataBrokerWizard />
-
-        {/* FAQ Section */}
-        <div className="pt-8">
-          <DataBrokerInfo />
+        <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-ghost-muted">
+          <span>No ID upload required</span>
+          <span>•</span>
+          <span>Transparent CC emails</span>
+          <span>•</span>
+          <span>Data deleted after 45 days</span>
+          <span>•</span>
+          <span>Weekly re-scans included</span>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <LandingInfo />
+
+      {/* pricing section can go here later, with id="pricing" */}
+    </main>
   );
 }

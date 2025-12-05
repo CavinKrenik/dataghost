@@ -29,63 +29,61 @@
 
 @layer base {
   body {
-    @apply bg-[#2E2A44];
+    @apply bg-ghost-navy text-ghost-text;
   }
 }
 
-/* Custom colors for Visible theme */
-.text-warmgray {
-  color: #e5e7eb;
+/* Hologram Background */
+.bg-holo {
+  position: relative;
+  background-color: #07131f;
+  background-image:
+    radial-gradient(circle at center,
+      rgba(0, 229, 255, 0.18) 0%,
+      rgba(0, 229, 255, 0.06) 28%,
+      rgba(0, 229, 255, 0.0) 60%),
+    linear-gradient(rgba(0, 229, 255, 0.06) 1px,
+      transparent 1px),
+    linear-gradient(90deg,
+      rgba(0, 229, 255, 0.06) 1px,
+      transparent 1px);
+  background-size:
+    100% 100%,
+    80px 80px,
+    80px 80px;
 }
 
-.text-warmgray\/70 {
-  color: rgba(229, 231, 235, 0.7);
+/* “floor glow” under the ghost/hero area */
+.bg-holo::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 120px;
+  background: radial-gradient(ellipse,
+      rgba(0, 229, 255, 0.55),
+      rgba(0, 229, 255, 0) 70%);
+  filter: blur(40px);
+  opacity: 0.9;
+  pointer-events: none;
 }
 
-.text-warmgray\/80 {
-  color: rgba(229, 231, 235, 0.8);
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
-.text-warmgray\/90 {
-  color: rgba(229, 231, 235, 0.9);
-}
-
-.bg-plum-900 {
-  background-color: #2E2A44;
-}
-
-.bg-plum-800 {
-  background-color: #3f3a5a;
-}
-
-.bg-plum-700 {
-  background-color: #4f4a6a;
-}
-
-.bg-plum-600 {
-  background-color: #5f5a7a;
-}
-
-.bg-plum-500 {
-  background-color: #6f6a8a;
-}
-
-.border-plum-700 {
-  border-color: #4f4a6a;
-}
-
-.border-plum-600 {
-  border-color: #5f5a7a;
-}
-
-.hover\:bg-plum-800:hover {
-  background-color: #3f3a5a;
-}
-
-.hover\:bg-plum-700:hover {
-  background-color: #4f4a6a;
-}
-
-.hover\:bg-plum-500:hover {
-  background-color: #6f6a8a;
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
