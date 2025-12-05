@@ -36,7 +36,7 @@ export default function HomePage() {
             Start Ghosting My Data
           </Link>
           <Link
-            href="#pricing"
+            href="/pricing"
             className="border border-ghost-cyan px-10 py-4 rounded-full font-semibold text-ghost-cyan hover:bg-ghost-cyan/10 shadow-aura transition"
           >
             View Pricing
