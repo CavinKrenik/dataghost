@@ -3,6 +3,7 @@ import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
+import { getCurrentUser } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "DataGhost.me – Vanish from Data Brokers",
@@ -10,11 +11,12 @@ export const metadata: Metadata = {
     "One-click opt-out requests to 80+ data brokers with weekly re-scans and 45-day data deletion.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getCurrentUser();
   return (
     <html lang="en">
       <body className="min-h-screen bg-ghost-bg text-ghost-text">
@@ -42,17 +44,26 @@ export default function RootLayout({
 
               <nav className="flex items-center gap-4 text-sm">
                 <Link
-                  href="/checkout"
+                  href="/pricing"
                   className="hover:text-ghost-cyan transition"
                 >
-                  Pricing
+                  Plans & Pricing
                 </Link>
-                <Link
-                  href="/dashboard"
-                  className="hover:text-ghost-cyan transition"
-                >
-                  Dashboard
-                </Link>
+                {user ? (
+                  <Link
+                    href="/dashboard"
+                    className="hover:text-ghost-cyan transition"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="hover:text-ghost-cyan transition"
+                  >
+                    Sign In
+                  </Link>
+                )}
               </nav>
             </div>
           </header>
