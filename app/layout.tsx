@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import { getCurrentUser } from "@/lib/auth";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "DataGhost.me – Vanish from Data Brokers",
@@ -72,12 +73,7 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
 
           {/* Footer */}
-          <footer className="border-t border-ghost-grid/40 bg-black/60 text-xs text-ghost-muted">
-            <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-6 py-3">
-              <span>© {new Date().getFullYear()} DataGhost.me</span>
-              <span>Built on open-source from Visible Labs (MIT License)</span>
-            </div>
-          </footer>
+          <Footer />
         </div>
       </body>
     </html>
