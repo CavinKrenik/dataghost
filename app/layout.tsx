@@ -189,6 +189,22 @@ const jsonLd = {
         },
       ],
     },
+    {
+      "@type": "Service",
+      "serviceType": "Data Removal Service",
+      "provider": {
+        "@type": "Organization",
+        "name": "DataGhost",
+        "url": "https://dataghost.me"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "49",
+        "priceCurrency": "USD",
+        "description": "One-time permanent data removal from 80+ data brokers"
+      },
+      "areaServed": "Worldwide"
+    }
   ],
 };
 
