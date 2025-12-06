@@ -51,7 +51,7 @@ export const metadata: Metadata = {
       "Remove your data from 80+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
     images: [
       {
-        url: "https://dataghost.me/og-image.png",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "DataGhost – Best One-Time Data Removal Service",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: "DataGhost – Best One-Time Data Removal Service 2025 ($49 Forever)",
     description:
       "Remove your data from 80+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
-    images: ["https://dataghost.me/og-image.png"],
+    images: ["/opengraph-image.jpg"],
   },
   icons: {
     icon: [
