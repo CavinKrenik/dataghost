@@ -80,54 +80,20 @@ export default function Comparison() {
                     </p>
                 </div>
 
-                {/* Mobile View (< md) - Stacked Cards */}
-                <div className="md:hidden flex flex-col gap-6">
-                    {COMPETITORS.map((comp) => (
-                        <div
-                            key={comp.name}
-                            className={`relative rounded-3xl p-6 ${comp.isPrimary
-                                ? "bg-ghost-navy border-2 border-ghost-cyan shadow-[0_0_30px_rgba(0,229,255,0.2)]"
-                                : "bg-white/5 border border-white/10"
-                                }`}
-                        >
-                            {comp.isPrimary && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-ghost-cyan text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-glow">
-                                    Best Value
-                                </div>
-                            )}
-                            <h3 className={`text-2xl font-bold mb-6 text-center ${comp.isPrimary ? "text-ghost-cyan" : "text-white"}`}>
-                                {comp.name}
-                            </h3>
-                            <div className="space-y-4">
-                                {FEATURES.map((feature) => (
-                                    <div key={feature.key} className="flex justify-between items-center border-b border-white/5 pb-2 last:border-0">
-                                        <span className="text-sm text-gray-400">{feature.name}</span>
-                                        <span className={`text-right font-semibold ${comp.isPrimary && (feature.key === 'subscription' || feature.key === 'account')
-                                            ? 'text-ghost-cyan'
-                                            : comp.name !== 'DataGhost' && (feature.key === 'subscription' || feature.key === 'account')
-                                                ? 'text-red-500'
-                                                : 'text-white'
-                                            }`}>
-                                            {/* Logic for colors/icons could be refined, but text matches desktop table for now */}
-                                            {/* @ts-ignore */}
-                                            {comp[feature.key]}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
+                {/* Swipe Hint for Mobile */}
+                <div className="md:hidden text-center text-sm text-ghost-cyan animate-pulse mb-4 font-semibold tracking-wide">
+                    ← Swipe view to compare →
                 </div>
 
-                {/* Desktop View (>= md) - Nuclear Table */}
-                <div className="hidden md:block overflow-x-auto rounded-3xl border border-cyan-800/40 bg-black/30 backdrop-blur-xl -mx-6 px-6 md:mx-auto md:max-w-7xl md:px-0 mt-12 mb-20 shadow-2xl shadow-cyan-900/20">
-                    <div className="min-w-[920px] py-8">
-                        <table className="w-full text-left">
-                            <thead className="sticky top-0 z-20 bg-ghost-navy/95 backdrop-blur-xl border-b border-cyan-800/50">
+                {/* Unified Responsive Table View */}
+                <div className="w-full overflow-x-auto relative rounded-3xl border border-cyan-800/40 bg-black/30 backdrop-blur-xl mb-20 shadow-2xl shadow-cyan-900/20">
+                    <div className="min-w-[920px] py-8 px-6">
+                        <table className="w-full text-left border-collapse">
+                            <thead className="sticky top-0 z-50">
                                 <tr>
-                                    <th className="sticky left-0 z-30 bg-ghost-navy/95 backdrop-blur-xl px-8 py-6 text-lg font-semibold border-r border-cyan-800/50">Feature</th>
+                                    <th className="sticky left-0 z-40 bg-ghost-navy/95 backdrop-blur-xl px-6 py-6 text-lg font-semibold border-r border-cyan-800/50 border-b border-cyan-800/50 rounded-tl-xl text-white shadow-[4px_0_24px_rgba(0,0,0,0.8)]">Feature</th>
                                     {COMPETITORS.map((comp) => (
-                                        <th key={comp.name} className={`px-8 py-6 text-xl font-bold text-center ${comp.isPrimary ? 'text-ghost-cyan bg-cyan-950/30' : 'text-gray-300'}`}>
+                                        <th key={comp.name} className={`px-8 py-6 text-xl font-bold text-center border-b border-cyan-800/50 bg-ghost-navy/95 backdrop-blur-xl ${comp.isPrimary ? 'text-ghost-cyan' : 'text-gray-300'}`}>
                                             {comp.name}
                                             {comp.isPrimary && <span className="block text-xs font-normal text-ghost-cyan/80 mt-1">Recommended</span>}
                                         </th>
@@ -136,12 +102,12 @@ export default function Comparison() {
                             </thead>
                             <tbody>
                                 {FEATURES.map((feature, i) => (
-                                    <tr key={feature.key} className="border-b border-cyan-900/20 hover:bg-white/5 transition">
-                                        <td className="sticky left-0 z-10 bg-ghost-navy/90 backdrop-blur-xl px-8 py-6 font-medium border-r border-cyan-800/50">
+                                    <tr key={feature.key} className="border-b border-cyan-900/20 hover:bg-white/5 transition group">
+                                        <td className="sticky left-0 z-30 bg-ghost-navy/95 backdrop-blur-xl px-6 py-6 font-medium border-r border-cyan-800/50 text-white shadow-[4px_0_24px_rgba(0,0,0,0.8)] group-hover:bg-ghost-navy transition-colors">
                                             {feature.name}
                                         </td>
                                         {COMPETITORS.map((comp) => (
-                                            <td key={`${comp.name}-${feature.key}`} className={`px-8 py-6 text-center ${comp.isPrimary ? 'bg-cyan-950/10' : ''}`}>
+                                            <td key={`${comp.name}-${feature.key}`} className={`px-8 py-6 text-center ${comp.isPrimary ? 'bg-cyan-950/20' : ''}`}>
                                                 <span className={`text-lg font-semibold ${
                                                     // Specific styling logic mirroring the original table
                                                     feature.key === 'price' && comp.isPrimary ? 'text-3xl text-ghost-cyan' :
