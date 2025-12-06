@@ -13,6 +13,20 @@ export default function PrivacyPage() {
             </h1>
 
             <div className="space-y-8 text-ghost-muted">
+                <section className="bg-ghost-card border border-ghost-cyan/20 p-6 rounded-xl shadow-glow mb-10">
+                    <h2 className="mb-4 text-xl font-bold text-white">How We Handle Your Data (Maximum Privacy Mode)</h2>
+                    <ul className="space-y-3 text-ghost-text/90">
+                        <li className="flex gap-3"><span className="text-ghost-cyan">•</span> We only ask for the minimum needed to make opt-outs work: name, email (for CCs), city, state, age range.</li>
+                        <li className="flex gap-3"><span className="text-ghost-cyan">•</span> Your data is encrypted at rest (Supabase Postgres with AES-256) and in transit (TLS 1.3).</li>
+                        <li className="flex gap-3"><span className="text-ghost-cyan">•</span> We never sell, share, or use your data for anything else.</li>
+                        <li className="flex gap-3"><span className="text-ghost-cyan">•</span> We store it for exactly 45 days so we can re-scan and catch re-appearances.</li>
+                        <li className="flex gap-3"><span className="text-ghost-cyan">•</span> On day 46 we permanently delete everything from our systems — gone forever.</li>
+                        <li className="flex gap-3"><span className="text-ghost-cyan">•</span> No accounts, no dashboards, no cookies, no tracking — we don't even use analytics.</li>
+                        <li className="flex gap-3"><span className="text-ghost-cyan">•</span> All processing happens in the US/EU-compliant regions.</li>
+                    </ul>
+                    <p className="mt-4 text-sm text-ghost-muted italic">We are privacy maximalists building for privacy maximalists.</p>
+                </section>
+
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">1. Information We Collect</h2>
                     <p className="leading-relaxed">

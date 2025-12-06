@@ -179,6 +179,30 @@ function StartPageContent() {
                                 You'll get 80+ emails in the next ~60 seconds.
                             </p>
                         </form>
+
+                        <div className="mt-12 grid md:grid-cols-2 gap-8 text-left">
+                            <div className="bg-ghost-card/50 p-6 rounded-xl border border-ghost-cyan/20">
+                                <h3 className="text-xl font-bold text-white mb-4">What We Guarantee</h3>
+                                <ul className="space-y-3 text-sm text-ghost-muted">
+                                    <li className="flex gap-2"><span className="text-ghost-cyan">✓</span> We send verified opt-out requests to 80+ of the worst data brokers.</li>
+                                    <li className="flex gap-2"><span className="text-ghost-cyan">✓</span> You are CC'd on every single email.</li>
+                                    <li className="flex gap-2"><span className="text-ghost-cyan">✓</span> We re-scan for 45 days and re-submit if you re-appear.</li>
+                                    <li className="flex gap-2"><span className="text-ghost-cyan">✓</span> Full refund within 14 days if you're not happy — no questions.</li>
+                                </ul>
+                            </div>
+                            <div className="bg-ghost-card/50 p-6 rounded-xl border border-ghost-border/50">
+                                <h3 className="text-xl font-bold text-white mb-4">What We Can't Control</h3>
+                                <ul className="space-y-3 text-sm text-ghost-muted">
+                                    <li className="flex gap-2"><span className="text-gray-500">•</span> Some brokers are slow, incompetent, or ignore requests (we re-submit automatically).</li>
+                                    <li className="flex gap-2"><span className="text-gray-500">•</span> A few require manual CAPTCHAs or mailed forms — we give you pre-filled links + instructions (takes ~15 mins total).</li>
+                                    <li className="flex gap-2"><span className="text-gray-500">•</span> New brokers pop up daily — no one can catch 100% forever, but we target the ones that matter most.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="text-center mt-8 text-sm text-ghost-muted italic">
+                            We're the most aggressive, transparent, and privacy-respecting service in the category.
+                        </div>
                     </>
                 ) : (
                     <div className="text-center py-10 space-y-6">
@@ -220,6 +244,27 @@ function StartPageContent() {
                         <p className="text-ghost-muted text-sm mt-6">
                             We'll re-scan everything for 45 days and kill anything that comes back.
                         </p>
+
+                        <div className="mt-8 bg-ghost-navy-dark p-6 rounded-xl border border-ghost-grid text-left">
+                            <h4 className="font-bold text-white mb-4">What happens next:</h4>
+                            <ul className="space-y-4 text-sm text-ghost-muted">
+                                <li className="flex gap-3">
+                                    <span className="text-ghost-cyan font-mono">Day 0</span>
+                                    <span>80+ opt-out emails sent (check your inbox/spam — you're CC'd on everything)</span>
+                                </li>
+                                <li className="flex gap-3">
+                                    <span className="text-ghost-cyan font-mono">Wk 1–6</span>
+                                    <span>We re-scan daily and re-submit if you re-appear</span>
+                                </li>
+                                <li className="flex gap-3">
+                                    <span className="text-ghost-cyan font-mono">Day 46</span>
+                                    <span>We permanently delete your data from our systems</span>
+                                </li>
+                            </ul>
+                            <p className="mt-4 text-xs text-ghost-cyan">
+                                You'll get a final "All clear" email on day 46.
+                            </p>
+                        </div>
                     </div>
                 )}
             </div>

@@ -55,6 +55,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Data Handling Section */}
+      <section className="px-6 py-16 bg-ghost-bg">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-10">How We Handle Your Data <span className="text-ghost-cyan">(Maximum Privacy Mode)</span></h2>
+          <div className="grid gap-6 text-lg text-ghost-text/90">
+            <div className="flex gap-4">
+              <span className="text-ghost-cyan text-xl">•</span>
+              <p>We only ask for the minimum needed to make opt-outs work: name, email (for CCs), city, state, age range.</p>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-ghost-cyan text-xl">•</span>
+              <p>Your data is encrypted at rest (Supabase Postgres with AES-256) and in transit (TLS 1.3).</p>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-ghost-cyan text-xl">•</span>
+              <p>We never sell, share, or use your data for anything else.</p>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-ghost-cyan text-xl">•</span>
+              <p>We store it for exactly 45 days so we can re-scan and catch re-appearances.</p>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-ghost-cyan text-xl">•</span>
+              <p>On day 46 we permanently delete everything from our systems — gone forever.</p>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-ghost-cyan text-xl">•</span>
+              <p>No accounts, no dashboards, no cookies, no tracking — we don't even use analytics.</p>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-ghost-cyan text-xl">•</span>
+              <p>All processing happens in the US/EU-compliant regions.</p>
+            </div>
+            <div className="mt-6 text-center text-ghost-muted italic">
+              We are privacy maximalists building for privacy maximalists.
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Card Section */}
       <section className="px-6 py-12 flex justify-center">
         <div className="bg-ghost-card border border-ghost-border p-8 rounded-2xl shadow-glow max-w-md w-full text-center relative overflow-hidden">
@@ -111,6 +151,47 @@ export default function HomePage() {
           <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl">
             <p className="text-ghost-text italic mb-4">“Worked perfectly. Got all the confirmation emails. Worth double.”</p>
             <p className="text-ghost-cyan font-semibold text-sm">– Sarah</p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="px-6 py-16 bg-ghost-navy/50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">FAQ</h2>
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Is this a subscription?</h3>
+              <p className="text-ghost-muted">No — $49 one-time forever.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Do you keep my data?</h3>
+              <p className="text-ghost-muted">We permanently delete everything after 45 days.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Do you have an account/dashboard?</h3>
+              <p className="text-ghost-muted">No — we don't want your password either.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">How long until I'm removed?</h3>
+              <p className="text-ghost-muted">Most brokers remove within 7–30 days. We re-scan for 45 days.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">What if a broker ignores the request?</h3>
+              <p className="text-ghost-muted">We re-submit automatically. The remaining ~10-15 need manual forms — we give you pre-filled links.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Is this legal?</h3>
+              <p className="text-ghost-muted">Yes — we're just automating public opt-out processes.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Refund policy?</h3>
+              <p className="text-ghost-muted">Full refund within 14 days, no questions.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Will this remove me from Google?</h3>
+              <p className="text-ghost-muted">No — this is only data brokers/people-search sites. Google is separate.</p>
+            </div>
           </div>
         </div>
       </section>
