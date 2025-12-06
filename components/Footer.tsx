@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { BarChart3 } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -58,12 +60,16 @@ export default function Footer() {
                     >
                         Security Statement
                     </Link>
-                    <Link
-                        href="/comparison"
-                        className="hover:text-cyan-300 transition-colors text-ghost-cyan font-medium"
+                    <Button
+                        asChild
+                        variant="outline"
+                        className="border-cyan-700/60 text-cyan-300 hover:bg-cyan-900/30 hover:border-cyan-500 hover:text-white bg-black/20 backdrop-blur-md flex items-center gap-2"
                     >
-                        Comparison – Why DataGhost wins
-                    </Link>
+                        <Link href="/comparison">
+                            <BarChart3 className="w-4 h-4" />
+                            Comparison
+                        </Link>
+                    </Button>
                 </nav>
             </div>
         </footer>

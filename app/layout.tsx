@@ -6,44 +6,64 @@ import type React from "react";
 import { getCurrentUser } from "@/lib/auth";
 import Footer from "@/components/Footer";
 import { StickyCTA } from "@/components/StickyCTA";
+import { Button } from "@/components/ui/button";
+import { BarChart3 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "DataGhost – Remove Your Personal Data from 80+ Data Brokers | One-Time $49",
+  title: "DataGhost – Best One-Time Data Removal Service 2025 | DeleteMe & Incogni Alternative ($49 Forever)",
   description:
-    "DataGhost permanently removes your personal information from 80+ data brokers with a single $49 one-time payment. No subscriptions. No dashboards. No data stored. Full report included.",
+    "Remove your data from 80+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025 – automatic + manual opt-outs, weekly rescans, proof PDFs.",
   keywords: [
-    "data removal service",
-    "data broker opt out",
-    "privacy protection",
-    "delete my data online",
-    "remove personal information",
-    "data broker removal",
-    "people search site removal",
-    "one time data removal",
-    "DataGhost",
+    "best data removal service 2025",
+    "deleteme alternative",
+    "incogni alternative",
+    "optery alternative",
+    "kanary alternative",
+    "privacy bee alternative",
+    "best deleteme alternative 2025",
+    "incogni vs deleteme 2025",
+    "one time data removal service",
+    "data removal no subscription",
+    "pay once remove my data forever",
+    "cheapest data removal service 2025",
+    "data removal service one time payment",
+    "best non subscription data removal",
+    "remove my data from spokeo beenverified mylife",
+    "automatic data broker opt out",
+    "privacy service no recurring fee",
+    "best incogni alternative no subscription",
+    "remove personal information from internet",
+    "data broker removal service",
+    "opt out of data brokers",
+    "remove my data from data brokers",
+    "delete my information from the internet",
+    "best way to remove my data from google",
+    "remove my info from people search sites",
+    "remove my address from internet",
+    "remove phone number from data brokers",
   ],
   openGraph: {
     type: "website",
     url: "https://dataghost.me/",
     siteName: "DataGhost",
-    title: "DataGhost – Remove Your Personal Data from 80+ Data Brokers",
+    title: "DataGhost – Best One-Time Data Removal Service 2025",
     description:
-      "Permanently remove your personal info from 80+ data brokers with a one-time $49 service. No accounts. No subscriptions. No stored PII.",
+      "Remove your data from 80+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025.",
     images: [
       {
         url: "https://dataghost.me/og-image.png",
         width: 1200,
         height: 630,
-        alt: "DataGhost Privacy Service",
+        alt: "DataGhost – Best One-Time Data Removal Service",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: "@dataghost",
-    title: "DataGhost – Remove Your Personal Data from 80+ Data Brokers",
+    title: "DataGhost – Best One-Time Data Removal Service 2025",
     description:
-      "Permanently remove your personal data from 80+ brokers for $49. One-time payment. Zero stored personal information.",
+      "Remove your data from 80+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025.",
     images: ["https://dataghost.me/og-image.png"],
   },
   icons: {
@@ -91,7 +111,7 @@ const jsonLd = {
       },
       sameAs: ["https://x.com/dataghost", "https://www.facebook.com/dataghost"],
       description:
-        "DataGhost removes your personal information from 80+ data brokers with a one-time $49 service. No subscriptions, no accounts, no stored personal data.",
+        "DataGhost is the best one-time data removal service of 2025. We remove your personal information from 80+ data brokers for a single $49 payment. No subscriptions.",
       contactPoint: [
         {
           "@type": "ContactPoint",
@@ -105,7 +125,7 @@ const jsonLd = {
       "@id": "https://dataghost.me/#website",
       url: "https://dataghost.me",
       name: "DataGhost",
-      description: "Remove Your Personal Data from 80+ Data Brokers",
+      description: "Remove your data from 80+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025 – automatic + manual opt-outs, weekly rescans, proof PDFs.",
       publisher: {
         "@id": "https://dataghost.me/#organization",
       },
@@ -216,12 +236,16 @@ export default async function RootLayout({
               </Link>
 
               <nav className="flex items-center gap-4 text-sm shrink-0">
-                <Link
-                  href="/comparison"
-                  className="hidden lg:block text-ghost-muted hover:text-white transition-colors mr-2 px-3 py-1.5 rounded-md hover:bg-white/5 border border-transparent hover:border-ghost-grid/50"
+                <Button
+                  asChild
+                  variant="outline"
+                  className="hidden lg:flex items-center gap-2 border-cyan-700/60 text-cyan-300 hover:bg-cyan-900/30 hover:border-cyan-500 hover:text-white bg-black/20 backdrop-blur-md mr-2"
                 >
-                  Comparison
-                </Link>
+                  <Link href="/comparison">
+                    <BarChart3 className="w-4 h-4" />
+                    Comparison
+                  </Link>
+                </Button>
                 <Link
                   href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
                   className="bg-ghost-cyan text-black px-4 py-2 md:px-5 md:py-2 rounded-full font-semibold hover:opacity-90 transition shadow-glow text-xs md:text-sm whitespace-nowrap"

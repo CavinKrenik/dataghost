@@ -103,7 +103,7 @@ export default function HomePage() {
         <div className="bg-ghost-card border border-ghost-border p-8 rounded-2xl shadow-glow max-w-md w-full text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ghost-cyan to-transparent opacity-50"></div>
 
-          <h2 className="text-2xl font-bold mb-6 text-white">One-Time Payment – $49</h2>
+          <h2 className="text-2xl font-bold mb-6 text-white">Best One-Time Data Removal Service 2025 – $49</h2>
 
           <ul className="text-left space-y-3 mb-8 text-ghost-text/90">
             <li className="flex items-start gap-3">
