@@ -193,11 +193,11 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col pb-24 md:pb-0">
           {/* Header */}
-          <header className="border-b border-ghost-grid/40 bg-black/40 backdrop-blur-sm">
-            <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-              <Link href="/" className="flex items-center gap-3">
+          <header className="border-b border-ghost-grid/40 bg-black/40 backdrop-blur-sm sticky top-0 z-50">
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 gap-4">
+              <Link href="/" className="flex items-center gap-3 shrink-0">
                 <Image
                   src="/ghost.png"
                   alt="DataGhost Logo"
@@ -209,22 +209,22 @@ export default async function RootLayout({
                   <div className="text-xl font-semibold tracking-tight">
                     DataGhost<span className="text-ghost-cyan">.me</span>
                   </div>
-                  <div className="text-xs text-ghost-muted">
+                  <div className="text-xs text-ghost-muted hidden sm:block">
                     Ghost your data from 80+ brokers.
                   </div>
                 </div>
               </Link>
 
-              <nav className="flex items-center gap-4 text-sm">
+              <nav className="flex items-center gap-4 text-sm shrink-0">
                 <Link
                   href="/comparison"
-                  className="hidden md:block text-ghost-muted hover:text-white transition-colors mr-2"
+                  className="hidden lg:block text-ghost-muted hover:text-white transition-colors mr-2 px-3 py-1.5 rounded-md hover:bg-white/5 border border-transparent hover:border-ghost-grid/50"
                 >
                   Comparison
                 </Link>
                 <Link
                   href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
-                  className="bg-ghost-cyan text-black px-5 py-2 rounded-full font-semibold hover:opacity-90 transition shadow-glow text-xs md:text-sm"
+                  className="bg-ghost-cyan text-black px-4 py-2 md:px-5 md:py-2 rounded-full font-semibold hover:opacity-90 transition shadow-glow text-xs md:text-sm whitespace-nowrap"
                 >
                   Ghost My Data – $49
                 </Link>

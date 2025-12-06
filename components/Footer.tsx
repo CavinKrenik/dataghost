@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
     return (
         <footer className="border-t border-cyan-900/40 mt-16">
-            <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
+            <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 sm:px-8 lg:px-12 py-12 md:py-16 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
                 {/* Left block */}
                 <div className="space-y-1">
                     <div className="font-semibold text-slate-200">DataGhost.me</div>

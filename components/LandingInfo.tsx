@@ -88,7 +88,7 @@ export function LandingInfo() {
                 <p className="pt-2">
                     DataGhost targets the worst offenders. We hit the high-impact people-search and background-check sites that expose you the most.
                 </p>
-                <div className="grid grid-cols-2 gap-x-6 gap-y-1 pt-3 text-[0.7rem]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-2 pt-4 text-sm sm:text-base">
                     {brokers.map((b) => (
                         <span key={b}>• {b}</span>
                     ))}

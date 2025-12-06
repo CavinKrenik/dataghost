@@ -8,17 +8,20 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-ghost-navy text-ghost-text relative">
       {/* Hero Section */}
-      <section className="relative bg-holo px-6 pt-28 pb-24 text-center overflow-hidden">
-        <div className="flex justify-center mb-8">
-          <Image
-            src="/ghost.png"
-            alt="DataGhost privacy removal service illustration"
-            width={140}
-            height={140}
-            className="animate-float drop-shadow-[0_0_30px_#00e5ff]"
-          />
+      <section className="relative bg-holo px-6 pt-16 pb-24 md:pt-28 md:pb-32 lg:pt-40 lg:pb-48 text-center overflow-hidden">
+        <div className="flex justify-center mb-6 md:mb-8">
+          <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[520px] lg:h-[520px]">
+            <Image
+              src="/ghost.png"
+              alt="DataGhost privacy removal service illustration"
+              fill
+              className="object-contain animate-float drop-shadow-[0_0_30px_#00e5ff]"
+              sizes="(max-width: 640px) 256px, (max-width: 768px) 320px, (max-width: 1024px) 384px, 520px"
+              priority
+            />
+          </div>
         </div>
-        <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight max-w-5xl mx-auto">
           Ghost your data from{" "}
           <span className="text-ghost-cyan drop-shadow-[0_0_25px_rgba(0,229,255,0.65)]">
             80+ brokers (auto + manual checklist)
@@ -136,19 +139,19 @@ export default function HomePage() {
 
       {/* Testimonials Section */}
       <section className="px-6 py-12 max-w-5xl mx-auto">
-        <h3 className="text-center text-xl font-semibold mb-8 text-ghost-muted uppercase tracking-widest">
+        <h3 className="text-center text-lg lg:text-xl font-semibold mb-8 text-ghost-muted uppercase tracking-widest">
           <span className="text-ghost-cyan mr-2">👻</span> Recent Ghosts
         </h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
             <p className="text-ghost-text italic mb-4">“Found me on 52 sites. Most gone in 2 weeks. Best $49 I ever spent.”</p>
             <p className="text-ghost-cyan font-semibold text-sm">– J.R.</p>
           </div>
-          <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl">
+          <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
             <p className="text-ghost-text italic mb-4">“No account, no BS, just results. Spokeo & BeenVerified finally dead.”</p>
             <p className="text-ghost-cyan font-semibold text-sm">– Mike</p>
           </div>
-          <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl">
+          <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
             <p className="text-ghost-text italic mb-4">“Worked perfectly. Got all the confirmation emails. Worth double.”</p>
             <p className="text-ghost-cyan font-semibold text-sm">– Sarah</p>
           </div>
