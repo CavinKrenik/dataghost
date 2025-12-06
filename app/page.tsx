@@ -99,7 +99,14 @@ export default function HomePage() {
       </section>
 
       {/* Pricing Card Section */}
-      <section className="px-6 py-12 flex justify-center">
+      <section className="px-6 py-12 flex flex-col items-center">
+        {/* Legal Disclaimer */}
+        <div className="max-w-2xl text-center mb-8">
+          <p className="text-sm text-gray-500 leading-relaxed">
+            DataGhost is a fully automated opt-out submission tool. We are not lawyers and do not provide legal advice. While we successfully remove data from 80+ brokers for 98%+ of users, we cannot legally guarantee removal from every single site due to varying broker policies.
+          </p>
+        </div>
+
         <div className="bg-ghost-card border border-ghost-border p-8 rounded-2xl shadow-glow max-w-md w-full text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ghost-cyan to-transparent opacity-50"></div>
 

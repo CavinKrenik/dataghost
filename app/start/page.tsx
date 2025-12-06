@@ -80,9 +80,16 @@ function StartPageContent() {
                             </a>
                         </div>
 
-                        <p className="text-ghost-muted text-center mb-8 text-lg">
+                        <p className="text-ghost-muted text-center mb-4 text-lg">
                             Last step: tell us the basics so we can nuke your data from 80+ brokers.
                         </p>
+
+                        {/* Legal Disclaimer */}
+                        <div className="max-w-xl mx-auto text-center mb-8 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <p className="text-xs text-gray-500 leading-relaxed">
+                                DataGhost is a fully automated opt-out submission tool. We are not lawyers and do not provide legal advice. While we successfully remove data from 80+ brokers for 98%+ of users, we cannot legally guarantee removal from every single site due to varying broker policies.
+                            </p>
+                        </div>
 
                         <form
                             onSubmit={(e) => {

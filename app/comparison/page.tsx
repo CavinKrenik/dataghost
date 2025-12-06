@@ -3,11 +3,11 @@ import { Check, X, Shield, Zap, RefreshCw, Trash2, Database } from "lucide-react
 
 export const metadata: Metadata = {
     title: "DataGhost vs DeleteMe vs Incogni vs Optery vs Kanary – 2025 Comparison (No Subscription Winner)",
-    description: "Compare the best data removal services of 2025. See why DataGhost ($49 one-time) is the best DeleteMe and Incogni alternative. No subscription required.",
+    description: "Side-by-side 2025 comparison. Only DataGhost offers one-time $49 payment, weekly re-scans, and permanent data deletion. No recurring fees ever.",
     alternates: { canonical: "https://dataghost.me/comparison" },
     openGraph: {
         title: "DataGhost vs DeleteMe vs Incogni vs Optery vs Kanary – 2025 Comparison (No Subscription Winner)",
-        description: "No subscription. No account. We delete your data after 45 days. The privacy-maximalist choice.",
+        description: "Side-by-side 2025 comparison. Only DataGhost offers one-time $49 payment, weekly re-scans, and permanent data deletion. No recurring fees ever.",
         url: "https://dataghost.me/comparison",
         images: "/og-comparison.png",
     },

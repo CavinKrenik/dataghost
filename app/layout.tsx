@@ -12,7 +12,7 @@ import { BarChart3 } from "lucide-react";
 export const metadata: Metadata = {
   title: "DataGhost – Best One-Time Data Removal Service 2025 | DeleteMe & Incogni Alternative ($49 Forever)",
   description:
-    "Remove your data from 80+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025 – automatic + manual opt-outs, weekly rescans, proof PDFs.",
+    "Remove your data from 80+ brokers derived for $49 one-time. No subscription, no account, data deleted after 45 days. The best DeleteMe, Incogni, Optery, Kanary alternative in 2025 – automatic + manual opt-outs, proof PDFs emailed.",
   keywords: [
     "best data removal service 2025",
     "deleteme alternative",
@@ -44,11 +44,11 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    url: "https://dataghost.me/",
+    url: "https://dataghost.me",
     siteName: "DataGhost",
-    title: "DataGhost – Best One-Time Data Removal Service 2025",
+    title: "DataGhost – Best One-Time Data Removal Service 2025 ($49 Forever)",
     description:
-      "Remove your data from 80+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025.",
+      "Remove your data from 80+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
     images: [
       {
         url: "https://dataghost.me/og-image.png",
@@ -61,9 +61,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@dataghost",
-    title: "DataGhost – Best One-Time Data Removal Service 2025",
+    title: "DataGhost – Best One-Time Data Removal Service 2025 ($49 Forever)",
     description:
-      "Remove your data from 80+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025.",
+      "Remove your data from 80+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
     images: ["https://dataghost.me/og-image.png"],
   },
   icons: {
