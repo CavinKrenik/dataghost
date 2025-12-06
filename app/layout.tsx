@@ -132,12 +132,20 @@ const jsonLd = {
       inLanguage: "en-US",
       potentialAction: {
         "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: "https://dataghost.me/?q={search_term_string}",
-        },
-        "query-input": "required name=search_term_string",
+        target: "https://dataghost.me/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
       },
+    },
+    {
+      "@type": "Offer",
+      "name": "DataGhost One-Time Data Removal",
+      "price": "49",
+      "priceCurrency": "USD",
+      "description": "Remove your data from 80+ brokers forever. One payment, no subscription.",
+      "url": "https://dataghost.me",
+      "seller": {
+        "@id": "https://dataghost.me/#organization"
+      }
     },
     {
       "@type": "BreadcrumbList",
@@ -180,22 +188,6 @@ const jsonLd = {
           },
         },
       ],
-    },
-    {
-      "@type": "Service",
-      "@id": "https://dataghost.me/#service",
-      name: "Data Broker Removal Service",
-      provider: {
-        "@id": "https://dataghost.me/#organization",
-      },
-      description:
-        "Automated removal of personal information from 80+ data broker databases.",
-      offers: {
-        "@type": "Offer",
-        price: "49.00",
-        priceCurrency: "USD",
-        description: "One-time payment for 45 days of protection and removal.",
-      },
     },
   ],
 };
