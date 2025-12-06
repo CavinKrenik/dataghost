@@ -223,7 +223,7 @@ export default async function RootLayout({
                   Comparison
                 </Link>
                 <Link
-                  href="/payment"
+                  href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
                   className="bg-ghost-cyan text-black px-5 py-2 rounded-full font-semibold hover:opacity-90 transition shadow-glow text-xs md:text-sm"
                 >
                   Ghost My Data – $49

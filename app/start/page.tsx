@@ -1,19 +1,34 @@
+
 'use client';
 
-import { useState } from 'react';
+import { useSearchParams, redirect } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
 import Image from 'next/image';
 import { startGhosting } from './actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export default function StartPage() {
+function StartPageContent() {
+    const searchParams = useSearchParams();
+    const paid = searchParams.get('paid') === 'true';
+
+    useEffect(() => {
+        if (!paid) {
+            redirect('/payment');
+        }
+    }, [paid]);
+
     const [pending, setPending] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [count, setCount] = useState(0);
     const [manualBrokersCount, setManualBrokersCount] = useState(0);
     const [pdfBase64, setPdfBase64] = useState<string | null>(null);
+
+    if (!paid) {
+        return null;
+    }
 
     async function handleSubmit(formData: FormData) {
         setPending(true);
@@ -209,5 +224,13 @@ export default function StartPage() {
                 )}
             </div>
         </main>
+    );
+}
+
+export default function StartPage() {
+    return (
+        <Suspense fallback={null}>
+            <StartPageContent />
+        </Suspense>
     );
 }

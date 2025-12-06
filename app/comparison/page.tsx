@@ -178,7 +178,7 @@ export default function Comparison() {
                 {/* Final CTA */}
                 <div className="text-center">
                     <a
-                        href="/start"
+                        href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
                         className="inline-block px-16 py-8 text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl hover:scale-105 transition shadow-2xl shadow-purple-900/50"
                     >
                         Yes — Ghost Me for $49 One-Time
