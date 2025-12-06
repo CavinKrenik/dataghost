@@ -181,7 +181,7 @@ export default function Comparison() {
                         href="/start"
                         className="inline-block px-16 py-8 text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl hover:scale-105 transition shadow-2xl shadow-purple-900/50"
                     >
-                        Remove My Data for $49 One-Time →
+                        Yes — Ghost Me for $49 One-Time
                     </a>
                     <p className="mt-8 text-2xl text-gray-400">No subscription. No account. Just gone.</p>
                 </div>

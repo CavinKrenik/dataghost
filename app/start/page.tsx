@@ -58,6 +58,13 @@ export default function StartPage() {
                         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center leading-tight">
                             Payment successful – you're now being ghosted 👻
                         </h1>
+
+                        <div className="text-center mb-6">
+                            <a href="/comparison" target="_blank" className="text-sm text-ghost-cyan hover:underline opacity-80 hover:opacity-100 transition-opacity">
+                                Not sure? See the full comparison vs Incogni, DeleteMe, Optery, Kanary ↗
+                            </a>
+                        </div>
+
                         <p className="text-ghost-muted text-center mb-8 text-lg">
                             Last step: tell us the basics so we can nuke your data from 80+ brokers.
                         </p>

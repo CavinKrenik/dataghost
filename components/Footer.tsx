@@ -58,6 +58,12 @@ export default function Footer() {
                     >
                         Security Statement
                     </Link>
+                    <Link
+                        href="/comparison"
+                        className="hover:text-cyan-300 transition-colors text-ghost-cyan font-medium"
+                    >
+                        Comparison – Why DataGhost wins
+                    </Link>
                 </nav>
             </div>
         </footer>

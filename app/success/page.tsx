@@ -17,6 +17,12 @@ export default function SuccessPage() {
       <p className="mt-4 text-xl text-ghost-muted max-w-md">
         Thank you for your payment. Please check your email for next steps.
       </p>
+
+      <div className="mt-6">
+        <Link href="/comparison" className="text-ghost-cyan hover:underline font-medium text-lg">
+          See how you just beat every subscription service →
+        </Link>
+      </div>
       <Link
         href="/"
         className="mt-8 rounded-md bg-ghost-cyan px-8 py-3 text-lg font-semibold text-ghost-bg shadow-sm hover:bg-ghost-cyanSoft transition-all shadow-glow"

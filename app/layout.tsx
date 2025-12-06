@@ -217,6 +217,12 @@ export default async function RootLayout({
 
               <nav className="flex items-center gap-4 text-sm">
                 <Link
+                  href="/comparison"
+                  className="hidden md:block text-ghost-muted hover:text-white transition-colors mr-2"
+                >
+                  Comparison
+                </Link>
+                <Link
                   href="/payment"
                   className="bg-ghost-cyan text-black px-5 py-2 rounded-full font-semibold hover:opacity-90 transition shadow-glow text-xs md:text-sm"
                 >

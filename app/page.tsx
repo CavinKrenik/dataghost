@@ -25,6 +25,13 @@ export default function HomePage() {
           </span>
         </h1>
 
+        <div className="mt-4">
+          <Link href="/comparison" className="text-ghost-cyan hover:underline font-semibold text-lg flex items-center justify-center gap-2">
+            See how we destroy Incogni, DeleteMe, Optery, and Kanary
+            <span className="text-xl">→</span>
+          </Link>
+        </div>
+
         <div className="mt-10 flex flex-col items-center gap-4">
           <Link
             href="/payment"
