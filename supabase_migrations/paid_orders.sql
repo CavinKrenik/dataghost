@@ -4,6 +4,7 @@ create table public.paid_orders (
   email text not null,
   order_id text not null,
   status text default 'paid',
+  amount integer,
   created_at timestamptz default now(),
   primary key (id),
   unique(email),
