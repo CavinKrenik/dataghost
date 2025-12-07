@@ -7,32 +7,42 @@ No account. No subscription. No dashboard. No bullshit.**
 
 Live at → https://dataghost.me
 
-## What Happens When Someone Pays
+## How It Works (The "Stateful" Flow)
 
-1. User pays $49 (Lemon Squeezy one-time)
-2. Lands on /start → enters Name, City, State, Age Range, Email
-3. Server instantly:
-   - Saves minimal data to Supabase (for 45-day re-scans)
-   - Sends personalized CCPA/GDPR opt-out emails to 80+ brokers via Resend
-   - CC's the user on every email (proof + transparency)
-   - Sends confirmation ("Protocol Initiated")
-5. Weekly re-scans for 45 days → re-sends if data reappears
-6. Day 46 → we permanently delete their row. Gone forever.
+1. **User Pays:** $49 via Lemon Squeezy (one-time).
+2. **Onboarding:** User enters Name, City, State, Age Range, Email.
+3. **Immediate Action (Next.js):**
+   - Creates a **"Pending Job"** in Supabase (Stateful tracking).
+   - Instantly sends ~80 automated opt-out emails via Resend.
+   - Generates a custom PDF checklist for manual removals.
+4. **Background Protocol (Worker):**
+   - The Next.js app wakes up our **External Worker** (hosted on Railway).
+   - The Worker launches a headless browser (Playwright) to physically fill out removal forms for brokers that reject emails.
+   - Updates the job status to `completed` in the database.
+5. **The Ghost Protocol:**
+   - We re-scan weekly for 45 days.
+   - **Day 46:** A hard-deletion cron job wipes the user data from our database permanently.
 
-## Tech Stack (2025 edition)
+## Tech Stack (2025 Architecture)
 
-- Next.js 15 (App Router)
-- TypeScript
-- Tailwind + shadcn/ui
-- Supabase (users table only)
-- Resend (email delivery)
-- Lemon Squeezy (payments)
-- Deployed on Netlify
+- **Frontend:** Next.js 14 (App Router) + Tailwind + shadcn/ui
+- **Backend:** Server Actions + Supabase (Postgres)
+- **Worker:** Node.js + Playwright (Microservice on Railway)
+- **Email:** Resend (Transactional + Throttling enabled)
+- **Payments:** Lemon Squeezy (Merchant of Record)
+- **Hosting:** Netlify (Frontend) + Railway (Worker)
 
-## Env Vars (all you need)
+## Env Vars
 
 ```env
+# App Secrets
 RESEND_API_KEY=re_...
+LEMON_SQUEEZY_WEBHOOK_SECRET=...
+
+# Supabase (Database)
 NEXT_PUBLIC_SUPABASE_URL=https://...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...
+SUPABASE_SERVICE_ROLE_KEY=eyJh...
+
+# Worker Connection
+WORKER_URL=https://your-worker-app.up.railway.app
