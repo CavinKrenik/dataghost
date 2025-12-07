@@ -73,7 +73,7 @@ export function LandingInfo() {
                         <strong className="text-white">We keep going for 45 days.</strong> For 45 days we automatically re-scan and re-send removal requests if your data reappears. All updates go to your email.
                     </li>
                     <li>
-                        <strong className="text-white">Then we ghost your data.</strong> After 45 days we delete your information from our systems. You keep the confirmation emails and reports forever.
+                        <strong className="text-white">Then we ghost your data.</strong> We temporarily store your info for <strong className="text-ghost-cyan">exactly 45 days only</strong> so we can automatically re-remove your data every week if it reappears. On day 46, a pg_cron job permanently deletes everything — no backups, no logs, gone forever.
                     </li>
                 </ol>
                 <p className="pt-2 text-[0.7rem] text-[#b8b0ff]">

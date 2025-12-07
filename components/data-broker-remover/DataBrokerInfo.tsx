@@ -16,18 +16,20 @@ const FAQ_ITEMS = [
           <li>We&apos;ll send you a verification code</li>
           <li>
             Once you confirm the code, you can input your name & address to
-            generate the email to send to the broker. We do not store your name
-            or address, it is only used to generate the email.
+            generate the email to send to the broker.
           </li>
           <li>
             We send the emails out. You will be CC&apos;d on them so you can see
             them, you don&apos;t need to take any action.
           </li>
           <li>
-            Only your email address is stored once it has been hashed (SHA256),
-            and is deleted after 45 days. This is to ensure you don&apos;t send out
-            multiple emails within a short period of time. You&apos;re free to repeat
-            the process after 45 days.
+            We temporarily store your info for{' '}
+            <strong className="text-ghost-cyan">exactly 45 days only</strong> so
+            we can automatically re-remove your data every week if it reappears.
+            On day 46, a pg_cron job permanently deletes everything — no
+            backups, no logs, gone forever. We are the only service that
+            actually deletes your data automatically. Incogni, DeleteMe, Optery,
+            Kanary — they keep it forever.
           </li>
         </ol>
         <p className="text-warmgray/80 text-sm mt-4">
@@ -120,9 +122,8 @@ export function DataBrokerInfo() {
                 {item.title}
               </span>
               <ChevronDown
-                className={`w-5 h-5 text-warmgray transition-transform duration-200 ${
-                  isOpen ? 'transform rotate-180' : ''
-                }`}
+                className={`w-5 h-5 text-warmgray transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''
+                  }`}
               />
             </Collapsible.Trigger>
             <Collapsible.Content className="bg-plum-900 p-4 border-t border-plum-600">

@@ -271,6 +271,11 @@ export default function StartPage() {
 
                         <div className="bg-ghost-navy-dark p-4 rounded-xl border border-ghost-grid text-left text-sm text-ghost-muted">
                             <p className="mb-2"><span className="text-ghost-cyan font-bold">Next:</span> We re-scan daily for 45 days. You'll get a final "All Clear" report then.</p>
+                            <p className="text-xs text-ghost-muted/80 mt-2">
+                                We temporarily store your info for <strong className="text-ghost-cyan">exactly 45 days only</strong> so we can automatically
+                                re-remove your data every week if it reappears. On day 46, a pg_cron job permanently deletes everything —
+                                no backups, no logs, gone forever.
+                            </p>
                         </div>
                     </div>
                 )}
