@@ -108,208 +108,141 @@
     "subject": "CCPA Deletion Request – {{fullName}}"
   },
   {
-    "name": "BeenVerified",
-    "type": "form",
-    "url": "https://www.beenverified.com/app/optout/search"
+    "name": "The Trade Desk",
+    "type": "email",
+    "email": "privacy@thetradedesk.com",
+    "subject": "Opt-Out Request"
   },
   {
-    "name": "PeopleFinders",
-    "type": "form",
-    "url": "https://www.peoplefinders.com/manage/optout"
+    "name": "BidSwitch",
+    "type": "email",
+    "email": "privacy@bidswitch.com",
+    "subject": "Data Subject Access Request - Opt Out"
   },
   {
-    "name": "FastPeopleSearch",
-    "type": "form",
-    "url": "https://www.fastpeoplesearch.com/removal"
+    "name": "Comscore",
+    "type": "email",
+    "email": "privacy@comscore.com",
+    "subject": "Data Removal Request"
   },
   {
-    "name": "TruePeopleSearch",
-    "type": "form",
-    "url": "https://www.truepeoplesearch.com/removal"
+    "name": "FullContact",
+    "type": "email",
+    "email": "privacy@fullcontact.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "TruthFinder",
-    "type": "form",
-    "url": "https://www.truthfinder.com/opt-out/"
+    "name": "RocketReach",
+    "type": "email",
+    "email": "privacy@rocketreach.co",
+    "subject": "CCPA/GDPR Opt-Out Request"
   },
   {
-    "name": "InstantCheckmate",
-    "type": "form",
-    "url": "https://www.instantcheckmate.com/opt-out/"
+    "name": "Lusha",
+    "type": "email",
+    "email": "privacy@lusha.com",
+    "subject": "Data Removal Request"
   },
   {
-    "name": "Whitepages",
-    "type": "form",
-    "url": "https://www.whitepages.com/suppression-requests"
+    "name": "ZoomInfo",
+    "type": "email",
+    "email": "privacy@zoominfo.com",
+    "subject": "California Consumer Privacy Act Request"
   },
   {
-    "name": "MyLife",
-    "type": "form",
-    "url": "https://www.mylife.com/ccpa/index.pubview"
+    "name": "SalesIntel",
+    "type": "email",
+    "email": "privacy@salesintel.io",
+    "subject": "Opt-Out Request"
   },
   {
-    "name": "Radaris",
-    "type": "form",
-    "url": "https://radaris.com/removal/"
+    "name": "Criteo",
+    "type": "email",
+    "email": "dpo@criteo.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "Nuwber",
-    "type": "form",
-    "url": "https://nuwber.com/removal/link"
+    "name": "Quantcast",
+    "type": "email",
+    "email": "privacy@quantcast.com",
+    "subject": "Opt-Out Request"
   },
   {
-    "name": "FamilyTreeNow",
-    "type": "form",
-    "url": "https://www.familytreenow.com/optout"
+    "name": "LiveRamp",
+    "type": "email",
+    "email": "consumeroffline@liveramp.com",
+    "subject": "Do Not Sell My Personal Information"
   },
   {
-    "name": "PeekYou",
-    "type": "form",
-    "url": "https://www.peekyou.com/about/contact/optout"
+    "name": "Nielsen",
+    "type": "email",
+    "email": "privacy.department@nielsen.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "Clustrmaps",
-    "type": "form",
-    "url": "https://clustrmaps.com/bl/opt-out"
+    "name": "NextRoll",
+    "type": "email",
+    "email": "privacy@nextroll.com",
+    "subject": "Opt-Out Request"
   },
   {
-    "name": "Xlek",
-    "type": "form",
-    "url": "https://xlek.com/removal"
+    "name": "TowerData",
+    "type": "email",
+    "email": "privacy@towerdata.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "UnMask",
-    "type": "form",
-    "url": "https://unmask.com/optout/"
+    "name": "Versium",
+    "type": "email",
+    "email": "privacy@versium.com",
+    "subject": "Opt-Out Request"
   },
   {
-    "name": "NeighborWho",
-    "type": "form",
-    "url": "https://www.neighborwho.com/optout"
+    "name": "Gravy Analytics",
+    "type": "email",
+    "email": "privacy@gravyanalytics.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "PrivateEye",
-    "type": "form",
-    "url": "https://www.privateeye.com/optout/"
+    "name": "Cuebiq",
+    "type": "email",
+    "email": "privacy@cuebiq.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "IdStrong",
-    "type": "form",
-    "url": "https://www.idstrong.com/remove-my-information/"
+    "name": "Sovrn",
+    "type": "email",
+    "email": "privacy@sovrn.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "CheckPeople",
-    "type": "form",
-    "url": "https://checkpeople.com/opt-out"
+    "name": "ShareThis",
+    "type": "email",
+    "email": "privacy@sharethis.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "CocoFinder",
-    "type": "form",
-    "url": "https://cocofinder.com/optout"
+    "name": "Killi",
+    "type": "email",
+    "email": "privacy@killi.io",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "NumLookup",
-    "type": "form",
-    "url": "https://www.numlookup.com/remove"
+    "name": "Start.io",
+    "type": "email",
+    "email": "privacy@start.io",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "SearchPeopleFree",
-    "type": "form",
-    "url": "https://www.searchpeoplefree.com/remove"
+    "name": "InMobi",
+    "type": "email",
+    "email": "privacy@inmobi.com",
+    "subject": "Data Deletion Request"
   },
   {
-    "name": "SmartBackgroundChecks",
-    "type": "form",
-    "url": "https://www.smartbackgroundchecks.com/optout"
-  },
-  {
-    "name": "Spytox",
-    "type": "form",
-    "url": "https://www.spytox.com/remove-me"
-  },
-  {
-    "name": "Veripages",
-    "type": "form",
-    "url": "https://veripages.com/optout"
-  },
-  {
-    "name": "VoterRecords",
-    "type": "form",
-    "url": "https://voterrecords.com/optout"
-  },
-  {
-    "name": "AdvancedBackgroundChecks",
-    "type": "form",
-    "url": "https://www.advancedbackgroundchecks.com/removal"
-  },
-  {
-    "name": "Cyberbackgroundchecks",
-    "type": "form",
-    "url": "https://cyberbackgroundchecks.com/optout"
-  },
-  {
-    "name": "PeopleByName",
-    "type": "form",
-    "url": "https://www.peoplebyname.com/remove.php"
-  },
-  {
-    "name": "USPhoneBook",
-    "type": "form",
-    "url": "https://www.usphonebook.com/opt-out"
-  },
-  {
-    "name": "PeopleSearchNow",
-    "type": "form",
-    "url": "https://www.peoplesearchnow.com/opt-out"
-  },
-  {
-    "name": "SearchQuarry",
-    "type": "form",
-    "url": "https://www.searchquarry.com/opt-out-new/"
-  },
-  {
-    "name": "Acxiom",
-    "type": "form",
-    "url": "https://isapps.acxiom.com/optout/optout.aspx"
-  },
-  {
-    "name": "Epsilon",
-    "type": "form",
-    "url": "https://legal.epsilon.com/us/dsr/"
-  },
-  {
-    "name": "Oracle Data Cloud",
-    "type": "form",
-    "url": "https://datacloudoptout.oracle.com/optout"
-  },
-  {
-    "name": "Experian",
-    "type": "form",
-    "url": "https://www.experian.com/privacy/optout"
-  },
-  {
-    "name": "Equifax",
-    "type": "form",
-    "url": "https://www.equifax.com/personal/privacy-statement/opt-out"
-  },
-  {
-    "name": "TransUnion",
-    "type": "form",
-    "url": "https://www.transunion.com/data-opt-out"
-  },
-  {
-    "name": "LexisNexis",
-    "type": "form",
-    "url": "https://optout.lexisnexis.com"
-  },
-  {
-    "name": "National Public Data",
-    "type": "form",
-    "url": "https://www.nationalpublicdata.com/optout"
-  },
-  {
-    "name": "BeenVerified Property",
-    "type": "form",
-    "url": "https://www.beenverified.com/app/optout/address-search"
+    "name": "Tappx",
+    "type": "email",
+    "email": "privacy@tappx.com",
+    "subject": "Data Deletion Request"
   }
 ]
