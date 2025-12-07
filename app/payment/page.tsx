@@ -12,12 +12,11 @@ export default function PaymentPage() {
 
                 <div className="bg-ghost-card border border-ghost-border p-8 rounded-xl shadow-glow">
                     <a
-                        href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
-                        className="lemonsqueezy-button bg-ghost-cyan text-black px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition w-full block"
+                        href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b"
+                        className="bg-ghost-cyan text-black px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition w-full block"
                     >
                         Buy DataGhost One-time payment — $49
                     </a>
-                    <Script src="https://assets.lemonsqueezy.com/lemon.js" strategy="lazyOnload" />
                 </div>
 
                 <p className="text-sm text-ghost-muted">
