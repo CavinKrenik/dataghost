@@ -18,6 +18,14 @@ export default function SuccessPage() {
         Thank you for your payment. Please check your email for next steps.
       </p>
 
+      <div className="mt-8 max-w-xl bg-ghost-navy-dark border border-ghost-grid rounded-xl p-6 text-left">
+        <h3 className="text-white font-bold text-lg mb-2">What to Expect</h3>
+        <p className="text-sm text-ghost-muted mb-4">
+          <strong className="text-white">Note:</strong> A small number of brokers (like Acxiom) may reply asking for a signed form or ID.
+          This is a standard stalling tactic. We provide a guide on how to handle these specific cases in your confirmation email.
+        </p>
+      </div>
+
       <div className="mt-6">
         <Link href="/comparison" className="text-ghost-cyan hover:underline font-medium text-lg">
           See how you just beat every subscription service →

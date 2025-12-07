@@ -86,7 +86,7 @@ export async function sendOptOutEmails({
         );
 
         // Small delay between batches to be polite to the Resend API
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 2000));
     }
 
     console.log(`[Email Service] Finished. Sent: ${sentCount}, Errors: ${errorCount}`);

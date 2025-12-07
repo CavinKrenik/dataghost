@@ -1,5 +1,6 @@
 'use server';
 
+import { createRemovalJob } from '@/lib/db';
 import { getBrokerList, US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -142,13 +143,33 @@ export async function startGhosting(prevState: State | undefined, formData: Form
 
         // 8. Trigger the Heavy Muscle (Playwright Worker)
         // We pass the raw data it needs to fill forms
-        triggerWorker({
+        const workerData = {
             fullName,
             city,
             state,
             ageRange,
             email,
             postcode: rawData.postcode
+        };
+
+        // Create a persistent job entry for reliability tracking
+        let jobId: string | undefined;
+        try {
+            const job = await createRemovalJob({
+                user_email: email,
+                worker_data: workerData,
+                status: 'pending'
+            });
+            jobId = job?.id;
+            console.log(`[Job Created] Job ID: ${jobId} for ${email}`);
+        } catch (jobErr) {
+            console.error('Failed to create removal job record:', jobErr);
+            // We proceed even if DB log fails, to not block the user flow
+        }
+
+        triggerWorker({
+            ...workerData,
+            jobId // Pass the ID so the worker can update status on completion
         });
 
         revalidatePath('/');
@@ -170,7 +191,7 @@ async function triggerWorker(userData: any) {
     // Default to localhost for testing so it doesn't break if you haven't deployed the worker yet
     const WORKER_URL = process.env.WORKER_URL || 'http://localhost:8080/nuke-data';
 
-    console.log(`[Worker Trigger] Firing job to ${WORKER_URL} for ${userData.email}`);
+    console.log(`[Worker Trigger] Firing job to ${WORKER_URL} for ${userData.email} (Job ID: ${userData.jobId || 'N/A'})`);
 
     try {
         // FIRE AND FORGET: We do NOT use 'await' here.

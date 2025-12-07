@@ -285,6 +285,13 @@ export default function StartPage() {
                                 no backups, no logs, gone forever.
                             </p>
                         </div>
+
+                        <div className="bg-ghost-navy-dark p-4 rounded-xl border border-ghost-grid text-left text-sm text-ghost-muted mt-4">
+                            <p>
+                                <strong className="text-white">Note:</strong> A small number of brokers (like Acxiom) may reply asking for a signed form or ID.
+                                This is a standard stalling tactic. We provide a guide on how to handle these specific cases in your confirmation email.
+                            </p>
+                        </div>
                     </div>
                 )}
 
