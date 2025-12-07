@@ -2,33 +2,87 @@
 
 import Link from "next/link";
 
+// This list is now 100% consistent with your backend (Worker + Email lists).
 const brokers = [
-    "Spokeo",
-    "Intelius",
+    // --- The Heavy Hitters (Worker/Form Based) ---
+    "AdvancedBackgroundChecks",
     "BeenVerified",
-    "PeopleFinders",
+    "CheckPeople",
+    "Clustrmaps",
+    "CocoFinder",
+    "Cyberbackgroundchecks",
+    "FamilyTreeNow",
     "FastPeopleSearch",
+    "IdStrong",
+    "InstantCheckmate",
+    "MyLife",
+    "NeighborWho",
+    "NumLookup",
+    "Nuwber",
+    "PeekYou",
+    "PeopleByName",
+    "PeopleFinders",
+    "PeopleSearchNow",
+    "PrivateEye",
+    "Radaris",
+    "SearchPeopleFree",
+    "SearchQuarry",
+    "SmartBackgroundChecks",
+    "Spytox",
     "TruePeopleSearch",
     "TruthFinder",
-    "InstantCheckmate",
-    "Whitepages",
-    "MyLife",
-    "Radaris",
-    "Nuwber",
-    "FamilyTreeNow",
-    "PeekYou",
-    "Clustrmaps",
-    "That’sThem",
-    "NeighborWho",
-    "PrivateEye",
-    "PeopleSmart",
-    "USSearch",
-    "SmartBackgroundChecks",
-    "Cyberbackgroundchecks",
+    "UnMask",
+    "USPhoneBook",
+    "Veripages",
     "VoterRecords",
-    "PublicRecords.com",
-    // …add or remove based on your brokers.json
-];
+    "Whitepages",
+    "Xlek",
+
+    // --- The Legal Opt-Outs (Email Based) ---
+    "Acxiom",
+    "BackgroundChecks.com",
+    "Checkr",
+    "Dataveria",
+    "Epsilon",
+    "Equifax",
+    "Experian Marketing",
+    "FullContact",
+    "Intelius",
+    "LexisNexis",
+    "National Public Data",
+    "Ofsearch",
+    "Oracle Data Cloud",
+    "PeopleConnect",
+    "PeopleSmart",
+    "RocketReach",
+    "Spokeo",
+    "That'sThem",
+    "TransUnion",
+    "USSearch",
+    "ZoomInfo",
+
+    // --- Ad-Tech & Data Aggregators (Email Based) ---
+    "BidSwitch",
+    "Comscore",
+    "Criteo",
+    "Cuebiq",
+    "Gravy Analytics",
+    "InMobi",
+    "Killi",
+    "LiveRamp",
+    "Lusha",
+    "NextRoll",
+    "Nielsen",
+    "Quantcast",
+    "SalesIntel",
+    "ShareThis",
+    "Sovrn",
+    "Start.io",
+    "Tappx",
+    "The Trade Desk",
+    "TowerData",
+    "Versium"
+].sort();
 
 function SectionCard({
     title,
@@ -61,23 +115,23 @@ export function LandingInfo() {
                         <strong className="text-white">Pay $49 one-time.</strong> No subscription, no account created.
                     </li>
                     <li>
-                        <strong className="text-white">Tell us the basics.</strong> After payment we ask only for your name, city, state, and age range (takes about 20 seconds).
+                        <strong className="text-white">Tell us the basics.</strong> After payment we ask only for your name, city, state, and age range.
                     </li>
                     <li>
-                        <strong className="text-white">We blast legal opt-out requests.</strong> CCPA/GDPR-style deletion and opt-out requests are sent to 80+ data brokers on your behalf. You are CC’d on every email.
+                        <strong className="text-white">We launch the protocol.</strong> We blast legal opt-out emails to 40+ brokers (you are CC’d). Simultaneously, our <strong className="text-ghost-cyan">Ghost Worker</strong> physically navigates to the "hard" sites (like Whitepages & BeenVerified) to automate their removal forms for you.
                     </li>
                     <li>
-                        <strong className="text-white">Watch the deletions roll in.</strong> As brokers respond, you receive their confirmation emails plus a full PDF summary report from us.
+                        <strong className="text-white">Watch the deletions roll in.</strong> As brokers respond, you receive their confirmation emails directly in your inbox.
                     </li>
                     <li>
-                        <strong className="text-white">We keep going for 45 days.</strong> For 45 days we automatically re-scan and re-send removal requests if your data reappears. All updates go to your email.
+                        <strong className="text-white">We keep going for 45 days.</strong> For 45 days we automatically re-scan and re-send removal requests if your data reappears.
                     </li>
                     <li>
-                        <strong className="text-white">Then we ghost your data.</strong> We temporarily store your info for <strong className="text-ghost-cyan">exactly 45 days only</strong> so we can automatically re-remove your data every week if it reappears. On day 46, a pg_cron job permanently deletes everything — no backups, no logs, gone forever.
+                        <strong className="text-white">Then we ghost your data.</strong> We temporarily store your info for <strong className="text-ghost-cyan">exactly 45 days only</strong>. On day 46, a pg_cron job permanently deletes everything — no backups, no logs, gone forever.
                     </li>
                 </ol>
                 <p className="pt-2 text-[0.7rem] text-[#b8b0ff]">
-                    DataGhost does not guarantee permanent removal—data brokers are persistent—but we drastically reduce your exposure and give you a repeatable, automated weapon to fight back.
+                    DataGhost does not guarantee permanent removal—data brokers are persistent—but we drastically reduce your exposure and give you a repeatable, automated weapon to fight back against <strong>70+ brokers</strong>.
                 </p>
             </SectionCard>
 
@@ -88,9 +142,14 @@ export function LandingInfo() {
                 <p className="pt-2">
                     DataGhost targets the worst offenders. We hit the high-impact people-search and background-check sites that expose you the most.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-2 pt-4 text-sm sm:text-base">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 pt-4 text-sm sm:text-base">
                     {brokers.map((b) => (
-                        <span key={b}>• {b}</span>
+                        <div key={b} className="flex items-center gap-2 min-w-0">
+                            <span className="text-ghost-cyan shrink-0">•</span>
+                            <span className="truncate" title={b}>
+                                {b}
+                            </span>
+                        </div>
                     ))}
                 </div>
                 <p className="pt-3 text-[0.7rem] text-[#b8b0ff]">
@@ -100,17 +159,18 @@ export function LandingInfo() {
 
             <SectionCard title="WHO BUILT DATAGHOST?">
                 <p>
-                    DataGhost.me is an independent privacy tool built by Cavin Krenik. It&apos;s inspired by open-source privacy activism and powered by modern automation.
+                    DataGhost was engineered by <strong>Cavin Krenik</strong>, a veteran commercial fisherman turned privacy engineer, currently completing his degree in Interactive Web Design.
                 </p>
-                <p>
-                    We stand on the shoulders of giants, but DataGhost is a standalone service with its own infrastructure, strict privacy policies, and dedicated support.
+                <p className="pt-2">
+                    Why the pivot? Because years at sea teach you two things: <strong>reliability is everything</strong>, and <strong>you don't keep what you don't need.</strong>
                 </p>
-                <p className="text-[0.7rem] text-[#b8b0ff]">
-                    We are legally clean, ethically strict, and brutally transparent. We exist to give you control, not to become another data hoarder.
+                <p className="pt-2">
+                    While studying design, I realized that <strong>good design isn't just pixels! It's respect.</strong> A subscription model for a one-time problem is bad design. I taught myself full-stack engineering to build a solution that is rugged, finite, and honest.
+                </p>
+                <p className="pt-3 text-[0.7rem] text-[#b8b0ff]">
+                    Legally clean. Ethically strict. Brutally transparent. We delete your data after 45 days because we exist to give you control, not to become another data hoarder.
                 </p>
             </SectionCard>
-
-            {/* CTA removed as per request */}
         </section>
     );
 }

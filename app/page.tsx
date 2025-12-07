@@ -24,7 +24,7 @@ export default function HomePage() {
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight max-w-5xl mx-auto">
           Ghost your data from{" "}
           <span className="text-ghost-cyan drop-shadow-[0_0_25px_rgba(0,229,255,0.65)]">
-            80+ brokers
+            70+ brokers
           </span>
         </h1>
 
