@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { resendRemovalEmails } from '@/lib/data-broker-remover/send-emails';
 
 const CRON_SECRET = process.env.CRON_SECRET!;
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
         return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const supabase = createClient();
+    const supabase = createAdminClient();
 
     // Get all users who are between day 8 and day 45
     // We use 45 days ago and 7 days ago.

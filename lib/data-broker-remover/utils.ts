@@ -27,17 +27,18 @@ export interface DataBroker {
 // So I will just reimplement `getBrokerList` here to read `process.env.VITE_COMPANIES` same as before, but without AWS stuff.
 
 export function getBrokerList(): DataBroker[] {
-  const companiesEnv = process.env.VITE_COMPANIES || '';
+  try {
+    // In Next.js server context, we can require the JSON file directly.
+    // This file is included in the build.
+    const allBrokers = require('@/data/brokers.json');
 
-  if (!companiesEnv) {
-    console.warn('VITE_COMPANIES environment variable not set');
+    return allBrokers
+      .filter((b: any) => b.type === 'email' && b.email)
+      .map((b: any) => ({ name: b.name, email: b.email }));
+  } catch (error) {
+    console.error('Failed to load brokers.json:', error);
     return [];
   }
-
-  return companiesEnv.split(':').map((company) => {
-    const [name, email] = company.split(',');
-    return { name: name.trim(), email: email.trim() };
-  });
 }
 
 // Brokers that only apply to US residents

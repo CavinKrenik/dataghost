@@ -1,5 +1,5 @@
 import { sendOptOutEmails } from '@/lib/email-sending';
-import { US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
+import { getBrokerList, US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 
 interface User {
     full_name: string;
@@ -15,13 +15,7 @@ export async function resendRemovalEmails(user: User) {
 
     try {
         // Load brokers
-        // We use the same JSON source as the main action
-        // Note: Using 'require' to match the server action behavior and ensure it works in Node env
-        const allBrokers = require('@/data/brokers.json');
-
-        let emailBrokers: { name: string, email: string }[] = allBrokers
-            .filter((b: any) => b.type === 'email' && b.email)
-            .map((b: any) => ({ name: b.name, email: b.email }));
+        let emailBrokers = getBrokerList();
 
         // Filter for US residents only if applicable
         // The DB might not store country, but typically this app is US focused. 

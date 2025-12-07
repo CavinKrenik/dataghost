@@ -118,16 +118,20 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         let emailBrokers: { name: string, email: string }[] = [];
         let formBrokers: { name: string, url?: string }[] = [];
 
-        // Fallback to brokers.json if env is empty
         try {
+            // Use the centralized utils function for email brokers
+            emailBrokers = getBrokerList();
+
+            // For form brokers, we still load directly from json as getBrokerList currently only returns email types
+            // defined in the interface. We should probably expand getBrokerList or just load here.
+            // Let's keep it robust and load here for now to ensure we get both types.
             const allBrokers = require('@/data/brokers.json');
 
-            // Email brokers
+            // Re-map just to be sure we have the full list if getBrokerList changes
             emailBrokers = allBrokers
                 .filter((b: any) => b.type === 'email' && b.email)
                 .map((b: any) => ({ name: b.name, email: b.email }));
 
-            // Form brokers
             formBrokers = allBrokers
                 .filter((b: any) => b.type === 'form')
                 .map((b: any) => ({ name: b.name, url: b.url }));
