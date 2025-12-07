@@ -164,7 +164,7 @@ export default function HomePage() {
           <div className="space-y-8">
             <div>
               <h3 className="text-xl font-bold text-white mb-2">Is this a subscription?</h3>
-              <p className="text-ghost-muted">No — $49 one-time forever.</p>
+              <p className="text-ghost-muted">No  $49 one-time.</p>
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-2">Do you keep my data?</h3>
@@ -172,7 +172,7 @@ export default function HomePage() {
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-2">Do you have an account/dashboard?</h3>
-              <p className="text-ghost-muted">No — we don't want your password either.</p>
+              <p className="text-ghost-muted">No, we don't want your password either.</p>
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-2">How long until I'm removed?</h3>
@@ -180,7 +180,7 @@ export default function HomePage() {
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-2">What if a broker ignores the request?</h3>
-              <p className="text-ghost-muted">We re-submit automatically. The remaining ~10-15 need manual forms — we give you pre-filled links.</p>
+              <p className="text-ghost-muted">We re-submit automatically.</p>
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-2">Is this legal?</h3>
