@@ -43,29 +43,25 @@ export default function HomePage() {
             Ghost My Data – $49 one-time (no subscription)
           </Link>
           <p className="text-sm text-ghost-muted">
-            One payment · No account needed · Everything sent to your email
+            One payment · No account needed
           </p>
         </div>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-ghost-muted">
           <span>No ID upload required</span>
           <span>•</span>
-          <span>Transparent CC emails</span>
-          <span>•</span>
           <span>Data deleted after 45 days</span>
-          <span>•</span>
-          <span>Weekly re-scans included</span>
         </div>
       </section>
 
       {/* Data Handling Section */}
       <section className="px-6 py-16 bg-ghost-bg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-10">How We Handle Your Data <span className="text-ghost-cyan">(Maximum Privacy Mode)</span></h2>
+          <h2 className="text-3xl font-bold text-center mb-10">How We Handle Your Data</h2>
           <div className="grid gap-6 text-lg text-ghost-text/90">
             <div className="flex gap-4">
               <span className="text-ghost-cyan text-xl">•</span>
-              <p>We only ask for the minimum needed to make opt-outs work: name, email (for CCs), city, state, age range.</p>
+              <p>We only ask for the minimum needed to make opt-outs work: name, email, city, state, age range.</p>
             </div>
             <div className="flex gap-4">
               <span className="text-ghost-cyan text-xl">•</span>
@@ -115,15 +111,11 @@ export default function HomePage() {
           <ul className="text-left space-y-3 mb-8 text-ghost-text/90">
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
-              <span>80+ brokers (auto + manual checklist)</span>
+              <span>80+ brokers manually</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
               <span>Weekly re-scans for 45 days</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-ghost-cyan mt-1">✓</span>
-              <span>Full removal report + proof PDFs emailed</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
@@ -135,7 +127,7 @@ export default function HomePage() {
             href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
             className="block w-full bg-ghost-cyan text-black px-6 py-3 rounded-lg font-bold hover:opacity-90 transition shadow-[0_0_15px_rgba(0,229,255,0.3)]"
           >
-            Ghost My Data Now – $49 one-time
+            Ghost My Data Now – $49
           </Link>
 
           <p className="mt-3 text-xs text-ghost-muted">
@@ -152,11 +144,11 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
             <p className="text-ghost-text italic mb-4">“Found me on 52 sites. Most gone in 2 weeks. Best $49 I ever spent.”</p>
-            <p className="text-ghost-cyan font-semibold text-sm">– J.R.</p>
+            <p className="text-ghost-cyan font-semibold text-sm">– Victoria</p>
           </div>
           <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
             <p className="text-ghost-text italic mb-4">“No account, no BS, just results. Spokeo & BeenVerified finally dead.”</p>
-            <p className="text-ghost-cyan font-semibold text-sm">– Mike</p>
+            <p className="text-ghost-cyan font-semibold text-sm">– Braden</p>
           </div>
           <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
             <p className="text-ghost-text italic mb-4">“Worked perfectly. Got all the confirmation emails. Worth double.”</p>
