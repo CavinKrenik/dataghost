@@ -9,6 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export interface DataBroker {
   name: string;
   email: string;
+  subject?: string;
 }
 
 // In the old implementation, this was parsed from ENV.
@@ -34,7 +35,7 @@ export function getBrokerList(): DataBroker[] {
 
     return allBrokers
       .filter((b: any) => b.type === 'email' && b.email)
-      .map((b: any) => ({ name: b.name, email: b.email }));
+      .map((b: any) => ({ name: b.name, email: b.email, subject: b.subject }));
   } catch (error) {
     console.error('Failed to load brokers.json:', error);
     return [];

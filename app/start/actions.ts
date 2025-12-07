@@ -126,7 +126,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         if (insertError) throw insertError;
 
         // 4. Get and Filter Brokers
-        let emailBrokers: { name: string, email: string }[] = [];
+        let emailBrokers: { name: string, email: string, subject?: string }[] = [];
         let formBrokers: { name: string, url?: string }[] = [];
 
         try {
@@ -141,7 +141,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             // Re-map just to be sure we have the full list if getBrokerList changes
             emailBrokers = allBrokers
                 .filter((b: any) => b.type === 'email' && b.email)
-                .map((b: any) => ({ name: b.name, email: b.email }));
+                .map((b: any) => ({ name: b.name, email: b.email, subject: b.subject }));
 
             formBrokers = allBrokers
                 .filter((b: any) => b.type === 'form')
@@ -160,7 +160,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         const companies = emailBrokers.map((broker) => ({
             name: broker.name,
             email: broker.email,
-            subject: 'Data Removal Request',
+            subject: broker.subject || 'Data Removal Request',
             body: `Dear ${broker.name},\n\nI am writing to request the removal of my personal information from your database in accordance with applicable data privacy laws.\n\nMy Information:\n- Name: {{name}}\n- Age Range: {{age_range}}\n- Address: {{city}}, {{state}}\n- Email: {{email}}\n\nPlease confirm receipt of this request and provide information about the removal process and timeline.\n\nThank you for your prompt attention to this matter.\n\nSincerely,\n{{name}}`,
         }));
 

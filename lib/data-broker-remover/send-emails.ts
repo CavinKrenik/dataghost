@@ -35,7 +35,7 @@ export async function resendRemovalEmails(user: User) {
         const companies = emailBrokers.map((broker) => ({
             name: broker.name,
             email: broker.email,
-            subject: 'Data Removal Request',
+            subject: broker.subject || 'Data Removal Request',
             body: `Dear ${broker.name},\n\nI am writing to request the removal of my personal information from your database in accordance with applicable data privacy laws.\n\nMy Information:\n- Name: {{name}}\n- Age Range: {{age_range}}\n- Address: {{city}}, {{state}}\n- Email: {{email}}\n\nPlease confirm receipt of this request and provide information about the removal process and timeline.\n\nThank you for your prompt attention to this matter.\n\nSincerely,\n{{name}}`,
         }));
 

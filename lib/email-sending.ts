@@ -58,6 +58,7 @@ export async function sendOptOutEmails({
                 try {
                     const personalizedSubject = company.subject
                         .replace(/{{name}}/g, fullName)
+                        .replace(/{{fullName}}/g, fullName)
                         .replace(/{{city}}/g, city)
                         .replace(/{{state}}/g, state);
 
