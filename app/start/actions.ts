@@ -26,29 +26,30 @@ export type State = {
 };
 
 export async function checkEmailPayment(email: string) {
-    // === TESTING MODE BYPASS (remove or set to false in production) ===
-    const isTestMode = process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_TEST_MODE === 'true';
+    try {
+        const supabase = createAdminClient();
 
-    if (isTestMode && (email.includes('cavin') || email.includes('test') || email === 'cavinkrenik5@icloud.com')) {
-        console.log('🧪 TEST MODE: Bypassing payment check for', email);
+        const { data, error } = await supabase
+            .from('paid_orders')
+            .select('email')
+            .eq('email', email.toLowerCase())
+            .eq('status', 'paid')
+            .maybeSingle(); // ← THIS IS THE KEY — doesn't throw if no row
+
+        if (error) {
+            console.error('Supabase query error:', error);
+            return { success: false, error: 'Database error' };
+        }
+
+        if (!data) {
+            return { success: false, error: 'No paid order found for this email' };
+        }
+
         return { success: true, isPaid: true };
+    } catch (err) {
+        console.error('Unexpected error in checkEmailPayment:', err);
+        return { success: false, error: 'Unexpected error' };
     }
-    // === END TESTING BYPASS ===
-
-    const supabase = createAdminClient();
-
-    const { data, error } = await supabase
-        .from('paid_orders')
-        .select('email')
-        .eq('email', email.toLowerCase())
-        .eq('status', 'paid')
-        .single();
-
-    if (error || !data) {
-        return { success: false, error: 'No paid order found for this email' };
-    }
-
-    return { success: true, isPaid: true };
 }
 
 export async function startGhosting(prevState: State | undefined, formData: FormData): Promise<State> {
@@ -95,7 +96,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             .from('data_broker_users')
             .select('id')
             .eq('email', email)
-            .single();
+            .maybeSingle();
 
         if (existingUser) {
             // Optional: allow re-run? simpler to block for now to prevent spam.
