@@ -44,7 +44,7 @@ export async function POST(req: Request) {
               amount: order.total,
               created_at: new Date().toISOString(),
             },
-            { onConflict: 'email' }
+            { onConflict: 'order_id' }
           );
 
         if (error) {
