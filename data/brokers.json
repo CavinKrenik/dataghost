@@ -3,13 +3,109 @@
     "name": "Spokeo",
     "type": "email",
     "email": "privacy@spokeo.com",
-    "subject": "CCPA Deletion Request"
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
   },
   {
     "name": "Intelius",
     "type": "email",
     "email": "privacy@intelius.com",
-    "subject": "CCPA/GDPR Deletion Request"
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "PeopleSmart",
+    "type": "email",
+    "email": "privacy@peoplesmart.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "USSearch",
+    "type": "email",
+    "email": "support@ussearch.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "That'sThem",
+    "type": "email",
+    "email": "optout@thatsthem.com",
+    "subject": "Opt-Out Request – {{fullName}}"
+  },
+  {
+    "name": "BackgroundChecks.com",
+    "type": "email",
+    "email": "privacy@backgroundchecks.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "Checkr",
+    "type": "email",
+    "email": "privacy@checkr.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "MyLife Privacy",
+    "type": "email",
+    "email": "privacy@mylife.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "MyLife Removal",
+    "type": "email",
+    "email": "removalrequests@mylife.com",
+    "subject": "Removal Request – {{fullName}}"
+  },
+  {
+    "name": "Nuwber Support",
+    "type": "email",
+    "email": "support@nuwber.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "Radaris",
+    "type": "email",
+    "email": "customer-service@radaris.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "Dataveria",
+    "type": "email",
+    "email": "support@federal-data.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "Ofsearch",
+    "type": "email",
+    "email": "contactus@ofsearch.org",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "Acxiom",
+    "type": "email",
+    "email": "optout@acxiom.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "Epsilon",
+    "type": "email",
+    "email": "privacy@epsilon.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "Oracle Data Cloud",
+    "type": "email",
+    "email": "privacy@oracle.com",
+    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "Experian Marketing",
+    "type": "email",
+    "email": "optout@experian.com",
+    "subject": "CCPA Deletion Request – {{fullName}}"
+  },
+  {
+    "name": "PeopleConnect",
+    "type": "email",
+    "email": "privacy@peopleconnect.us",
+    "subject": "CCPA Deletion Request – {{fullName}}"
   },
   {
     "name": "BeenVerified",
@@ -49,7 +145,7 @@
   {
     "name": "MyLife",
     "type": "form",
-    "url": "https://www.mylife.com/privacy"
+    "url": "https://www.mylife.com/ccpa/index.pubview"
   },
   {
     "name": "Radaris",
@@ -59,7 +155,7 @@
   {
     "name": "Nuwber",
     "type": "form",
-    "url": "https://nuwber.com/removal"
+    "url": "https://nuwber.com/removal/link"
   },
   {
     "name": "FamilyTreeNow",
@@ -74,13 +170,7 @@
   {
     "name": "Clustrmaps",
     "type": "form",
-    "url": "https://clustrmaps.com/page/opt_out"
-  },
-  {
-    "name": "That'sThem",
-    "type": "email",
-    "email": "optout@thatsthem.com",
-    "subject": "Opt-Out Request"
+    "url": "https://clustrmaps.com/bl/opt-out"
   },
   {
     "name": "Xlek",
@@ -103,16 +193,6 @@
     "url": "https://www.privateeye.com/optout/"
   },
   {
-    "name": "PeopleSmart",
-    "type": "email",
-    "email": "privacy@peoplesmart.com"
-  },
-  {
-    "name": "USSearch",
-    "type": "email",
-    "email": "support@ussearch.com"
-  },
-  {
     "name": "IdStrong",
     "type": "form",
     "url": "https://www.idstrong.com/remove-my-information/"
@@ -120,7 +200,7 @@
   {
     "name": "CheckPeople",
     "type": "form",
-    "url": "https://www.checkpeople.com/optout"
+    "url": "https://checkpeople.com/opt-out"
   },
   {
     "name": "CocoFinder",
@@ -131,11 +211,6 @@
     "name": "NumLookup",
     "type": "form",
     "url": "https://www.numlookup.com/remove"
-  },
-  {
-    "name": "PeopleLookup",
-    "type": "form",
-    "url": "https://www.peoplelookup.com/optout"
   },
   {
     "name": "SearchPeopleFree",
@@ -153,11 +228,6 @@
     "url": "https://www.spytox.com/remove-me"
   },
   {
-    "name": "USA-People-Search",
-    "type": "form",
-    "url": "https://www.usa-people-search.com/manage/optout"
-  },
-  {
     "name": "Veripages",
     "type": "form",
     "url": "https://veripages.com/optout"
@@ -168,49 +238,9 @@
     "url": "https://voterrecords.com/optout"
   },
   {
-    "name": "Xome",
-    "type": "form",
-    "url": "https://www.xome.com/optout"
-  },
-  {
-    "name": "Zabasearch",
-    "type": "form",
-    "url": "https://www.zabasearch.com/optout/"
-  },
-  {
-    "name": "Anywho",
-    "type": "form",
-    "url": "https://www.anywho.com/optout"
-  },
-  {
-    "name": "411.com",
-    "type": "form",
-    "url": "https://www.411.com/optout"
-  },
-  {
-    "name": "Addresses.com",
-    "type": "form",
-    "url": "https://www.addresses.com/optout"
-  },
-  {
     "name": "AdvancedBackgroundChecks",
     "type": "form",
     "url": "https://www.advancedbackgroundchecks.com/removal"
-  },
-  {
-    "name": "Arrests.org",
-    "type": "form",
-    "url": "https://www.arrests.org/optout"
-  },
-  {
-    "name": "BackgroundChecks.com",
-    "type": "email",
-    "email": "privacy@backgroundchecks.com"
-  },
-  {
-    "name": "Checkr",
-    "type": "email",
-    "email": "privacy@checkr.com"
   },
   {
     "name": "Cyberbackgroundchecks",
@@ -218,39 +248,9 @@
     "url": "https://cyberbackgroundchecks.com/optout"
   },
   {
-    "name": "DexKnows",
-    "type": "form",
-    "url": "https://www.dexknows.com/optout"
-  },
-  {
-    "name": "InfoTracer",
-    "type": "form",
-    "url": "https://infotracer.com/optout/"
-  },
-  {
-    "name": "LocatePeople",
-    "type": "form",
-    "url": "https://www.locatepeople.org/optout"
-  },
-  {
-    "name": "OfficialUSA",
-    "type": "form",
-    "url": "https://www.officialusa.com/optout"
-  },
-  {
-    "name": "Ownerly",
-    "type": "form",
-    "url": "https://www.ownerly.com/optout"
-  },
-  {
     "name": "PeopleByName",
     "type": "form",
-    "url": "https://www.peoplebyname.com/optout"
-  },
-  {
-    "name": "PublicRecords.com",
-    "type": "form",
-    "url": "https://www.publicrecords.com/optout"
+    "url": "https://www.peoplebyname.com/remove.php"
   },
   {
     "name": "USPhoneBook",
@@ -266,78 +266,6 @@
     "name": "SearchQuarry",
     "type": "form",
     "url": "https://www.searchquarry.com/opt-out-new/"
-  },
-  {
-    "name": "True People Finder",
-    "type": "form",
-    "url": "https://www.truepeoplefinder.com/optout"
-  },
-  {
-    "name": "Dataveria",
-    "type": "email",
-    "email": "support@federal-data.com",
-    "subject": "CCPA/GDPR Deletion Request"
-  },
-  {
-    "name": "Ofsearch",
-    "type": "email",
-    "email": "contactus@ofsearch.org",
-    "subject": "CCPA/GDPR Deletion Request"
-  },
-  {
-    "name": "People-Search.org",
-    "type": "form",
-    "url": "https://www.people-search.org/"
-  },
-  {
-    "name": "USA-Official",
-    "type": "form",
-    "url": "https://www.usa-official.com/optout"
-  },
-  {
-    "name": "Verecor",
-    "type": "form",
-    "url": "https://www.verecor.com/optout"
-  },
-  {
-    "name": "FreePeopleDirectory",
-    "type": "form",
-    "url": "https://www.freepeopledirectory.com/optout"
-  },
-  {
-    "name": "PublicSearcher",
-    "type": "form",
-    "url": "https://www.publicsearcher.com/optout"
-  },
-  {
-    "name": "Acxiom",
-    "type": "email",
-    "email": "optout@acxiom.com",
-    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
-  },
-  {
-    "name": "Epsilon",
-    "type": "email",
-    "email": "privacy@epsilon.com",
-    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
-  },
-  {
-    "name": "Oracle Data Cloud",
-    "type": "email",
-    "email": "privacy@oracle.com",
-    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
-  },
-  {
-    "name": "Experian Marketing",
-    "type": "email",
-    "email": "optout@experian.com",
-    "subject": "CCPA Deletion Request – {{fullName}}"
-  },
-  {
-    "name": "PeopleConnect (Classmates.com owner)",
-    "type": "email",
-    "email": "privacy@peopleconnect.us",
-    "subject": "CCPA Deletion Request – {{fullName}}"
   },
   {
     "name": "Acxiom",
@@ -373,11 +301,6 @@
     "name": "LexisNexis",
     "type": "form",
     "url": "https://optout.lexisnexis.com"
-  },
-  {
-    "name": "Epsilon Abacus",
-    "type": "form",
-    "url": "https://www.epsilon.com/abacus-opt-out"
   },
   {
     "name": "National Public Data",
