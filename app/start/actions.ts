@@ -25,40 +25,30 @@ export type State = {
     manualBrokersCount?: number;
 };
 
-export async function checkEmailPayment(email: string): Promise<{ success: boolean; error?: string }> {
-    try {
-        if (!email || !email.includes('@')) {
-            return { success: false, error: 'Invalid email address.' };
-        }
+export async function checkEmailPayment(email: string) {
+    // === TESTING MODE BYPASS (remove or set to false in production) ===
+    const isTestMode = process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_TEST_MODE === 'true';
 
-        if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-            console.error('Missing SUPABASE_SERVICE_ROLE_KEY');
-            return { success: false, error: 'Server configuration error. Please contact support.' };
-        }
-
-        const supabase = createAdminClient();
-        const { data, error } = await supabase
-            .from('paid_orders')
-            .select('id, status')
-            .eq('email', email.toLowerCase())
-            .eq('status', 'paid')
-            .maybeSingle();
-
-        if (error) {
-            console.error('Payment check error:', error);
-            // If the table doesn't exist, this error will reveal it
-            return { success: false, error: 'Database connection failed. Please try again.' };
-        }
-
-        if (!data) {
-            return { success: false, error: 'No paid order found for this email. Please complete payment first.' };
-        }
-
-        return { success: true };
-    } catch (err) {
-        console.error('Unexpected error in checkEmailPayment:', err);
-        return { success: false, error: 'An unexpected system error occurred.' };
+    if (isTestMode && (email.includes('cavin') || email.includes('test') || email === 'cavinkrenik5@icloud.com')) {
+        console.log('🧪 TEST MODE: Bypassing payment check for', email);
+        return { success: true, isPaid: true };
     }
+    // === END TESTING BYPASS ===
+
+    const supabase = createAdminClient();
+
+    const { data, error } = await supabase
+        .from('paid_orders')
+        .select('email')
+        .eq('email', email.toLowerCase())
+        .eq('status', 'paid')
+        .single();
+
+    if (error || !data) {
+        return { success: false, error: 'No paid order found for this email' };
+    }
+
+    return { success: true, isPaid: true };
 }
 
 export async function startGhosting(prevState: State | undefined, formData: FormData): Promise<State> {
