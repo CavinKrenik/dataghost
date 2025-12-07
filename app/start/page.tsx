@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { startGhosting, checkEmailPayment } from './actions';
+import { startGhosting } from './actions';
+import { checkEmailPayment } from './verify-actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';

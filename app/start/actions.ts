@@ -6,17 +6,6 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
 import { generateChecklistPDF } from '@/lib/pdf-generator';
 
-// Manual validation types and logic to avoid adding zod dependency
-interface FormDataTypes {
-    fullName: string;
-    city: string;
-    state: string;
-    ageRange: string;
-    email: string;
-    country: string;
-    postcode: string;
-}
-
 export type State = {
     success?: boolean;
     error?: string | null;
@@ -24,33 +13,6 @@ export type State = {
     pdfBase64?: string;
     manualBrokersCount?: number;
 };
-
-export async function checkEmailPayment(email: string) {
-    try {
-        const supabase = createAdminClient();
-
-        const { data, error } = await supabase
-            .from('paid_orders')
-            .select('email')
-            .eq('email', email.toLowerCase())
-            .eq('status', 'paid')
-            .maybeSingle(); // ← THIS IS THE KEY — doesn't throw if no row
-
-        if (error) {
-            console.error('Supabase query error:', error);
-            return { success: false, error: 'Database error' };
-        }
-
-        if (!data) {
-            return { success: false, error: 'No paid order found for this email' };
-        }
-
-        return { success: true, isPaid: true };
-    } catch (err) {
-        console.error('Unexpected error in checkEmailPayment:', err);
-        return { success: false, error: 'Unexpected error' };
-    }
-}
 
 export async function startGhosting(prevState: State | undefined, formData: FormData): Promise<State> {
     const rawData = {
@@ -89,9 +51,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         }
 
         // 2. Check for existing user (Prevent double submission if desired, or just update)
-        // Ideally we might want to allow re-runs for the same user if they paid, but user requested prevent double-use?
-        // "optionally delete or mark the order as used"
-        // Let's stick to existing logic: check data_broker_users.
         const { data: existingUser } = await supabase
             .from('data_broker_users')
             .select('id')
@@ -99,7 +58,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             .maybeSingle();
 
         if (existingUser) {
-            // Optional: allow re-run? simpler to block for now to prevent spam.
             return { success: false, error: 'You have already ghosted with this email. One per person.' };
         }
 
@@ -125,8 +83,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             emailBrokers = getBrokerList();
 
             // For form brokers, we still load directly from json as getBrokerList currently only returns email types
-            // defined in the interface. We should probably expand getBrokerList or just load here.
-            // Let's keep it robust and load here for now to ensure we get both types.
+            // defined in the interface
             const allBrokers = require('@/data/brokers.json');
 
             // Re-map just to be sure we have the full list if getBrokerList changes
@@ -178,9 +135,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             companies,
             checklistPdfBuffer: pdfBuffer,
         });
-
-        // Optional: Mark order as used or consumed? 
-        // For now, let's keep it simple. The data_broker_users table acts as a log of "used" service.
 
         revalidatePath('/');
         return {
