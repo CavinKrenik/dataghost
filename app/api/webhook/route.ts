@@ -15,51 +15,47 @@ export async function POST(req: Request) {
     const digest = hmac.update(rawBody).digest('hex');
 
     if (signature !== digest) {
-      console.error('Webhook signature verification failed');
+      console.error('Invalid webhook signature');
       return new NextResponse('Invalid signature', { status: 400 });
     }
 
     const payload = JSON.parse(rawBody);
 
-    // Log the event for debugging
     console.log('Webhook received:', payload.meta.event_name);
 
     if (payload.meta.event_name === 'order_created') {
       const order = payload.data.attributes;
-
-      const email = (order.user_email || order.customer_email || '').toString().toLowerCase().trim();
-      const status = order.status;
+      const email = (order.user_email || '').toString().toLowerCase().trim();
       const orderId = payload.data.id;
 
-      if (status === 'paid' && email) {
+      if (order.status === 'paid' && email) {
         const supabase = createAdminClient();
 
+        // Nuclear safe insert — never fails, never throws
         const { error } = await supabase
           .from('paid_orders')
-          .upsert(
-            {
-              email,
-              order_id: orderId,
-              status: 'paid',
-              amount: order.total,
-              created_at: new Date().toISOString(),
-            },
-            { onConflict: 'order_id' }
-          );
+          .insert({
+            email,
+            order_id: orderId,
+            status: 'paid',
+            amount: order.total,
+            created_at: new Date().toISOString(),
+          });
 
-        if (error) {
+        // Only throw if it's not a duplicate key error (duplicates are fine)
+        if (error && !error.message.includes('duplicate key')) {
           console.error('Supabase insert failed:', error);
           return new NextResponse('DB error', { status: 500 });
         }
 
-        console.log(`Successfully recorded paid order for ${email}`);
+        console.log(`Paid order recorded for ${email} (order ${orderId})`);
         return NextResponse.json({ success: true });
       }
     }
 
     return NextResponse.json({ received: true });
   } catch (err) {
-    console.error('Webhook error:', err);
-    return new NextResponse('Webhook handler crashed', { status: 500 });
+    console.error('Webhook crashed:', err);
+    return new NextResponse('Crash', { status: 500 });
   }
 }
