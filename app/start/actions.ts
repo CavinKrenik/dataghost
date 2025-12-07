@@ -140,6 +140,17 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             checklistPdfBuffer: pdfBuffer,
         });
 
+        // 8. Trigger the Heavy Muscle (Playwright Worker)
+        // We pass the raw data it needs to fill forms
+        triggerWorker({
+            fullName,
+            city,
+            state,
+            ageRange,
+            email,
+            postcode: rawData.postcode
+        });
+
         revalidatePath('/');
         return {
             success: true,
@@ -151,5 +162,27 @@ export async function startGhosting(prevState: State | undefined, formData: Form
     } catch (error: any) {
         console.error('Ghosting error:', error);
         return { success: false, error: error.message || 'Unknown error' };
+    }
+}
+
+async function triggerWorker(userData: any) {
+    // This points to your external worker (e.g. on Railway/Fly.io)
+    // Default to localhost for testing so it doesn't break if you haven't deployed the worker yet
+    const WORKER_URL = process.env.WORKER_URL || 'http://localhost:8080/nuke-data';
+
+    console.log(`[Worker Trigger] Firing job to ${WORKER_URL} for ${userData.email}`);
+
+    try {
+        // FIRE AND FORGET: We do NOT use 'await' here.
+        // We want the Next.js request to finish instantly for the user.
+        // We just kick off the fetch and let it run in the background.
+        fetch(WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData),
+        }).catch(err => console.error('[Worker Trigger] Network error (is the worker running?):', err));
+
+    } catch (e) {
+        console.error('[Worker Trigger] Failed to initiate:', e);
     }
 }
