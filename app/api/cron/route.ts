@@ -48,11 +48,12 @@ export async function GET() {
             console.log(`🔄 Triggering weekly rescan for: ${user.full_name}`);
 
             // Fire and forget - tell Railway to do the heavy lifting
-            await fetch(`${workerUrl}/start-job`, {
+            // FIXED: Updated endpoint to match your worker's server.js
+            await fetch(`${workerUrl}/nuke-data`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    email: user.email, // Make sure your table has an 'email' column, or adjust this
+                    email: user.email,
                     fullName: user.full_name,
                     // If city/state/age are in this table, map them here too:
                     // city: user.city, 
