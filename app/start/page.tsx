@@ -251,8 +251,15 @@ export default function StartPage() {
                         <h2 className="text-3xl font-bold text-white">Protocol Initiated! 👻</h2>
 
                         <div className="text-ghost-text text-lg space-y-4 text-left bg-ghost-purple/30 p-6 rounded-xl border border-ghost-grid">
-                            <p>We auto-removed you from <strong>{result.count} brokers</strong> via email — check your inbox (and Spam) in 30 seconds.</p>
-                            <p>The remaining <strong>{result.manualBrokersCount} brokers</strong> require manual forms.</p>
+                            <p>
+                                <span className="text-ghost-cyan">✔</span> We sent <strong>{result.count} opt-out emails</strong> — check your inbox (and Spam) in 30 seconds.
+                            </p>
+                            <p>
+                                <span className="text-ghost-cyan">✔</span> The remaining <strong>{result.manualBrokersCount} form brokers</strong> are being processed by our Ghost Worker in the background right now.
+                            </p>
+                            <p className="text-sm text-ghost-muted italic">
+                                No manual work required. Sit back and watch them disappear.
+                            </p>
                         </div>
 
                         {result.pdfBase64 && (
