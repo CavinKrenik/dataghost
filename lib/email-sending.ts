@@ -4,6 +4,17 @@ import { Resend } from 'resend';
 const apiKey = process.env.RESEND_API_KEY;
 const resend = apiKey ? new Resend(apiKey) : null;
 
+// Helper to batch arrays
+function chunkArray<T>(array: T[], size: number): T[][] {
+    const chunked: T[][] = [];
+    let index = 0;
+    while (index < array.length) {
+        chunked.push(array.slice(index, index + size));
+        index += size;
+    }
+    return chunked;
+}
+
 export async function sendOptOutEmails({
     fullName,
     city,
@@ -30,42 +41,56 @@ export async function sendOptOutEmails({
 
     if (!resend) {
         console.warn('[Email Service] RESEND_API_KEY is not set. Skipping actual email sending (Dev Mode).');
-        console.log('[Email Service] Should send opt-out emails to:', companies.map(c => c.name).join(', '));
-        console.log('[Email Service] Should send confirmation to user:', userEmail);
         return;
     }
 
-    // We will batch these slightly to avoid hitting Resend rate limits too hard if the list is huge,
-    // but Resend handles this well. The user prompt loop is fine.
+    // BATCHING: Send 10 emails at once to prevent timeouts
+    // 80 emails in batches of 10 = 8 "rounds".
+    // 8 rounds * ~400ms = ~3.2 seconds total (vs 32 seconds serially).
+    const batches = chunkArray(companies, 10);
+    let sentCount = 0;
+    let errorCount = 0;
 
-    for (const company of companies) {
-        const personalizedSubject = company.subject
-            .replace(/{{name}}/g, fullName)
-            .replace(/{{city}}/g, city)
-            .replace(/{{state}}/g, state);
+    for (const batch of batches) {
+        // Process this batch in parallel
+        await Promise.all(
+            batch.map(async (company) => {
+                try {
+                    const personalizedSubject = company.subject
+                        .replace(/{{name}}/g, fullName)
+                        .replace(/{{city}}/g, city)
+                        .replace(/{{state}}/g, state);
 
-        const personalizedBody = company.body
-            .replace(/{{name}}/g, fullName)
-            .replace(/{{city}}/g, city)
-            .replace(/{{state}}/g, state)
-            .replace(/{{email}}/g, userEmail)
-            .replace(/{{age_range}}/g, ageRange);
+                    const personalizedBody = company.body
+                        .replace(/{{name}}/g, fullName)
+                        .replace(/{{city}}/g, city)
+                        .replace(/{{state}}/g, state)
+                        .replace(/{{email}}/g, userEmail)
+                        .replace(/{{age_range}}/g, ageRange);
 
-        // Filter out empty params if any replacement failed or wasn't needed
+                    await resend!.emails.send({
+                        from: 'DataGhost <noreply@dataghost.me>',
+                        to: [company.email],
+                        cc: [userEmail], // transparency CC
+                        subject: personalizedSubject,
+                        text: personalizedBody,
+                    });
+                    sentCount++;
+                } catch (err) {
+                    console.error(`[Email Service] Failed to send to ${company.name}:`, err);
+                    errorCount++;
+                    // We catch errors here so one failure doesn't stop the whole batch
+                }
+            })
+        );
 
-        await resend.emails.send({
-            from: 'DataGhost <noreply@dataghost.me>',
-            to: [company.email],
-            cc: [userEmail], // transparency CC
-            subject: personalizedSubject,
-            text: personalizedBody,
-        });
-
-        // Small delay to be safe, though not strictly required by Resend SDK
-        await new Promise(resolve => setTimeout(resolve, 100)); // 100ms
+        // Small delay between batches to be polite to the Resend API
+        await new Promise(resolve => setTimeout(resolve, 100));
     }
 
-    // After all emails are sent, also send the confirmation/report email to the user
+    console.log(`[Email Service] Finished. Sent: ${sentCount}, Errors: ${errorCount}`);
+
+    // Send final confirmation/report email to user
     const attachments = checklistPdfBuffer ? [{
         content: checklistPdfBuffer,
         filename: 'DataGhost_Manual_Removal_Checklist.pdf',
@@ -74,8 +99,8 @@ export async function sendOptOutEmails({
     await resend.emails.send({
         from: 'DataGhost <noreply@dataghost.me>',
         to: [userEmail],
-        subject: 'Your DataGhost removal requests have been sent!',
-        text: `We just blasted ${companies.length} opt-out requests on your behalf.\n\nYou'll receive CCs from each data broker as they process your removal (usually within 7-45 days).\n\nWe'll re-scan and re-send for 45 days if anything pops back up.\n\n${checklistPdfBuffer ? 'We have also attached a manual removal checklist for the brokers that require form submissions.\n\n' : ''}You're now being ghosted. 👻\n\n- The DataGhost Team`,
+        subject: 'Protocol Initiated: Your removal requests have been sent',
+        text: `We just blasted ${sentCount} opt-out requests on your behalf.\n\nYou'll receive CCs from each data broker as they process your removal (usually within 7-45 days).\n\nWe'll re-scan and re-send for 45 days if anything pops back up.\n\n${checklistPdfBuffer ? 'Attached is your manual removal checklist for brokers requiring specific forms.\n\n' : ''}You're now being ghosted. 👻\n\n- The DataGhost Team`,
         attachments,
     });
 }
