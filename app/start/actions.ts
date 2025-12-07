@@ -26,28 +26,39 @@ export type State = {
 };
 
 export async function checkEmailPayment(email: string): Promise<{ success: boolean; error?: string }> {
-    if (!email || !email.includes('@')) {
-        return { success: false, error: 'Invalid email address.' };
+    try {
+        if (!email || !email.includes('@')) {
+            return { success: false, error: 'Invalid email address.' };
+        }
+
+        if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+            console.error('Missing SUPABASE_SERVICE_ROLE_KEY');
+            return { success: false, error: 'Server configuration error. Please contact support.' };
+        }
+
+        const supabase = createAdminClient();
+        const { data, error } = await supabase
+            .from('paid_orders')
+            .select('id, status')
+            .eq('email', email.toLowerCase())
+            .eq('status', 'paid')
+            .maybeSingle();
+
+        if (error) {
+            console.error('Payment check error:', error);
+            // If the table doesn't exist, this error will reveal it
+            return { success: false, error: 'Database connection failed. Please try again.' };
+        }
+
+        if (!data) {
+            return { success: false, error: 'No paid order found for this email. Please complete payment first.' };
+        }
+
+        return { success: true };
+    } catch (err) {
+        console.error('Unexpected error in checkEmailPayment:', err);
+        return { success: false, error: 'An unexpected system error occurred.' };
     }
-
-    const supabase = createAdminClient();
-    const { data, error } = await supabase
-        .from('paid_orders')
-        .select('id, status')
-        .eq('email', email.toLowerCase())
-        .eq('status', 'paid')
-        .maybeSingle();
-
-    if (error) {
-        console.error('Payment check error:', error);
-        return { success: false, error: 'Database connection failed. Please try again.' };
-    }
-
-    if (!data) {
-        return { success: false, error: 'No paid order found for this email. Please complete payment first.' };
-    }
-
-    return { success: true };
 }
 
 export async function startGhosting(prevState: State | undefined, formData: FormData): Promise<State> {
