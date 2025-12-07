@@ -4,7 +4,6 @@ import { getBrokerList, US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils'
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
-
 import { generateChecklistPDF } from '@/lib/pdf-generator';
 
 // Manual validation types and logic to avoid adding zod dependency
@@ -25,6 +24,31 @@ export type State = {
     pdfBase64?: string;
     manualBrokersCount?: number;
 };
+
+export async function checkEmailPayment(email: string): Promise<{ success: boolean; error?: string }> {
+    if (!email || !email.includes('@')) {
+        return { success: false, error: 'Invalid email address.' };
+    }
+
+    const supabase = createAdminClient();
+    const { data, error } = await supabase
+        .from('paid_orders')
+        .select('id, status')
+        .eq('email', email.toLowerCase())
+        .eq('status', 'paid')
+        .maybeSingle();
+
+    if (error) {
+        console.error('Payment check error:', error);
+        return { success: false, error: 'Database connection failed. Please try again.' };
+    }
+
+    if (!data) {
+        return { success: false, error: 'No paid order found for this email. Please complete payment first.' };
+    }
+
+    return { success: true };
+}
 
 export async function startGhosting(prevState: State | undefined, formData: FormData): Promise<State> {
     const rawData = {
@@ -50,7 +74,22 @@ export async function startGhosting(prevState: State | undefined, formData: Form
     try {
         const supabase = createAdminClient();
 
-        // Check for existing user
+        // 1. Verify Payment (Security Check)
+        const { data: paymentRecord } = await supabase
+            .from('paid_orders')
+            .select('id')
+            .eq('email', email.toLowerCase())
+            .eq('status', 'paid')
+            .maybeSingle();
+
+        if (!paymentRecord) {
+            return { success: false, error: 'Payment verification failed. Please ensure you have paid with this email.' };
+        }
+
+        // 2. Check for existing user (Prevent double submission if desired, or just update)
+        // Ideally we might want to allow re-runs for the same user if they paid, but user requested prevent double-use?
+        // "optionally delete or mark the order as used"
+        // Let's stick to existing logic: check data_broker_users.
         const { data: existingUser } = await supabase
             .from('data_broker_users')
             .select('id')
@@ -58,10 +97,11 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             .single();
 
         if (existingUser) {
+            // Optional: allow re-run? simpler to block for now to prevent spam.
             return { success: false, error: 'You have already ghosted with this email. One per person.' };
         }
 
-        // Insert new user
+        // 3. Insert new user
         const { error: insertError } = await supabase
             .from('data_broker_users')
             .insert({
@@ -74,14 +114,12 @@ export async function startGhosting(prevState: State | undefined, formData: Form
 
         if (insertError) throw insertError;
 
-        // 2. Get and Filter Brokers
-        // 2. Get and Filter Brokers
+        // 4. Get and Filter Brokers
         let emailBrokers: { name: string, email: string }[] = [];
         let formBrokers: { name: string, url?: string }[] = [];
 
         // Fallback to brokers.json if env is empty
         try {
-            // Determine path or just require it if we are in server context
             const allBrokers = require('@/data/brokers.json');
 
             // Email brokers
@@ -100,17 +138,10 @@ export async function startGhosting(prevState: State | undefined, formData: Form
 
         if (country !== 'US') {
             emailBrokers = emailBrokers.filter((b) => !US_ONLY_BROKERS.includes(b.name));
-            // We assume form brokers might be global or we don't filter them for now, 
-            // but sticking to US focus primarily for form based ones usually makes sense.
-            // Let's filter form brokers too if they match US_ONLY names
             formBrokers = formBrokers.filter((b) => !US_ONLY_BROKERS.includes(b.name));
         }
 
-        if (emailBrokers.length === 0 && formBrokers.length === 0) {
-            console.warn('No brokers found in json.');
-        }
-
-        // 3. Prepare Email Objects
+        // 5. Prepare Email Objects
         const companies = emailBrokers.map((broker) => ({
             name: broker.name,
             email: broker.email,
@@ -118,7 +149,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             body: `Dear ${broker.name},\n\nI am writing to request the removal of my personal information from your database in accordance with applicable data privacy laws.\n\nMy Information:\n- Name: {{name}}\n- Age Range: {{age_range}}\n- Address: {{city}}, {{state}}\n- Email: {{email}}\n\nPlease confirm receipt of this request and provide information about the removal process and timeline.\n\nThank you for your prompt attention to this matter.\n\nSincerely,\n{{name}}`,
         }));
 
-        // 4. Generate PDF Checklist
+        // 6. Generate PDF Checklist
         let pdfBase64: string | undefined;
         let pdfBuffer: Buffer | undefined;
 
@@ -131,7 +162,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             }
         }
 
-        // 5. Send Emails
+        // 7. Send Emails
         await sendOptOutEmails({
             fullName,
             city,
@@ -141,6 +172,9 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             companies,
             checklistPdfBuffer: pdfBuffer,
         });
+
+        // Optional: Mark order as used or consumed? 
+        // For now, let's keep it simple. The data_broker_users table acts as a log of "used" service.
 
         revalidatePath('/');
         return {

@@ -1,53 +1,70 @@
-
 'use client';
 
-import { useSearchParams, redirect } from 'next/navigation';
-import { useEffect, useState, Suspense } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { startGhosting } from './actions';
+import { startGhosting, checkEmailPayment } from './actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-function StartPageContent() {
-    const searchParams = useSearchParams();
-    const paid = searchParams.get('paid') === 'true';
+export default function StartPage() {
+    const [step, setStep] = useState<1 | 2 | 3>(1); // 1=Email, 2=Form, 3=Success
+    const [email, setEmail] = useState('');
 
-    useEffect(() => {
-        if (!paid) {
-            redirect('/payment');
+    // State for Step 1
+    const [checkingPayment, setCheckingPayment] = useState(false);
+    const [paymentError, setPaymentError] = useState<string | null>(null);
+
+    // State for Step 2
+    const [submitting, setSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [result, setResult] = useState<{ count: number; manualBrokersCount: number; pdfBase64?: string } | null>(null);
+
+    async function handleCheckPayment(e: React.FormEvent) {
+        e.preventDefault();
+        setCheckingPayment(true);
+        setPaymentError(null);
+
+        try {
+            const res = await checkEmailPayment(email);
+            if (res.success) {
+                setStep(2);
+            } else {
+                setPaymentError(res.error || 'Payment verification failed.');
+            }
+        } catch (err) {
+            setPaymentError('An unexpected error occurred.');
+        } finally {
+            setCheckingPayment(false);
         }
-    }, [paid]);
-
-    const [pending, setPending] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [count, setCount] = useState(0);
-    const [manualBrokersCount, setManualBrokersCount] = useState(0);
-    const [pdfBase64, setPdfBase64] = useState<string | null>(null);
-
-    if (!paid) {
-        return null;
     }
 
-    async function handleSubmit(formData: FormData) {
-        setPending(true);
-        setError(null);
+    async function handleFinalSubmit(formData: FormData) {
+        setSubmitting(true);
+        setSubmitError(null);
+
         try {
-            const result = await startGhosting(undefined, formData);
-            if (result.success) {
-                setCount(result.count || 0);
-                setManualBrokersCount(result.manualBrokersCount || 0);
-                setPdfBase64(result.pdfBase64 || null);
-                setSuccess(true);
-            } else {
-                setError(result.error || 'Something went wrong. Please try again.');
+            // Append the verified email to formData just in case the user inspected element
+            // stored in state 'email'
+            if (formData.get('email') !== email) {
+                formData.set('email', email);
             }
-        } catch (err: any) {
-            console.error('Form submission error:', err);
-            setError(err.message || 'An unexpected error occurred.');
+
+            const res = await startGhosting(undefined, formData);
+            if (res.success) {
+                setResult({
+                    count: res.count || 0,
+                    manualBrokersCount: res.manualBrokersCount || 0,
+                    pdfBase64: res.pdfBase64
+                });
+                setStep(3);
+            } else {
+                setSubmitError(res.error || 'Submission failed.');
+            }
+        } catch (err) {
+            setSubmitError('An unexpected error occurred.');
         } finally {
-            setPending(false);
+            setSubmitting(false);
         }
     }
 
@@ -68,36 +85,65 @@ function StartPageContent() {
 
             <div className="max-w-xl w-full bg-ghost-navy-light/80 backdrop-blur-md border border-ghost-grid rounded-3xl p-8 shadow-card">
 
-                {!success ? (
-                    <>
-                        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center leading-tight">
-                            Payment successful – you're now being ghosted 👻
-                        </h1>
-
-                        <div className="text-center mb-6">
-                            <a href="/comparison" target="_blank" className="text-sm text-ghost-cyan hover:underline opacity-80 hover:opacity-100 transition-opacity">
-                                Not sure? See the full comparison vs Incogni, DeleteMe, Optery, Kanary ↗
-                            </a>
+                {/* STEP 1: Verify Payment */}
+                {step === 1 && (
+                    <div className="space-y-6">
+                        <div className="text-center">
+                            <h1 className="text-3xl font-bold text-white mb-2">Initialize Data Removal</h1>
+                            <p className="text-ghost-muted">Enter the email address you used for payment.</p>
                         </div>
 
-                        <p className="text-ghost-muted text-center mb-4 text-lg">
-                            Last step: tell us the basics so we can nuke your data from 80+ brokers.
-                        </p>
+                        <form onSubmit={handleCheckPayment} className="space-y-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="check-email" className="text-ghost-text">Payment Email</Label>
+                                <Input
+                                    id="check-email"
+                                    type="email"
+                                    required
+                                    placeholder="your@email.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="bg-ghost-purple border-ghost-grid text-white focus:border-ghost-cyan h-12 text-lg"
+                                />
+                            </div>
 
-                        {/* Legal Disclaimer */}
-                        <div className="max-w-xl mx-auto text-center mb-8 bg-black/20 p-4 rounded-xl border border-white/5">
-                            <p className="text-xs text-gray-500 leading-relaxed">
-                                DataGhost is a fully automated opt-out submission tool. We are not lawyers and do not provide legal advice. While we successfully remove data from 80+ brokers for 98%+ of users, we cannot legally guarantee removal from every single site due to varying broker policies.
-                            </p>
+                            <Button
+                                type="submit"
+                                disabled={checkingPayment}
+                                className="w-full bg-ghost-cyan text-ghost-navy font-bold text-lg h-12 hover:bg-ghost-cyan-light shadow-glow transition-all"
+                            >
+                                {checkingPayment ? 'Verifying...' : 'Verify Payment →'}
+                            </Button>
+
+                            {paymentError && (
+                                <div className="p-4 rounded-lg bg-red-950/50 border border-red-500/30 text-center">
+                                    <p className="text-red-400 font-semibold mb-2">{paymentError}</p>
+                                    <a href="/payment" className="text-sm underline text-white hover:text-ghost-cyan">
+                                        Haven't paid yet? Click here to start data removal ($49)
+                                    </a>
+                                </div>
+                            )}
+                        </form>
+                    </div>
+                )}
+
+                {/* STEP 2: Data Entry */}
+                {step === 2 && (
+                    <div className="space-y-6">
+                        <div className="text-center mb-6">
+                            <h2 className="text-2xl font-bold text-white">Payment Verified ✅</h2>
+                            <p className="text-ghost-muted">Tell us the basics so we can nuke your data.</p>
                         </div>
 
                         <form
                             onSubmit={(e) => {
                                 e.preventDefault();
-                                handleSubmit(new FormData(e.currentTarget));
+                                handleFinalSubmit(new FormData(e.currentTarget));
                             }}
                             className="space-y-5"
                         >
+                            {/* Hidden email field to pass to action */}
+                            <input type="hidden" name="email" value={email} />
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div className="space-y-2">
@@ -110,17 +156,11 @@ function StartPageContent() {
                                         className="bg-ghost-purple border-ghost-grid text-white placeholder:text-gray-500 focus:border-ghost-cyan"
                                     />
                                 </div>
-
                                 <div className="space-y-2">
-                                    <Label htmlFor="email" className="text-ghost-text">Email Address</Label>
-                                    <Input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        placeholder="jane@example.com"
-                                        required
-                                        className="bg-ghost-purple border-ghost-grid text-white placeholder:text-gray-500 focus:border-ghost-cyan"
-                                    />
+                                    <Label className="text-ghost-text">Email</Label>
+                                    <div className="flex h-10 w-full rounded-md border border-ghost-grid bg-black/40 px-3 py-2 text-sm text-gray-400 cursor-not-allowed">
+                                        {email}
+                                    </div>
                                 </div>
                             </div>
 
@@ -135,7 +175,6 @@ function StartPageContent() {
                                         className="bg-ghost-purple border-ghost-grid text-white placeholder:text-gray-500 focus:border-ghost-cyan"
                                     />
                                 </div>
-
                                 <div className="space-y-2">
                                     <Label htmlFor="state" className="text-ghost-text">State</Label>
                                     <Input
@@ -146,16 +185,16 @@ function StartPageContent() {
                                         className="bg-ghost-purple border-ghost-grid text-white placeholder:text-gray-500 focus:border-ghost-cyan"
                                     />
                                 </div>
-
                                 <div className="space-y-2">
                                     <Label htmlFor="ageRange" className="text-ghost-text">Age Range</Label>
                                     <select
                                         id="ageRange"
                                         name="ageRange"
                                         required
-                                        className="flex h-10 w-full rounded-md border border-ghost-grid bg-ghost-purple px-3 py-2 text-sm text-white ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-ghost-cyan"
+                                        className="flex h-10 w-full rounded-md border border-ghost-grid bg-ghost-purple px-3 py-2 text-sm text-white focus-visible:outline-none focus:border-ghost-cyan"
+                                        defaultValue=""
                                     >
-                                        <option value="" disabled selected>Select...</option>
+                                        <option value="" disabled>Select...</option>
                                         <option value="18-29">18-29</option>
                                         <option value="30-39">30-39</option>
                                         <option value="40-49">40-49</option>
@@ -168,16 +207,16 @@ function StartPageContent() {
                             <div className="pt-2">
                                 <Button
                                     type="submit"
-                                    disabled={pending}
+                                    disabled={submitting}
                                     className="w-full bg-ghost-cyan text-ghost-navy font-bold text-lg h-12 hover:bg-ghost-cyan-light shadow-glow transition-all duration-300"
                                 >
-                                    {pending ? 'Initializing Protocol...' : 'Start Ghosting 👻'}
+                                    {submitting ? 'Initializing Protocol...' : 'Start Ghosting 👻'}
                                 </Button>
                             </div>
 
-                            {error && (
+                            {submitError && (
                                 <p className="text-red-400 text-center text-sm bg-red-900/20 p-2 rounded border border-red-900/50">
-                                    {error}
+                                    {submitError}
                                 </p>
                             )}
 
@@ -186,103 +225,47 @@ function StartPageContent() {
                                 You'll get 80+ emails in the next ~60 seconds.
                             </p>
                         </form>
+                    </div>
+                )}
 
-                        <div className="mt-12 grid md:grid-cols-2 gap-8 text-left">
-                            <div className="bg-ghost-card/50 p-6 rounded-xl border border-ghost-cyan/20">
-                                <h3 className="text-xl font-bold text-white mb-4">What We Guarantee</h3>
-                                <ul className="space-y-3 text-sm text-ghost-muted">
-                                    <li className="flex gap-2"><span className="text-ghost-cyan">✓</span> We send verified opt-out requests to 80+ of the worst data brokers.</li>
-                                    <li className="flex gap-2"><span className="text-ghost-cyan">✓</span> You are CC'd on every single email.</li>
-                                    <li className="flex gap-2"><span className="text-ghost-cyan">✓</span> We re-scan for 45 days and re-submit if you re-appear.</li>
-                                    <li className="flex gap-2"><span className="text-ghost-cyan">✓</span> Full refund within 14 days if you're not happy — no questions.</li>
-                                </ul>
-                            </div>
-                            <div className="bg-ghost-card/50 p-6 rounded-xl border border-ghost-border/50">
-                                <h3 className="text-xl font-bold text-white mb-4">What We Can't Control</h3>
-                                <ul className="space-y-3 text-sm text-ghost-muted">
-                                    <li className="flex gap-2"><span className="text-gray-500">•</span> Some brokers are slow, incompetent, or ignore requests (we re-submit automatically).</li>
-                                    <li className="flex gap-2"><span className="text-gray-500">•</span> A few require manual CAPTCHAs or mailed forms — we give you pre-filled links + instructions (takes ~15 mins total).</li>
-                                    <li className="flex gap-2"><span className="text-gray-500">•</span> New brokers pop up daily — no one can catch 100% forever, but we target the ones that matter most.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="text-center mt-8 text-sm text-ghost-muted italic">
-                            We're the most aggressive, transparent, and privacy-respecting service in the category.
-                        </div>
-                    </>
-                ) : (
-                    <div className="text-center py-10 space-y-6">
+                {/* STEP 3: Success */}
+                {step === 3 && result && (
+                    <div className="text-center py-4 space-y-6 animate-in fade-in zoom-in duration-500">
                         <div className="mx-auto w-20 h-20 bg-ghost-cyan/20 rounded-full flex items-center justify-center mb-6 border border-ghost-cyan shadow-glow">
-                            <svg className="w-10 h-10 text-ghost-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-10 h-10 text-ghost-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
 
-                        <h2 className="text-3xl font-bold text-white"> Protocol Initiated! 👻 </h2>
+                        <h2 className="text-3xl font-bold text-white">Protocol Initiated! 👻</h2>
 
                         <div className="text-ghost-text text-lg space-y-4 text-left bg-ghost-purple/30 p-6 rounded-xl border border-ghost-grid">
-                            <p>
-                                We auto-removed you from <strong>{count} brokers</strong> via email — check your inbox (and Spam) for the CCs.
-                            </p>
-                            <p>
-                                The remaining <strong>{manualBrokersCount} brokers</strong> require manual forms (they reject automated emails).
-                            </p>
-                            <p>
-                                Download your personalized removal checklist below — it has pre-filled links. Takes ~15 minutes total.
-                            </p>
+                            <p>We auto-removed you from <strong>{result.count} brokers</strong> via email — check your inbox (and Spam) in 30 seconds.</p>
+                            <p>The remaining <strong>{result.manualBrokersCount} brokers</strong> require manual forms.</p>
                         </div>
 
-                        {pdfBase64 && (
-                            <div className="pt-4">
+                        {result.pdfBase64 && (
+                            <div className="pt-2">
                                 <a
-                                    href={`data:application/pdf;base64,${pdfBase64}`}
+                                    href={`data:application/pdf;base64,${result.pdfBase64}`}
                                     download="DataGhost_Manual_Removal_Checklist.pdf"
-                                    className="inline-flex items-center justify-center w-full bg-ghost-cyan text-ghost-navy font-bold text-lg h-14 rounded-lg hover:bg-ghost-cyan-light shadow-glow transition-all duration-300 transform hover:scale-[1.02]"
+                                    className="inline-flex items-center justify-center w-full bg-ghost-cyan text-ghost-navy font-bold text-lg h-14 rounded-lg hover:bg-ghost-cyan-light shadow-glow transition-all transform hover:scale-[1.02]"
                                 >
-                                    <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                     </svg>
-                                    Download Manual Removal PDF
+                                    Download Manual Checklist
                                 </a>
                             </div>
                         )}
 
-                        <p className="text-ghost-muted text-sm mt-6">
-                            We'll re-scan everything for 45 days and kill anything that comes back.
-                        </p>
-
-                        <div className="mt-8 bg-ghost-navy-dark p-6 rounded-xl border border-ghost-grid text-left">
-                            <h4 className="font-bold text-white mb-4">What happens next:</h4>
-                            <ul className="space-y-4 text-sm text-ghost-muted">
-                                <li className="flex gap-3">
-                                    <span className="text-ghost-cyan font-mono">Day 0</span>
-                                    <span>80+ opt-out emails sent (check your inbox/spam — you're CC'd on everything)</span>
-                                </li>
-                                <li className="flex gap-3">
-                                    <span className="text-ghost-cyan font-mono">Wk 1–6</span>
-                                    <span>We re-scan daily and re-submit if you re-appear</span>
-                                </li>
-                                <li className="flex gap-3">
-                                    <span className="text-ghost-cyan font-mono">Day 46</span>
-                                    <span>We permanently delete your data from our systems</span>
-                                </li>
-                            </ul>
-                            <p className="mt-4 text-xs text-ghost-cyan">
-                                You'll get a final "All clear" email on day 46.
-                            </p>
+                        <div className="bg-ghost-navy-dark p-4 rounded-xl border border-ghost-grid text-left text-sm text-ghost-muted">
+                            <p className="mb-2"><span className="text-ghost-cyan font-bold">Next:</span> We re-scan daily for 45 days. You'll get a final "All Clear" report then.</p>
                         </div>
                     </div>
                 )}
+
             </div>
         </main>
-    );
-}
-
-export default function StartPage() {
-    return (
-        <Suspense fallback={null}>
-            <StartPageContent />
-        </Suspense>
     );
 }
