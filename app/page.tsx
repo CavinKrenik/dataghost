@@ -196,7 +196,7 @@ export default function HomePage() {
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-2">Refund policy?</h3>
-              <p className="text-ghost-muted">Full refund within 14 days, no questions.</p>
+              <p className="text-ghost-muted">Refund policy? Non-refundable after payment – service begins immediately.</p>
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-2">Will this remove me from Google?</h3>

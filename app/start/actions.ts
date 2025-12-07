@@ -58,11 +58,11 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         ageRange: formData.get('ageRange') as string,
         email: formData.get('email') as string,
         country: 'US',
-        postcode: '00000',
+        postcode: formData.get('postcode') as string || '00000',
     };
 
     // Manual Validation
-    if (!rawData.fullName || !rawData.city || !rawData.state || !rawData.ageRange || !rawData.email) {
+    if (!rawData.fullName || !rawData.city || !rawData.state || !rawData.ageRange || !rawData.email || !rawData.postcode) {
         return { success: false, error: 'Please fill in all fields.' };
     }
     if (!rawData.email.includes('@')) {

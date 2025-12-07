@@ -164,7 +164,7 @@ export default function StartPage() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
                                 <div className="space-y-2">
                                     <Label htmlFor="city" className="text-ghost-text">City</Label>
                                     <Input
@@ -181,6 +181,16 @@ export default function StartPage() {
                                         id="state"
                                         name="state"
                                         placeholder="NY"
+                                        required
+                                        className="bg-ghost-purple border-ghost-grid text-white placeholder:text-gray-500 focus:border-ghost-cyan"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="postcode" className="text-ghost-text">Zip Code</Label>
+                                    <Input
+                                        id="postcode"
+                                        name="postcode"
+                                        placeholder="10001"
                                         required
                                         className="bg-ghost-purple border-ghost-grid text-white placeholder:text-gray-500 focus:border-ghost-cyan"
                                     />
