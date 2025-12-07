@@ -4,7 +4,7 @@ import { getBrokerList, US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils'
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
-import { generateChecklistPDF } from '@/lib/pdf-generator';
+
 
 export type State = {
     success?: boolean;
@@ -118,10 +118,14 @@ export async function startGhosting(prevState: State | undefined, formData: Form
 
         if (formBrokers.length > 0) {
             try {
+                // DYNAMIC IMPORT: Load the heavy library only now, inside the try block
+                const { generateChecklistPDF } = await import('@/lib/pdf-generator');
+
                 pdfBuffer = await generateChecklistPDF(fullName, formBrokers);
                 pdfBase64 = pdfBuffer.toString('base64');
             } catch (err) {
                 console.error('Failed to generate PDF:', err);
+                // We intentionally catch this so the email still sends even if PDF fails
             }
         }
 
