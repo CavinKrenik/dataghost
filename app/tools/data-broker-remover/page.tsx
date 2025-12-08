@@ -11,7 +11,7 @@ export default function DataBrokerRemoverPage() {
                         Data Broker Remover
                     </h1>
                     <p className="text-ghost-muted">
-                        Opt-out from 80+ data brokers automatically.
+                        Opt-out from 70+ data brokers automatically.
                     </p>
                 </div>
 

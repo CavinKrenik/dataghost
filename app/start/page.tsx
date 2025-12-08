@@ -233,7 +233,7 @@ export default function StartPage() {
 
                             <p className="text-center text-xs text-ghost-muted/70 mt-4 leading-relaxed">
                                 We CC you on every single opt-out email. <br />
-                                You'll get 80+ emails in the next ~60 seconds.
+                                You'll get 70+ emails in the next ~60 seconds.
                             </p>
                         </form>
                     </div>

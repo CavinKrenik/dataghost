@@ -99,7 +99,7 @@ export default function HomePage() {
         {/* Legal Disclaimer */}
         <div className="max-w-2xl text-center mb-8">
           <p className="text-sm text-gray-500 leading-relaxed">
-            DataGhost is a fully automated opt-out submission tool. We are not lawyers and do not provide legal advice. While we successfully remove data from 80+ brokers for 98%+ of users, we cannot legally guarantee removal from every single site due to varying broker policies.
+            DataGhost is a fully automated opt-out submission tool. We are not lawyers and do not provide legal advice. While we successfully remove data from 70+ brokers for 98%+ of users, we cannot legally guarantee removal from every single site due to varying broker policies.
           </p>
         </div>
 
@@ -111,7 +111,7 @@ export default function HomePage() {
           <ul className="text-left space-y-3 mb-8 text-ghost-text/90">
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
-              <span>80+ brokers manually</span>
+              <span>70+ brokers manually</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>

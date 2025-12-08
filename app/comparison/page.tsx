@@ -35,7 +35,7 @@ const COMPETITORS = [
         subscription: "No",
         account: "No",
         deletion: "✓ Yes (after 45 days)",
-        brokers: "80+",
+        brokers: "70+",
     },
     {
         name: "Incogni",
@@ -107,8 +107,8 @@ export default function Comparison() {
                                             {comp.name}
                                         </div>
                                         <div className={`text-right font-medium ${comp.isPrimary ? 'text-ghost-cyan font-bold' :
-                                                (feature.key === 'subscription' || feature.key === 'account') && comp.name !== 'DataGhost' ? 'text-red-400' :
-                                                    'text-zinc-300'
+                                            (feature.key === 'subscription' || feature.key === 'account') && comp.name !== 'DataGhost' ? 'text-red-400' :
+                                                'text-zinc-300'
                                             }`}>
                                             {/* @ts-ignore */}
                                             {comp[feature.key]}

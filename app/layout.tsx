@@ -12,7 +12,7 @@ import { BarChart3 } from "lucide-react";
 export const metadata: Metadata = {
   title: "DataGhost – Best One-Time Data Removal Service 2025 | DeleteMe & Incogni Alternative ($49 Forever)",
   description:
-    "Remove your data from 80+ brokers derived for $49 one-time. No subscription, no account, data deleted after 45 days. The best DeleteMe, Incogni, Optery, Kanary alternative in 2025 – automatic + manual opt-outs, proof PDFs emailed.",
+    "Remove your data from 70+ brokers derived for $49 one-time. No subscription, no account, data deleted after 45 days. The best DeleteMe, Incogni, Optery, Kanary alternative in 2025 – automatic + manual opt-outs, proof PDFs emailed.",
   keywords: [
     "best data removal service 2025",
     "deleteme alternative",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     siteName: "DataGhost",
     title: "DataGhost – Best One-Time Data Removal Service 2025 ($49 Forever)",
     description:
-      "Remove your data from 80+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
+      "Remove your data from 70+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
     images: [
       {
         url: "/opengraph-image.jpg",
@@ -63,16 +63,18 @@ export const metadata: Metadata = {
     site: "@dataghost",
     title: "DataGhost – Best One-Time Data Removal Service 2025 ($49 Forever)",
     description:
-      "Remove your data from 80+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
+      "Remove your data from 70+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
     images: ["/opengraph-image.jpg"],
   },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
     ],
     apple: "/apple-touch-icon.png",
   },
+  manifest: "/site.webmanifest",
   metadataBase: new URL("https://dataghost.me"),
   robots: {
     index: true,
@@ -111,7 +113,7 @@ const jsonLd = {
       },
       sameAs: ["https://x.com/dataghost", "https://www.facebook.com/dataghost"],
       description:
-        "DataGhost is the best one-time data removal service of 2025. We remove your personal information from 80+ data brokers for a single $49 payment. No subscriptions.",
+        "DataGhost is the best one-time data removal service of 2025. We remove your personal information from 70+ data brokers for a single $49 payment. No subscriptions.",
       contactPoint: [
         {
           "@type": "ContactPoint",
@@ -125,7 +127,7 @@ const jsonLd = {
       "@id": "https://dataghost.me/#website",
       url: "https://dataghost.me",
       name: "DataGhost",
-      description: "Remove your data from 80+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025 – automatic + manual opt-outs, weekly rescans, proof PDFs.",
+      description: "Remove your data from 70+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025 – automatic + manual opt-outs, weekly rescans, proof PDFs.",
       publisher: {
         "@id": "https://dataghost.me/#organization",
       },
@@ -141,7 +143,7 @@ const jsonLd = {
       "name": "DataGhost One-Time Data Removal",
       "price": "49",
       "priceCurrency": "USD",
-      "description": "Remove your data from 80+ brokers forever. One payment, no subscription.",
+      "description": "Remove your data from 70+ brokers forever. One payment, no subscription.",
       "url": "https://dataghost.me",
       "seller": {
         "@id": "https://dataghost.me/#organization"
@@ -168,7 +170,7 @@ const jsonLd = {
           name: "How does DataGhost work?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "It works in 6 steps: 1) Pay $49 one-time (no subscription). 2) Provide basic info (name, city, state, age). 3) We blast opt-out requests to 80+ data brokers. 4) You receive confirmation emails and a PDF report. 5) We re-scan for 45 days. 6) After 45 days, we permanently delete your data from our systems.",
+            text: "It works in 6 steps: 1) Pay $49 one-time (no subscription). 2) Provide basic info (name, city, state, age). 3) We blast opt-out requests to 70+ data brokers. 4) You receive confirmation emails and a PDF report. 5) We re-scan for 45 days. 6) After 45 days, we permanently delete your data from our systems.",
           },
         },
         {
@@ -176,7 +178,7 @@ const jsonLd = {
           name: "Who are the data brokers?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Data brokers are companies that scrape and sell your personal information. DataGhost targets the worst offenders including Spokeo, Intelius, BeenVerified, PeopleFinders, FastPeopleSearch, TruePeopleSearch, and 80+ others.",
+            text: "Data brokers are companies that scrape and sell your personal information. DataGhost targets the worst offenders including Spokeo, Intelius, BeenVerified, PeopleFinders, FastPeopleSearch, TruePeopleSearch, and 70+ others.",
           },
         },
         {
@@ -201,7 +203,7 @@ const jsonLd = {
         "@type": "Offer",
         "price": "49",
         "priceCurrency": "USD",
-        "description": "One-time permanent data removal from 80+ data brokers"
+        "description": "One-time permanent data removal from 70+ data brokers"
       },
       "areaServed": "Worldwide"
     }
@@ -238,7 +240,7 @@ export default async function RootLayout({
                     DataGhost<span className="text-ghost-cyan">.me</span>
                   </div>
                   <div className="text-xs text-ghost-muted hidden sm:block">
-                    Ghost your data from 80+ brokers.
+                    Ghost your data from 70+ brokers.
                   </div>
                 </div>
               </Link>

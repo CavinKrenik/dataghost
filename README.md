@@ -2,7 +2,7 @@
 
 The simplest, most transparent way to disappear from data brokers.
 
-**One-time $49 → We blast 80+ opt-out requests and CC you on every single email.  
+**One-time $49 → We blast 70+ opt-out requests and CC you on every single email.  
 No account. No subscription. No dashboard. No bullshit.**
 
 Live at → https://dataghost.me
@@ -13,7 +13,7 @@ Live at → https://dataghost.me
 2. **Onboarding:** User enters Name, City, State, Age Range, Email.
 3. **Immediate Action (Next.js):**
    - Creates a **"Pending Job"** in Supabase (Stateful tracking).
-   - Instantly sends ~80 automated opt-out emails via Resend.
+   - Instantly sends ~70 automated opt-out emails via Resend.
    - Generates a custom PDF checklist for manual removals.
 4. **Background Protocol (Worker):**
    - The Next.js app wakes up our **External Worker** (hosted on Railway).
