@@ -12,7 +12,7 @@ import { BarChart3 } from "lucide-react";
 export const metadata: Metadata = {
   title: "DataGhost – Best One-Time Data Removal Service 2025 | DeleteMe & Incogni Alternative ($49 Forever)",
   description:
-    "Remove your data from 70+ brokers derived for $49 one-time. No subscription, no account, data deleted after 45 days. The best DeleteMe, Incogni, Optery, Kanary alternative in 2025 – automatic + manual opt-outs, proof PDFs emailed.",
+    "Remove your data from 70+ brokers derived for $49 one-time. No subscription, no account, data deleted after 45 days. The best DeleteMe, Incogni, Optery, Kanary alternative in 2025 – automatic + manual opt-outs, full removal report.",
   keywords: [
     "best data removal service 2025",
     "deleteme alternative",
@@ -127,7 +127,7 @@ const jsonLd = {
       "@id": "https://dataghost.me/#website",
       url: "https://dataghost.me",
       name: "DataGhost",
-      description: "Remove your data from 70+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025 – automatic + manual opt-outs, weekly rescans, proof PDFs.",
+      description: "Remove your data from 70+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025 – automatic + manual opt-outs, weekly rescans, full removal report.",
       publisher: {
         "@id": "https://dataghost.me/#organization",
       },
@@ -170,7 +170,7 @@ const jsonLd = {
           name: "How does DataGhost work?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "It works in 6 steps: 1) Pay $49 one-time (no subscription). 2) Provide basic info (name, city, state, age). 3) We blast opt-out requests to 70+ data brokers. 4) You receive confirmation emails and a PDF report. 5) We re-scan for 45 days. 6) After 45 days, we permanently delete your data from our systems.",
+            text: "It works in 6 steps: 1) Pay $49 one-time (no subscription). 2) Provide basic info (name, city, state, age). 3) We blast opt-out requests to 70+ data brokers. 4) You receive confirmation emails. 5) We re-scan for 45 days. 6) After 45 days, we permanently delete your data from our systems.",
           },
         },
         {

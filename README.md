@@ -14,7 +14,7 @@ Live at → https://dataghost.me
 3. **Immediate Action (Next.js):**
    - Creates a **"Pending Job"** in Supabase (Stateful tracking).
    - Instantly sends ~70 automated opt-out emails via Resend.
-   - Generates a custom PDF checklist for manual removals.
+   - Instantly sends ~70 automated opt-out emails via Resend.
 4. **Background Protocol (Worker):**
    - The Next.js app wakes up our **External Worker** (hosted on Railway).
    - The Worker launches a headless browser (Playwright) to physically fill out removal forms for brokers that reject emails.
