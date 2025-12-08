@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-
 export const metadata: Metadata = {
     title: "Cookie Policy | DataGhost.me",
     description: "Cookie Policy for DataGhost.me data removal service.",
 };
-
 export default function CookiePage() {
     return (
         <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
             <h1 className="mb-8 text-3xl font-bold text-ghost-text md:text-4xl">
                 Cookie Policy
             </h1>
-
             <div className="space-y-8 text-ghost-muted">
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">1. What Are Cookies?</h2>
@@ -19,7 +16,6 @@ export default function CookiePage() {
                         Cookies are small text files stored on your device when you visit a website. They help us recognize your device, remember your preferences, and ensure security.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">2. How We Use Cookies</h2>
                     <p className="leading-relaxed">
@@ -31,7 +27,6 @@ export default function CookiePage() {
                         <li><strong>Functionality Cookies:</strong> Remember your choices and preferences.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">3. Third-Party Cookies</h2>
                     <p className="leading-relaxed">
@@ -43,7 +38,6 @@ export default function CookiePage() {
                         <li><strong>Lemon Squeezy:</strong> For secure checkout and payment processing.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">4. Managing Cookies</h2>
                     <p className="leading-relaxed">
@@ -53,7 +47,6 @@ export default function CookiePage() {
                         For more information on how to manage cookies, visit <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener noreferrer" className="text-ghost-cyan hover:underline">allaboutcookies.org</a>.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">5. Updates to This Policy</h2>
                     <p className="leading-relaxed">

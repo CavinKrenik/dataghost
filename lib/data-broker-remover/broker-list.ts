@@ -1,4 +1,3 @@
-// Display list for UI (alphabetically sorted)
 export const BROKER_NAMES = [
   'Abalta',
   'AdDefend',

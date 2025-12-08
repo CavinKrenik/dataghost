@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-
 export const metadata: Metadata = {
     title: "Terms of Service | DataGhost.me",
     description: "Terms of Service for DataGhost.me data removal service.",
 };
-
 export default function TermsPage() {
     return (
         <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
             <h1 className="mb-8 text-3xl font-bold text-ghost-text md:text-4xl">
                 Terms of Service
             </h1>
-
             <div className="space-y-8 text-ghost-muted">
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">1. Service Description</h2>
@@ -22,7 +19,6 @@ export default function TermsPage() {
                         Please note that DataGhost.me is <strong>not a legal service</strong>. We do not guarantee 100% removal of your data from all data brokers, as third-party compliance is outside our direct control. We act as your agent to submit opt-out requests on your behalf.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">2. User Responsibilities</h2>
                     <p className="leading-relaxed">
@@ -34,7 +30,6 @@ export default function TermsPage() {
                         <li>Not use the Service for any illegal or unauthorized purpose.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">3. Payment</h2>
                     <p className="leading-relaxed">
@@ -44,7 +39,6 @@ export default function TermsPage() {
                         <strong>No Subscription:</strong> This is a one-time purchase. There are no recurring fees or automatic renewals.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">4. Refund Policy</h2>
                     <p className="leading-relaxed">
@@ -58,7 +52,6 @@ export default function TermsPage() {
                         <li>Proven fraudulent billing.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">5. Disclaimers & Limitation of Liability</h2>
                     <p className="leading-relaxed">
@@ -68,14 +61,12 @@ export default function TermsPage() {
                         In no event shall DataGhost.me be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the Service.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">6. Governing Law</h2>
                     <p className="leading-relaxed">
                         These Terms shall be governed by and construed in accordance with the laws of <strong>Washington State, USA</strong>, without regard to its conflict of law provisions.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">7. Contact Us</h2>
                     <p className="leading-relaxed">

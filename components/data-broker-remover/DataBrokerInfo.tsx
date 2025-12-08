@@ -1,11 +1,9 @@
 'use client';
-
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { BROKER_NAMES } from '@/lib/data-broker-remover/broker-list';
 import Link from 'next/link';
-
 const FAQ_ITEMS = [
   {
     title: 'HOW DOES IT WORK?',
@@ -90,10 +88,8 @@ const FAQ_ITEMS = [
     ),
   },
 ];
-
 export function DataBrokerInfo() {
   const [openItems, setOpenItems] = useState<Set<number>>(new Set());
-
   const toggleItem = (index: number) => {
     setOpenItems((prev) => {
       const newSet = new Set(prev);
@@ -105,7 +101,6 @@ export function DataBrokerInfo() {
       return newSet;
     });
   };
-
   return (
     <div className="w-full max-w-4xl mx-auto space-y-3">
       {FAQ_ITEMS.map((item, index) => {

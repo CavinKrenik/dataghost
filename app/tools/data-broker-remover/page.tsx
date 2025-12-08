@@ -1,7 +1,5 @@
 "use client";
-
 import { DataBrokerWizard } from "@/components/data-broker-remover/DataBrokerWizard";
-
 export default function DataBrokerRemoverPage() {
     return (
         <main className="min-h-screen bg-ghost-bg p-6 flex flex-col items-center justify-center">
@@ -14,7 +12,6 @@ export default function DataBrokerRemoverPage() {
                         Opt-out from 70+ data brokers automatically.
                     </p>
                 </div>
-
                 <DataBrokerWizard />
             </div>
         </main>

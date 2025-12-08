@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
   experimental: {
@@ -37,5 +36,4 @@ const nextConfig = {
     ];
   },
 };
-
 export default nextConfig;

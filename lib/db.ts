@@ -1,11 +1,8 @@
-// SERVER-ONLY: Do not import this file in any "use client" components.
 import { createClient } from "@supabase/supabase-js";
-
 const supabase = createClient(
   process.env.SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
-
 export async function createRemovalJob(data: any) {
   const { data: job, error } = await supabase
     .from("jobs")
@@ -15,12 +12,10 @@ export async function createRemovalJob(data: any) {
   if (error) throw error;
   return job;
 }
-
 export async function updateJob(id: string, updates: any) {
   const { error } = await supabase.from("jobs").update(updates).eq("id", id);
   if (error) throw error;
 }
-
 export async function getPendingJobs() {
   const { data, error } = await supabase
     .from("jobs")
@@ -29,7 +24,6 @@ export async function getPendingJobs() {
   if (error) throw error;
   return data || [];
 }
-
 export async function getUserJobs(emailHash: string) {
   const { data, error } = await supabase
     .from("jobs")
@@ -39,18 +33,15 @@ export async function getUserJobs(emailHash: string) {
   if (error) throw error;
   return data || [];
 }
-
 export async function getDataBrokerUser(emailHash: string) {
   const { data, error } = await supabase
     .from("data_broker_users")
     .select("*")
     .eq("id", emailHash)
     .single();
-
-  if (error && error.code !== 'PGRST116') throw error; // PGRST116 is "not found"
+  if (error && error.code !== 'PGRST116') throw error; 
   return data;
 }
-
 export async function upsertDataBrokerUser(data: {
   id: string,
   verification_code?: string,
@@ -61,6 +52,5 @@ export async function upsertDataBrokerUser(data: {
   const { error } = await supabase
     .from("data_broker_users")
     .upsert(data);
-
   if (error) throw error;
 }

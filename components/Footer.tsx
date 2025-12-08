@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { BarChart3 } from "lucide-react";
-
 export default function Footer() {
     return (
         <footer className="border-t border-cyan-900/40 mt-16">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 sm:px-8 lg:px-12 py-12 md:py-16 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
-                {/* Left block */}
+                {}
                 <div className="space-y-1">
                     <div className="font-semibold text-slate-200">DataGhost.me</div>
                     <div className="text-xs text-slate-500">
@@ -27,8 +26,7 @@ export default function Footer() {
                         <span>View on GitHub</span>
                     </a>
                 </div>
-
-                {/* Right block (legal links) */}
+                {}
                 <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm">
                     <Link
                         href="/legal/terms"

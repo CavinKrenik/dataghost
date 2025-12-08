@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import { StickyCTA } from "@/components/StickyCTA";
 import { Button } from "@/components/ui/button";
 import { BarChart3 } from "lucide-react";
-
 export const metadata: Metadata = {
   title: "DataGhost – Best One-Time Data Removal Service 2025 | DeleteMe & Incogni Alternative ($49 Forever)",
   description:
@@ -96,7 +95,6 @@ export const metadata: Metadata = {
     },
   },
 };
-
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -209,7 +207,6 @@ const jsonLd = {
     }
   ],
 };
-
 export default async function RootLayout({
   children,
 }: {
@@ -224,7 +221,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="min-h-screen flex flex-col pb-24 md:pb-0">
-          {/* Header */}
+          {}
           <header className="border-b border-ghost-grid/40 bg-black/40 backdrop-blur-sm sticky top-0 z-50">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 gap-4">
               <Link href="/" className="flex items-center gap-3 shrink-0">
@@ -244,7 +241,6 @@ export default async function RootLayout({
                   </div>
                 </div>
               </Link>
-
               <nav className="flex items-center gap-4 text-sm shrink-0">
                 <Button
                   asChild
@@ -265,11 +261,9 @@ export default async function RootLayout({
               </nav>
             </div>
           </header>
-
-          {/* Main */}
+          {}
           <main className="flex-1">{children}</main>
-
-          {/* Footer */}
+          {}
           <Footer />
           <StickyCTA />
         </div>

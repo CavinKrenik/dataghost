@@ -1,29 +1,23 @@
 'use client';
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { UserDetails } from '@/lib/data-broker-remover/types';
 import { sendEmails } from '@/actions/data-broker-remover/send-emails';
 import { CheckCircle2 } from 'lucide-react';
-
 interface ReviewStepProps {
   email: string;
   details: UserDetails;
   onBack: () => void;
   setError: (error: string) => void;
 }
-
 export function ReviewStep({ email, details, onBack, setError }: ReviewStepProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
-
   const handleSubmit = async () => {
     setError('');
     setIsLoading(true);
-
     try {
       const result = await sendEmails(email, details);
-
       if (result.success) {
         setIsComplete(true);
       } else {
@@ -35,7 +29,6 @@ export function ReviewStep({ email, details, onBack, setError }: ReviewStepProps
       setIsLoading(false);
     }
   };
-
   if (isComplete) {
     return (
       <div className="space-y-4 text-center py-8">
@@ -58,7 +51,6 @@ export function ReviewStep({ email, details, onBack, setError }: ReviewStepProps
       </div>
     );
   }
-
   return (
     <div className="space-y-4">
       <div>
@@ -69,7 +61,6 @@ export function ReviewStep({ email, details, onBack, setError }: ReviewStepProps
           Please review your information before sending the removal requests.
         </p>
       </div>
-
       <div className="bg-plum-800 rounded-lg p-4 space-y-3">
         <div>
           <p className="text-sm text-warmgray/60">Email</p>
@@ -90,7 +81,6 @@ export function ReviewStep({ email, details, onBack, setError }: ReviewStepProps
           </p>
         </div>
       </div>
-
       <div className="bg-plum-800/50 border border-plum-600 rounded-lg p-4">
         <p className="text-sm text-warmgray/80">
           By clicking &quot;Send Requests&quot;, emails will be sent to all data
@@ -98,7 +88,6 @@ export function ReviewStep({ email, details, onBack, setError }: ReviewStepProps
           all emails.
         </p>
       </div>
-
       <div className="flex gap-3">
         <Button
           type="button"

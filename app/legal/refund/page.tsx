@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-
 export const metadata: Metadata = {
     title: "Refund Policy | DataGhost.me",
     description: "Refund Policy for DataGhost.me data removal service.",
 };
-
 export default function RefundPage() {
     return (
         <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
             <h1 className="mb-8 text-3xl font-bold text-ghost-text md:text-4xl">
                 Refund Policy
             </h1>
-
             <div className="space-y-8 text-ghost-muted">
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">1. No Refunds After Service Begins</h2>
@@ -19,7 +16,6 @@ export default function RefundPage() {
                         DataGhost.me initiates work immediately upon your payment. This involves automated scanning of data broker databases and the submission of opt-out requests. Because this work is irreversible and incurs immediate costs, <strong>we do not offer refunds once the opt-out process has begun</strong>.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">2. Eligible Refund Circumstances</h2>
                     <p className="leading-relaxed">
@@ -31,7 +27,6 @@ export default function RefundPage() {
                         <li><strong>Billing Errors:</strong> If you were charged after a confirmed cancellation date.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">3. How to Request a Refund</h2>
                     <p className="leading-relaxed">
@@ -46,7 +41,6 @@ export default function RefundPage() {
                         <li>Reason for the request.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">4. Payment Processing</h2>
                     <p className="leading-relaxed">

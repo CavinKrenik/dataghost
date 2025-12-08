@@ -1,10 +1,6 @@
 "use client";
-
 import Link from "next/link";
-
-// This list is now 100% consistent with your backend (Worker + Email lists).
 const brokers = [
-    // --- The Heavy Hitters (Worker/Form Based) ---
     "AdvancedBackgroundChecks",
     "BeenVerified",
     "CheckPeople",
@@ -37,8 +33,6 @@ const brokers = [
     "VoterRecords",
     "Whitepages",
     "Xlek",
-
-    // --- The Legal Opt-Outs (Email Based) ---
     "Acxiom",
     "BackgroundChecks.com",
     "Checkr",
@@ -60,8 +54,6 @@ const brokers = [
     "TransUnion",
     "USSearch",
     "ZoomInfo",
-
-    // --- Ad-Tech & Data Aggregators (Email Based) ---
     "BidSwitch",
     "Comscore",
     "Criteo",
@@ -83,7 +75,6 @@ const brokers = [
     "TowerData",
     "Versium"
 ].sort();
-
 function SectionCard({
     title,
     children,
@@ -105,7 +96,6 @@ function SectionCard({
         </details>
     );
 }
-
 export function LandingInfo() {
     return (
         <section className="mx-auto mt-10 flex max-w-4xl flex-col gap-4 px-4 pb-16">
@@ -134,7 +124,6 @@ export function LandingInfo() {
                     DataGhost does not guarantee permanent removal—data brokers are persistent—but we drastically reduce your exposure and give you a repeatable, automated weapon to fight back against <strong>70+ brokers</strong>.
                 </p>
             </SectionCard>
-
             <SectionCard title="WHO ARE THE DATA BROKERS?">
                 <p>
                     Data brokers are the companies selling your secrets. They scrape public records, purchase histories, and social media to build profiles they sell to marketers, background-check services, and creeps.
@@ -156,7 +145,6 @@ export function LandingInfo() {
                     This list evolves. As new brokers crawl out of the woodwork, we add them to our hit list.
                 </p>
             </SectionCard>
-
             <SectionCard title="WHO BUILT DATAGHOST?">
                 <p>
                     DataGhost was engineered by <strong>Cavin Krenik</strong>, a veteran commercial fisherman turned privacy engineer, currently completing his degree in Interactive Web Design.

@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-
 export const metadata: Metadata = {
     title: "Security Statement | DataGhost.me",
     description: "Security Statement for DataGhost.me data removal service.",
 };
-
 export default function SecurityPage() {
     return (
         <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
             <h1 className="mb-8 text-3xl font-bold text-ghost-text md:text-4xl">
                 Security Statement
             </h1>
-
             <div className="space-y-8 text-ghost-muted">
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">1. Our Commitment</h2>
@@ -19,7 +16,6 @@ export default function SecurityPage() {
                         At DataGhost.me, protecting your personal information is our top priority. We employ industry-standard security measures to ensure your data is safe, secure, and private.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">2. Data Encryption</h2>
                     <p className="leading-relaxed">
@@ -29,21 +25,18 @@ export default function SecurityPage() {
                         <strong>At Rest:</strong> Sensitive user data stored in our databases is encrypted at rest using AES-256 encryption standards.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">3. Access Control</h2>
                     <p className="leading-relaxed">
                         Access to user data is strictly limited to authorized personnel who require it to perform their job duties (e.g., customer support). We enforce multi-factor authentication (MFA) for all administrative access.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">4. Data Retention & Deletion</h2>
                     <p className="leading-relaxed">
                         We practice data minimization. We temporarily store your info for <strong className="text-ghost-cyan">exactly 45 days only</strong> so we can automatically re-remove your data every week if it reappears. On day 46, a pg_cron job permanently deletes everything — no backups, no logs, gone forever.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">5. Infrastructure Security</h2>
                     <p className="leading-relaxed">
@@ -55,7 +48,6 @@ export default function SecurityPage() {
                         <li><strong>Lemon Squeezy:</strong> For PCI-DSS compliant payment processing. We do not store your credit card information on our servers.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">6. Responsible Disclosure</h2>
                     <p className="leading-relaxed">

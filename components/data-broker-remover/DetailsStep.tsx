@@ -1,18 +1,15 @@
 'use client';
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { UserDetails } from '@/lib/data-broker-remover/types';
-
 interface DetailsStepProps {
   email: string;
   onNext: (details: UserDetails) => void;
   onBack: () => void;
   setError: (error: string) => void;
 }
-
 export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
   const [details, setDetails] = useState<UserDetails>({
     name: '',
@@ -21,12 +18,9 @@ export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
     country: '',
     postcode: '',
   });
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
-    // Validate all fields are filled
     if (
       !details.name ||
       !details.street ||
@@ -37,14 +31,11 @@ export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
       setError('Please fill in all fields');
       return;
     }
-
     onNext(details);
   };
-
   const handleChange = (field: keyof UserDetails, value: string) => {
     setDetails((prev) => ({ ...prev, [field]: value }));
   };
-
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
@@ -56,7 +47,6 @@ export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
           information is only used to create the emails and is not stored.
         </p>
       </div>
-
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="name" className="text-warmgray">
@@ -72,7 +62,6 @@ export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
             className="bg-plum-800 border-plum-600 text-warmgray placeholder:text-warmgray/40"
           />
         </div>
-
         <div className="space-y-2">
           <Label htmlFor="street" className="text-warmgray">
             Street Address
@@ -87,7 +76,6 @@ export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
             className="bg-plum-800 border-plum-600 text-warmgray placeholder:text-warmgray/40"
           />
         </div>
-
         <div className="space-y-2">
           <Label htmlFor="city" className="text-warmgray">
             City
@@ -102,7 +90,6 @@ export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
             className="bg-plum-800 border-plum-600 text-warmgray placeholder:text-warmgray/40"
           />
         </div>
-
         <div className="space-y-2">
           <Label htmlFor="country" className="text-warmgray">
             Country
@@ -117,7 +104,6 @@ export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
             className="bg-plum-800 border-plum-600 text-warmgray placeholder:text-warmgray/40"
           />
         </div>
-
         <div className="space-y-2">
           <Label htmlFor="postcode" className="text-warmgray">
             Postal/Zip Code
@@ -133,7 +119,6 @@ export function DetailsStep({ onNext, onBack, setError }: DetailsStepProps) {
           />
         </div>
       </div>
-
       <div className="flex gap-3">
         <Button
           type="button"

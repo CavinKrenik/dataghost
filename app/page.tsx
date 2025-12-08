@@ -1,13 +1,11 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { LandingInfo } from "@/components/LandingInfo";
-
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-ghost-navy text-ghost-text relative">
-      {/* Hero Section */}
+      {}
       <section className="relative bg-holo px-6 pt-16 pb-24 md:pt-28 md:pb-32 lg:pt-40 lg:pb-48 text-center overflow-hidden">
         <div className="flex justify-center mb-6 md:mb-8">
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[520px] lg:h-[520px]">
@@ -27,14 +25,12 @@ export default function HomePage() {
             70+ brokers
           </span>
         </h1>
-
         <div className="mt-4">
           <Link href="/comparison" className="text-ghost-cyan hover:underline font-semibold text-lg flex items-center justify-center gap-2">
             See how we destroy Incogni, DeleteMe, Optery, and Kanary
             <span className="text-xl">→</span>
           </Link>
         </div>
-
         <div className="mt-10 flex flex-col items-center gap-4">
           <Link
             href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
@@ -46,15 +42,13 @@ export default function HomePage() {
             One payment · No account needed
           </p>
         </div>
-
         <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-ghost-muted">
           <span>No ID upload required</span>
           <span>•</span>
           <span>Data deleted after 45 days</span>
         </div>
       </section>
-
-      {/* Data Handling Section */}
+      {}
       <section className="px-6 py-16 bg-ghost-bg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">How We Handle Your Data</h2>
@@ -93,21 +87,17 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Pricing Card Section */}
+      {}
       <section className="px-6 py-12 flex flex-col items-center">
-        {/* Legal Disclaimer */}
+        {}
         <div className="max-w-2xl text-center mb-8">
           <p className="text-sm text-gray-500 leading-relaxed">
             DataGhost is a fully automated opt-out submission tool. We are not lawyers and do not provide legal advice. While we successfully remove data from 70+ brokers for 98%+ of users, we cannot legally guarantee removal from every single site due to varying broker policies.
           </p>
         </div>
-
         <div className="bg-ghost-card border border-ghost-border p-8 rounded-2xl shadow-glow max-w-md w-full text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ghost-cyan to-transparent opacity-50"></div>
-
           <h2 className="text-2xl font-bold mb-6 text-white">Best One-Time Data Removal Service 2025 – $49</h2>
-
           <ul className="text-left space-y-3 mb-8 text-ghost-text/90">
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
@@ -122,21 +112,18 @@ export default function HomePage() {
               <span>No account, no login, no subscription, no renewals</span>
             </li>
           </ul>
-
           <Link
             href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
             className="block w-full bg-ghost-cyan text-black px-6 py-3 rounded-lg font-bold hover:opacity-90 transition shadow-[0_0_15px_rgba(0,229,255,0.3)]"
           >
             Ghost My Data Now – $49
           </Link>
-
           <p className="mt-3 text-xs text-ghost-muted">
             Launch pricing — goes to $79 soon
           </p>
         </div>
       </section>
-
-      {/* Testimonials Section */}
+      {}
       <section className="px-6 py-12 max-w-5xl mx-auto">
         <h3 className="text-center text-lg lg:text-xl font-semibold mb-8 text-ghost-muted uppercase tracking-widest">
           <span className="text-ghost-cyan mr-2">👻</span> Recent Ghosts
@@ -156,8 +143,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* FAQ Section */}
+      {}
       <section className="px-6 py-16 bg-ghost-navy/50">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">FAQ</h2>
@@ -197,7 +183,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       <LandingInfo />
     </main>
   );

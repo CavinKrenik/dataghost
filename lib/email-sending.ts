@@ -1,10 +1,6 @@
 import { Resend } from 'resend';
-
-// Initialize Resend with key if available, otherwise undefined
 const apiKey = process.env.RESEND_API_KEY;
 const resend = apiKey ? new Resend(apiKey) : null;
-
-// Helper to batch arrays
 function chunkArray<T>(array: T[], size: number): T[][] {
     const chunked: T[][] = [];
     let index = 0;
@@ -14,7 +10,6 @@ function chunkArray<T>(array: T[], size: number): T[][] {
     }
     return chunked;
 }
-
 export async function sendOptOutEmails({
     fullName,
     city,
@@ -37,22 +32,15 @@ export async function sendOptOutEmails({
     }>;
     checklistPdfBuffer?: Buffer;
 }) {
-    console.log(`[Email Service] Attempting to send ${companies.length} opt-out emails for ${userEmail}`);
 
     if (!resend) {
-        console.warn('[Email Service] RESEND_API_KEY is not set. Skipping actual email sending (Dev Mode).');
+
         return;
     }
-
-    // BATCHING: Send 10 emails at once to prevent timeouts
-    // 80 emails in batches of 10 = 8 "rounds".
-    // 8 rounds * ~400ms = ~3.2 seconds total (vs 32 seconds serially).
     const batches = chunkArray(companies, 10);
     let sentCount = 0;
     let errorCount = 0;
-
     for (const batch of batches) {
-        // Process this batch in parallel
         await Promise.all(
             batch.map(async (company) => {
                 try {
@@ -61,42 +49,33 @@ export async function sendOptOutEmails({
                         .replace(/{{fullName}}/g, fullName)
                         .replace(/{{city}}/g, city)
                         .replace(/{{state}}/g, state);
-
                     const personalizedBody = company.body
                         .replace(/{{name}}/g, fullName)
                         .replace(/{{city}}/g, city)
                         .replace(/{{state}}/g, state)
                         .replace(/{{email}}/g, userEmail)
                         .replace(/{{age_range}}/g, ageRange);
-
                     await resend!.emails.send({
                         from: 'DataGhost <noreply@dataghost.me>',
                         to: [company.email],
-                        cc: [userEmail], // transparency CC
+                        cc: [userEmail],
                         subject: personalizedSubject,
                         text: personalizedBody,
                     });
                     sentCount++;
                 } catch (err) {
-                    console.error(`[Email Service] Failed to send to ${company.name}:`, err);
+
                     errorCount++;
-                    // We catch errors here so one failure doesn't stop the whole batch
                 }
             })
         );
-
-        // Small delay between batches to be polite to the Resend API
         await new Promise(resolve => setTimeout(resolve, 2000));
     }
 
-    console.log(`[Email Service] Finished. Sent: ${sentCount}, Errors: ${errorCount}`);
-
-    // Send final confirmation/report email to user
     const attachments = checklistPdfBuffer ? [{
         content: checklistPdfBuffer,
         filename: 'DataGhost_Manual_Removal_Checklist.pdf',
     }] : [];
-
     await resend.emails.send({
         from: 'DataGhost <noreply@dataghost.me>',
         to: [userEmail],
@@ -105,16 +84,12 @@ export async function sendOptOutEmails({
         attachments,
     });
 }
-
 export async function sendVerificationEmail(email: string, code: string) {
-    console.log(`[Email Service] Attempting to send verification code to ${email}`);
 
     if (!resend) {
-        console.warn('[Email Service] RESEND_API_KEY is not set. Skipping actual email sending (Dev Mode).');
-        console.log(`[Email Service] Verification Code for ${email} is: ${code}`);
+
         return;
     }
-
     await resend.emails.send({
         from: 'DataGhost <noreply@dataghost.me>',
         to: [email],

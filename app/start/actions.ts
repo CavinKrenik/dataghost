@@ -1,12 +1,9 @@
 'use server';
-
 import { createRemovalJob } from '@/lib/db';
 import { getBrokerList, US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
-
-
 export type State = {
     success?: boolean;
     error?: string | null;
@@ -14,7 +11,6 @@ export type State = {
     pdfBase64?: string;
     manualBrokersCount?: number;
 };
-
 export async function startGhosting(prevState: State | undefined, formData: FormData): Promise<State> {
     const rawData = {
         fullName: formData.get('fullName') as string,
@@ -25,44 +21,32 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         country: 'US',
         postcode: formData.get('postcode') as string || '00000',
     };
-
-    // Manual Validation
     if (!rawData.fullName || !rawData.city || !rawData.state || !rawData.ageRange || !rawData.email || !rawData.postcode) {
         return { success: false, error: 'Please fill in all fields.' };
     }
     if (!rawData.email.includes('@')) {
         return { success: false, error: 'Invalid email address.' };
     }
-
     const { fullName, city, state, ageRange, email, country } = rawData;
-
     try {
         const supabase = createAdminClient();
-
-        // 1. Verify Payment (Security Check)
         const { data: paymentRecord } = await supabase
             .from('paid_orders')
             .select('id')
             .eq('email', email.toLowerCase())
             .eq('status', 'paid')
             .maybeSingle();
-
         if (!paymentRecord) {
             return { success: false, error: 'Payment verification failed. Please ensure you have paid with this email.' };
         }
-
-        // 2. Check for existing user (Prevent double submission if desired, or just update)
         const { data: existingUser } = await supabase
             .from('data_broker_users')
             .select('id')
             .eq('email', email)
             .maybeSingle();
-
         if (existingUser) {
             return { success: false, error: 'You have already ghosted with this email. One per person.' };
         }
-
-        // 3. Insert new user
         const { error: insertError } = await supabase
             .from('data_broker_users')
             .insert({
@@ -72,65 +56,42 @@ export async function startGhosting(prevState: State | undefined, formData: Form
                 state: state,
                 age_range: ageRange,
             });
-
         if (insertError) throw insertError;
-
-        // 4. Get and Filter Brokers
         let emailBrokers: { name: string, email: string, subject?: string }[] = [];
         let formBrokers: { name: string, url?: string }[] = [];
-
         try {
-            // Use the centralized utils function for email brokers
             emailBrokers = getBrokerList();
-
-            // For form brokers, we still load directly from json as getBrokerList currently only returns email types
-            // defined in the interface
             const allBrokers = require('@/data/brokers.json');
-
-            // Re-map just to be sure we have the full list if getBrokerList changes
             emailBrokers = allBrokers
                 .filter((b: any) => b.type === 'email' && b.email)
                 .map((b: any) => ({ name: b.name, email: b.email, subject: b.subject }));
-
             formBrokers = allBrokers
                 .filter((b: any) => b.type === 'form')
                 .map((b: any) => ({ name: b.name, url: b.url }));
-
         } catch (e) {
-            console.warn('Failed to load brokers.json fallback', e);
-        }
 
+        }
         if (country !== 'US') {
             emailBrokers = emailBrokers.filter((b) => !US_ONLY_BROKERS.includes(b.name));
             formBrokers = formBrokers.filter((b) => !US_ONLY_BROKERS.includes(b.name));
         }
-
-        // 5. Prepare Email Objects
         const companies = emailBrokers.map((broker) => ({
             name: broker.name,
             email: broker.email,
             subject: broker.subject || 'Data Removal Request',
             body: `Dear ${broker.name},\n\nI am writing to request the removal of my personal information from your database in accordance with applicable data privacy laws.\n\nMy Information:\n- Name: {{name}}\n- Age Range: {{age_range}}\n- Address: {{city}}, {{state}}\n- Email: {{email}}\n\nPlease confirm receipt of this request and provide information about the removal process and timeline.\n\nThank you for your prompt attention to this matter.\n\nSincerely,\n{{name}}`,
         }));
-
-        // 6. Generate PDF Checklist
         let pdfBase64: string | undefined;
         let pdfBuffer: Buffer | undefined;
-
         if (formBrokers.length > 0) {
             try {
-                // DYNAMIC IMPORT: Load the heavy library only now, inside the try block
                 const { generateChecklistPDF } = await import('@/lib/pdf-generator');
-
                 pdfBuffer = await generateChecklistPDF(fullName, formBrokers);
                 pdfBase64 = pdfBuffer.toString('base64');
             } catch (err) {
-                console.error('Failed to generate PDF:', err);
-                // We intentionally catch this so the email still sends even if PDF fails
+
             }
         }
-
-        // 7. Send Emails
         await sendOptOutEmails({
             fullName,
             city,
@@ -140,9 +101,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             companies,
             checklistPdfBuffer: pdfBuffer,
         });
-
-        // 8. Trigger the Heavy Muscle (Playwright Worker)
-        // We pass the raw data it needs to fill forms
         const workerData = {
             fullName,
             city,
@@ -151,8 +109,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             email,
             postcode: rawData.postcode
         };
-
-        // Create a persistent job entry for reliability tracking
         let jobId: string | undefined;
         try {
             const job = await createRemovalJob({
@@ -161,17 +117,14 @@ export async function startGhosting(prevState: State | undefined, formData: Form
                 status: 'pending'
             });
             jobId = job?.id;
-            console.log(`[Job Created] Job ID: ${jobId} for ${email}`);
-        } catch (jobErr) {
-            console.error('Failed to create removal job record:', jobErr);
-            // We proceed even if DB log fails, to not block the user flow
-        }
 
+        } catch (jobErr) {
+
+        }
         triggerWorker({
             ...workerData,
-            jobId // Pass the ID so the worker can update status on completion
+            jobId
         });
-
         revalidatePath('/');
         return {
             success: true,
@@ -179,31 +132,21 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             manualBrokersCount: formBrokers.length,
             pdfBase64
         };
-
     } catch (error: any) {
-        console.error('Ghosting error:', error);
+
         return { success: false, error: error.message || 'Unknown error' };
     }
 }
-
 async function triggerWorker(userData: any) {
-    // This points to your external worker (e.g. on Railway/Fly.io)
-    // Default to localhost for testing so it doesn't break if you haven't deployed the worker yet
     const WORKER_URL = process.env.WORKER_URL || 'http://localhost:8080/nuke-data';
 
-    console.log(`[Worker Trigger] Firing job to ${WORKER_URL} for ${userData.email} (Job ID: ${userData.jobId || 'N/A'})`);
-
     try {
-        // FIRE AND FORGET: We do NOT use 'await' here.
-        // We want the Next.js request to finish instantly for the user.
-        // We just kick off the fetch and let it run in the background.
         fetch(WORKER_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData),
-        }).catch(err => console.error('[Worker Trigger] Network error (is the worker running?):', err));
-
+        }).catch(err => { });
     } catch (e) {
-        console.error('[Worker Trigger] Failed to initiate:', e);
+
     }
 }

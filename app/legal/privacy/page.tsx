@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-
 export const metadata: Metadata = {
     title: "Privacy Policy | DataGhost.me",
     description: "Privacy Policy for DataGhost.me data removal service.",
 };
-
 export default function PrivacyPage() {
     return (
         <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
             <h1 className="mb-8 text-3xl font-bold text-ghost-text md:text-4xl">
                 Privacy Policy
             </h1>
-
             <div className="space-y-8 text-ghost-muted">
                 <section className="bg-ghost-card border border-ghost-cyan/20 p-6 rounded-xl shadow-glow mb-10">
                     <h2 className="mb-4 text-xl font-bold text-white">How We Handle Your Data (Maximum Privacy Mode)</h2>
@@ -26,7 +23,6 @@ export default function PrivacyPage() {
                     </ul>
                     <p className="mt-4 text-sm text-ghost-muted italic">We are privacy maximalists building for privacy maximalists.</p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">1. Information We Collect</h2>
                     <p className="leading-relaxed">
@@ -39,7 +35,6 @@ export default function PrivacyPage() {
                         <li><strong>Scan Results:</strong> Data found on public data broker databases during our scans.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">2. How We Use Your Data</h2>
                     <p className="leading-relaxed">
@@ -52,7 +47,6 @@ export default function PrivacyPage() {
                         <li>Improving our Service security and functionality.</li>
                     </ul>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">3. Data Retention</h2>
                     <p className="leading-relaxed">
@@ -62,7 +56,6 @@ export default function PrivacyPage() {
                         <strong>Automatic Deletion:</strong> Your personal data used for scans is deleted from our active servers within <strong>45 days</strong> after your purchase, unless a longer retention period is required by law.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">4. Third-Party Processors</h2>
                     <p className="leading-relaxed">
@@ -77,7 +70,6 @@ export default function PrivacyPage() {
                         We do <strong>not</strong> sell your data to third parties.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">5. Your Rights</h2>
                     <p className="leading-relaxed">
@@ -93,14 +85,12 @@ export default function PrivacyPage() {
                         To exercise these rights, please contact us at <a href="mailto:support@dataghost.me" className="text-ghost-cyan hover:underline">support@dataghost.me</a>.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">6. Cookies</h2>
                     <p className="leading-relaxed">
                         We use cookies to maintain your session, secure your account, and analyze site traffic. You can control cookie preferences through your browser settings. See our <a href="/legal/cookies" className="text-ghost-cyan hover:underline">Cookie Policy</a> for more details.
                     </p>
                 </section>
-
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">7. Contact Us</h2>
                     <p className="leading-relaxed">

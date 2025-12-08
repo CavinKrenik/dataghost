@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -17,15 +16,14 @@ const config: Config = {
         'ghost-grid': '#1B3A4B',
         'ghost-text': '#E6F8FF',
         'ghost-muted': '#9BBBC7',
-        // Keep existing ghost colors for backward compatibility if needed, or map them
         ghost: {
-          bg: "#07141F",       // Mapped to ghost-navy
-          card: "#2E2A44",     // Mapped to ghost-purple
-          cyan: "#00E5FF",     // Mapped to ghost-cyan
-          cyanSoft: "#5DF2FF", // Mapped to ghost-cyan-light
-          grid: "#1B3A4B",     // Mapped to ghost-grid
-          text: "#E6F8FF",     // Mapped to ghost-text
-          muted: "#9BBBC7",    // Mapped to ghost-muted
+          bg: "#07141F",       
+          card: "#2E2A44",     
+          cyan: "#00E5FF",     
+          cyanSoft: "#5DF2FF", 
+          grid: "#1B3A4B",     
+          text: "#E6F8FF",     
+          muted: "#9BBBC7",    
         },
       },
       boxShadow: {
@@ -42,5 +40,4 @@ const config: Config = {
   },
   plugins: [],
 };
-
 export default config;
