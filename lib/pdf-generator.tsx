@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#0A192F', 
+        color: '#0A192F',
         marginBottom: 5,
     },
     subtitle: {
@@ -122,9 +122,9 @@ const ChecklistDocument = ({ fullName, brokers }: ChecklistProps) => (
             <Text style={styles.intro}>
                 We have automatically sent removal requests to all data brokers that accept email opt-outs (check your inbox for the CCs).
                 {'\n\n'}
-                However, the data brokers listed below do not accept automated emails and require you to fill out a web form. We've compiled the direct links for you below.
+                However, Our Ghost worker handles the form-based submissions for you.
                 {'\n\n'}
-                Protocol: Click the link, fill the form, and check it off. Expect to spend about 15 minutes.
+                Protocol: Sit back and relax. We'll handle the rest.
             </Text>
             <View style={styles.table}>
                 <View style={styles.tableRow}>

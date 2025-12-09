@@ -80,7 +80,7 @@ export async function sendOptOutEmails({
         from: 'DataGhost <noreply@dataghost.me>',
         to: [userEmail],
         subject: 'Protocol Initiated: Your removal requests have been sent',
-        text: `We just blasted ${sentCount} opt-out requests on your behalf.\n\nYou'll receive CCs from each data broker as they process your removal (usually within 7-45 days).\n\nWe'll re-scan and re-send for 45 days if anything pops back up.\n\n${checklistPdfBuffer ? 'Attached is your manual removal checklist for brokers requiring specific forms.\n\n' : ''}You're now being ghosted. 👻\n\n- The DataGhost Team`,
+        text: `We just blasted ${sentCount} opt-out requests on your behalf.\n\nOur Ghost worker is now processing ${sentCount} form-based submissions in the background (e.g., BeenVerified, Whitepages).\n\n' : ''}You're now being ghosted. 👻\n\n- The DataGhost Team`,
         attachments,
     });
 }
