@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { resendRemovalEmails } from '@/lib/data-broker-remover/send-emails';
 
@@ -9,7 +9,14 @@ const supabase = createClient(
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    // --- SECURITY FIX START ---
+    const authHeader = request.headers.get('authorization');
+    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+        return new NextResponse('Unauthorized', { status: 401 });
+    }
+    // --- SECURITY FIX END ---
+
     const workerUrl = process.env.WORKER_URL || 'https://dataghost-worker-production.up.railway.app';
     const now = new Date();
 

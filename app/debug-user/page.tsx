@@ -1,6 +1,14 @@
 import { getCurrentUser } from "@/lib/auth";
 import { getProfile } from "@/lib/profile";
+import { notFound } from "next/navigation";
+
 export default async function DebugUserPage() {
+    // --- SECURITY FIX START ---
+    if (process.env.NODE_ENV !== 'development') {
+        return notFound();
+    }
+    // --- SECURITY FIX END ---
+
     const user = await getCurrentUser();
     const profile = user ? await getProfile(user.id) : null;
     return (

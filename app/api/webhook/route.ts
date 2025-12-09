@@ -8,10 +8,19 @@ export async function POST(req: Request) {
     const signature = req.headers.get('x-signature') || '';
     const hmac = crypto.createHmac('sha256', webhookSecret);
     const digest = hmac.update(rawBody).digest('hex');
-    if (signature !== digest) {
 
+    // --- SECURITY FIX START ---
+    const signatureBuffer = Buffer.from(signature);
+    const digestBuffer = Buffer.from(digest);
+
+    // Constant-time comparison to prevent timing attacks
+    const isValid = signatureBuffer.length === digestBuffer.length &&
+      crypto.timingSafeEqual(signatureBuffer, digestBuffer);
+
+    if (!isValid) {
       return new NextResponse('Invalid signature', { status: 400 });
     }
+    // --- SECURITY FIX END ---
     const payload = JSON.parse(rawBody);
 
     if (payload.meta.event_name === 'order_created') {
