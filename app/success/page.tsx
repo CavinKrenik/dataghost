@@ -1,12 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
-// Hardcode the final verified counts for stability.
 const EMAIL_COUNT = 41;
 const FORM_COUNT = 41;
 const TOTAL_ACTIONS = EMAIL_COUNT + FORM_COUNT;
 
-// This page is now purely a static display, eliminating the final source of client-side errors.
 export default function SuccessPage() {
 
   return (
