@@ -17,14 +17,32 @@ export const metadata: Metadata = {
         images: ["/opengraph-image.jpg"],
     },
 };
-const FEATURES = [
+type ComparisonKey = "price" | "subscription" | "account" | "deletion" | "brokers";
+
+interface Feature {
+    name: string;
+    key: ComparisonKey;
+}
+
+interface Competitor {
+    name: string;
+    isPrimary?: boolean; // Make optional
+    price: string;
+    subscription: string;
+    account: string;
+    deletion: string;
+    brokers: string;
+}
+
+const FEATURES: Feature[] = [
     { name: "Price", key: "price" },
     { name: "Subscription Required", key: "subscription" },
     { name: "Account / Dashboard", key: "account" },
     { name: "Data Deletion", key: "deletion" },
     { name: "Brokers Covered", key: "brokers" },
 ];
-const COMPETITORS = [
+
+const COMPETITORS: Competitor[] = [
     {
         name: "DataGhost",
         isPrimary: true,
@@ -71,7 +89,7 @@ export default function Comparison() {
     return (
         <div className="min-h-screen bg-ghost-navy text-white py-16 px-6">
             <div className="max-w-7xl mx-auto">
-                {}
+                { }
                 <div className="text-center mb-16 md:mb-20">
                     <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 bg-gradient-to-br from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight text-center">
                         DataGhost vs The Subscription Services<br />2025 Comparison
@@ -81,7 +99,7 @@ export default function Comparison() {
                         DataGhost is different: one powerful removal sweep for <span className="text-ghost-cyan font-bold">$49</span>.
                     </p>
                 </div>
-                {}
+                { }
                 <div className="md:hidden space-y-6">
                     {FEATURES.map((feature, i) => (
                         <div key={feature.key} className="rounded-2xl border border-cyan-900/40 bg-black/40 backdrop-blur-sm p-6 shadow-lg shadow-black/20">
@@ -105,7 +123,7 @@ export default function Comparison() {
                                             (feature.key === 'subscription' || feature.key === 'account') && comp.name !== 'DataGhost' ? 'text-red-400' :
                                                 'text-zinc-300'
                                             }`}>
-                                            {}
+                                            { }
                                             {comp[feature.key]}
                                         </div>
                                     </div>
@@ -114,7 +132,7 @@ export default function Comparison() {
                         </div>
                     ))}
                 </div>
-                {}
+                { }
                 <div className="hidden md:block overflow-x-auto rounded-3xl border border-cyan-800/40 bg-black/30 backdrop-blur-xl -mx-6 px-6 md:mx-auto md:max-w-7xl md:px-0 mt-12 mb-20 shadow-2xl shadow-cyan-900/20">
                     <div className="min-w-[920px] py-8">
                         <table className="w-full text-left border-collapse">
@@ -137,14 +155,13 @@ export default function Comparison() {
                                         </td>
                                         {COMPETITORS.map((comp) => (
                                             <td key={`${comp.name}-${feature.key}`} className={`px-8 py-6 text-center ${comp.isPrimary ? 'bg-cyan-950/10' : ''}`}>
-                                                <span className={`text-lg font-semibold ${
-                                                    feature.key === 'price' && comp.isPrimary ? 'text-3xl text-ghost-cyan' :
+                                                <span className={`text-lg font-semibold ${feature.key === 'price' && comp.isPrimary ? 'text-3xl text-ghost-cyan' :
                                                         (feature.key === 'subscription' || feature.key === 'account') && comp.isPrimary ? 'text-ghost-cyan text-2xl' :
                                                             (feature.key === 'subscription' || feature.key === 'account') && !comp.isPrimary ? 'text-red-500 text-2xl' :
                                                                 feature.key === 'deletion' && comp.isPrimary ? 'text-ghost-cyan' :
                                                                     'text-gray-300'
                                                     }`}>
-                                                    {}
+                                                    { }
                                                     {comp[feature.key]}
                                                 </span>
                                             </td>
@@ -155,7 +172,7 @@ export default function Comparison() {
                         </table>
                     </div>
                 </div>
-                {}
+                { }
                 <div className="text-center mt-12 md:mt-20">
                     <a
                         href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
