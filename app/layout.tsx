@@ -9,37 +9,21 @@ import { StickyCTA } from "@/components/StickyCTA";
 import { Button } from "@/components/ui/button";
 import { BarChart3 } from "lucide-react";
 export const metadata: Metadata = {
-  title: "DataGhost – Best One-Time Data Removal Service 2025 | DeleteMe & Incogni Alternative ($49 Forever)",
+  // OPTIMIZED: 58 characters (Perfect for Bing/Google)
+  title: "DataGhost: Remove Your Data from 70+ Brokers ($49 One-Time)",
+
+  // OPTIMIZED: 153 characters (Fits perfectly in the snippet)
   description:
-    "Remove your data from 70+ brokers derived for $49 one-time. No subscription, no account, data deleted after 45 days. The best DeleteMe, Incogni, Optery, Kanary alternative in 2025 – automatic + manual opt-outs, full removal report.",
+    "Remove personal info from Spokeo, Whitepages, and 70+ brokers for $49 one-time. No subscription, no account. The best 2025 alternative to DeleteMe.",
+
   keywords: [
-    "best data removal service 2025",
+    "data removal service",
     "deleteme alternative",
     "incogni alternative",
-    "optery alternative",
-    "kanary alternative",
-    "privacy bee alternative",
-    "best deleteme alternative 2025",
-    "incogni vs deleteme 2025",
-    "one time data removal service",
-    "data removal no subscription",
-    "pay once remove my data forever",
-    "cheapest data removal service 2025",
-    "data removal service one time payment",
-    "best non subscription data removal",
-    "remove my data from spokeo beenverified mylife",
-    "automatic data broker opt out",
-    "privacy service no recurring fee",
-    "best incogni alternative no subscription",
-    "remove personal information from internet",
-    "data broker removal service",
-    "opt out of data brokers",
-    "remove my data from data brokers",
-    "delete my information from the internet",
-    "best way to remove my data from google",
-    "remove my info from people search sites",
-    "remove my address from internet",
-    "remove phone number from data brokers",
+    "one time payment data removal",
+    "remove my data from google",
+    "privacy tool",
+    "data broker opt out",
   ],
   openGraph: {
     type: "website",
@@ -221,7 +205,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="min-h-screen flex flex-col pb-24 md:pb-0">
-          {}
+          { }
           <header className="border-b border-ghost-grid/40 bg-black/40 backdrop-blur-sm sticky top-0 z-50">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 gap-4">
               <Link href="/" className="flex items-center gap-3 shrink-0">
@@ -261,9 +245,9 @@ export default async function RootLayout({
               </nav>
             </div>
           </header>
-          {}
+          { }
           <main className="flex-1">{children}</main>
-          {}
+          { }
           <Footer />
           <StickyCTA />
         </div>

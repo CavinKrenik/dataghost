@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Check, X, Shield, Zap, RefreshCw, Trash2, Database } from "lucide-react";
 export const metadata: Metadata = {
-    title: "DataGhost vs DeleteMe vs Incogni vs Optery vs Kanary – 2025 Comparison (No Subscription Winner)",
-    description: "Side-by-side 2025 comparison. Only DataGhost offers one-time $49 payment, weekly re-scans, and permanent data deletion. No recurring fees ever.",
+    // OPTIMIZED: 56 characters
+    title: "DataGhost vs DeleteMe & Incogni: 2025 Pricing Comparison",
+
+    // OPTIMIZED: 138 characters
+    description: "See why DataGhost is the winner. Only we offer a $49 one-time payment, weekly re-scans, and permanent data deletion. No recurring fees.",
     alternates: { canonical: "https://dataghost.me/comparison" },
     openGraph: {
         title: "DataGhost vs DeleteMe vs Incogni vs Optery vs Kanary – 2025 Comparison (No Subscription Winner)",
@@ -156,10 +159,10 @@ export default function Comparison() {
                                         {COMPETITORS.map((comp) => (
                                             <td key={`${comp.name}-${feature.key}`} className={`px-8 py-6 text-center ${comp.isPrimary ? 'bg-cyan-950/10' : ''}`}>
                                                 <span className={`text-lg font-semibold ${feature.key === 'price' && comp.isPrimary ? 'text-3xl text-ghost-cyan' :
-                                                        (feature.key === 'subscription' || feature.key === 'account') && comp.isPrimary ? 'text-ghost-cyan text-2xl' :
-                                                            (feature.key === 'subscription' || feature.key === 'account') && !comp.isPrimary ? 'text-red-500 text-2xl' :
-                                                                feature.key === 'deletion' && comp.isPrimary ? 'text-ghost-cyan' :
-                                                                    'text-gray-300'
+                                                    (feature.key === 'subscription' || feature.key === 'account') && comp.isPrimary ? 'text-ghost-cyan text-2xl' :
+                                                        (feature.key === 'subscription' || feature.key === 'account') && !comp.isPrimary ? 'text-red-500 text-2xl' :
+                                                            feature.key === 'deletion' && comp.isPrimary ? 'text-ghost-cyan' :
+                                                                'text-gray-300'
                                                     }`}>
                                                     { }
                                                     {comp[feature.key]}
