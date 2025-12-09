@@ -37,8 +37,7 @@ export async function sendOptOutEmails({
     let sentCount = 0;
     let errorCount = 0;
 
-    // FIX: Sequential Loop instead of Promise.all
-    // We send 1 email at a time to strictly respect the 2 req/s limit.
+    // FIX 1: Sequential Loop to respect the 2 req/s limit.
     for (const company of companies) {
         try {
             const personalizedSubject = company.subject
@@ -54,24 +53,24 @@ export async function sendOptOutEmails({
                 .replace(/{{email}}/g, userEmail)
                 .replace(/{{age_range}}/g, ageRange);
 
+            // FIX 2: Changed 'noreply' to 'support' to increase deliverability trust.
             await resend.emails.send({
-                from: 'DataGhost <noreply@dataghost.me>',
+                from: 'DataGhost <support@dataghost.me>',
                 to: [company.email],
-                cc: [userEmail], // User gets a copy for their records
+                cc: [userEmail],
                 subject: personalizedSubject,
                 text: personalizedBody,
             });
 
             sentCount++;
 
-            // CRITICAL: Wait 600ms between sends.
-            // 1000ms / 600ms = ~1.66 requests per second (Safe under the 2 req/s limit)
+            // FIX 3: Wait 600ms between sends (approx 1.6 req/s).
             await wait(600);
 
         } catch (err) {
             console.error(`Failed to send to ${company.name}:`, err);
             errorCount++;
-            // If we hit an error (even rate limit), wait a bit longer to cool down
+            // Cool down on error
             await wait(1000);
         }
     }
@@ -84,10 +83,10 @@ export async function sendOptOutEmails({
 
     try {
         await resend.emails.send({
-            from: 'DataGhost <noreply@dataghost.me>',
+            from: 'DataGhost <support@dataghost.me>', // Updated here too
             to: [userEmail],
             subject: 'Protocol Initiated: Your removal requests have been sent',
-            text: `We just blasted ${sentCount} opt-out requests on your behalf.\n\nOur Ghost Worker is now processing form-based submissions in the background (e.g., BeenVerified, Whitepages).\n\nYou'll receive CCs from each data broker as they process your removal (usually within 7-45 days).\n\nYou're now being ghosted. 👻\n\n- The DataGhost Team`,
+            text: `We just blasted ${sentCount} opt-out requests on your behalf.\n\nOur Ghost Worker is now processing form-based submissions in the background (e.g., BeenVerified, Whitepages).\n\nYou'll receive CCs from each data broker as they process your removal (usually within 7-45 days).\n\n${checklistPdfBuffer ? 'Attached is your manual removal checklist for brokers requiring specific forms.\n\n' : ''}You're now being ghosted. 👻\n\n- The DataGhost Team`,
             attachments,
         });
     } catch (finalErr) {
@@ -99,7 +98,7 @@ export async function sendVerificationEmail(email: string, code: string) {
     if (!resend) return;
 
     await resend.emails.send({
-        from: 'DataGhost <noreply@dataghost.me>',
+        from: 'DataGhost <support@dataghost.me>', // Updated here too
         to: [email],
         subject: 'Your Verification Code',
         html: `
