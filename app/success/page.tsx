@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const EMAIL_COUNT = 41;
-const FORM_COUNT = 41;
+const FORM_COUNT = 40;
 const TOTAL_ACTIONS = EMAIL_COUNT + FORM_COUNT;
 
 export default function SuccessPage() {

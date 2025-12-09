@@ -121,7 +121,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         let pdfBase64: string | undefined;
         let pdfBuffer: Buffer | undefined;
 
-        // 5. Send Emails (RESEND) - HIGHLY PROTECTED
+        // 5. Send Emails (RESEND) - NOW CHECKING ERRORS
         try {
             await sendOptOutEmails({
                 fullName,
@@ -130,13 +130,18 @@ export async function startGhosting(prevState: State | undefined, formData: Form
                 ageRange,
                 userEmail: email,
                 companies,
-                checklistPdfBuffer: pdfBuffer,
+                checklistPdfBuffer: undefined,
             });
-        } catch (emailErr) {
-            console.error('ERROR: EMAIL SEND FAILED (Non-critical):', emailErr);
+        } catch (emailErr: any) {
+            console.error('ERROR: EMAIL SEND FAILED:', emailErr);
+            // Return failure to UI instead of pretending success
+            return {
+                success: false,
+                error: 'Payment successful, but the email system is currently experiencing issues. Please contact support@dataghost.me or try again later.'
+            };
         }
 
-        // 6. Trigger Worker (The successful part)
+        // 6. Trigger Worker
         const workerData = {
             fullName,
             city,
@@ -152,7 +157,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             jobId
         });
 
-        // 7. Create Job Record (ASYNCHRONOUSLY, HIGHLY PROTECTED)
+        // 7. Create Job Record
         try {
             const job = await createRemovalJob({
                 user_email: email,
@@ -160,23 +165,19 @@ export async function startGhosting(prevState: State | undefined, formData: Form
                 status: 'pending'
             });
             jobId = job?.id;
-
         } catch (jobErr) {
             console.error('ERROR: FAILED TO CREATE JOB RECORD (STUBBED LOGIC):', jobErr);
         }
 
-        // 8. Final Return: Return state object directly instead of using redirect()
         const emailCount = companies.length;
         const formCount = formBrokers.length;
 
-        // The front-end client component will now read this state object and redirect manually.
         return {
             success: true,
             count: emailCount,
             manualBrokersCount: formCount,
-            pdfBase64
+            pdfBase64: undefined
         };
-
 
     } catch (error: any) {
         console.error('CRITICAL GHOSTING FAILURE (UNCATEGORIZED):', error);
@@ -186,11 +187,16 @@ export async function startGhosting(prevState: State | undefined, formData: Form
 
 async function triggerWorker(userData: any) {
     const WORKER_URL = process.env.WORKER_URL || 'http://localhost:8080/nuke-data';
+    const CRON_SECRET = process.env.CRON_SECRET || ''; // Add your secret
 
     try {
+        // Added Authorization header to secure the worker trigger
         fetch(WORKER_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${CRON_SECRET}`
+            },
             body: JSON.stringify(userData),
         }).catch(err => { console.error('Worker Trigger Failed (Fetch):', err) });
     } catch (e) {

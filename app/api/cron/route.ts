@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ success: true, message: 'No users need rescanning.' });
     }
 
-    for (const user of usersToScan) {
+    await Promise.allSettled(usersToScan.map(async (user) => {
         try {
             await resendRemovalEmails(user as any);
         } catch (err) {
@@ -51,7 +51,10 @@ export async function GET(request: NextRequest) {
         try {
             await fetch(`${workerUrl}/nuke-data`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.CRON_SECRET}`
+                },
                 body: JSON.stringify({
                     email: user.email,
                     fullName: user.full_name,
@@ -68,7 +71,7 @@ export async function GET(request: NextRequest) {
             .from('data_broker_users')
             .update({ last_scanned_at: new Date() })
             .eq('id', user.id);
-    }
+    }));
 
     return NextResponse.json({
         success: true,

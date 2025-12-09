@@ -27,8 +27,8 @@ export async function sendOptOutEmails({
 }) {
 
     if (!resend) {
-        console.error('Resend API Key missing. Skipping email send.');
-        return;
+        // THROW ERROR instead of just logging
+        throw new Error('Resend API Key missing. Skipping email send.');
     }
 
     // 1. Prepare the Batch (Instant processing)
@@ -64,12 +64,16 @@ export async function sendOptOutEmails({
 
             if (error) {
                 console.error('Batch Email Error:', error);
+                // THROW ERROR to notify caller
+                throw new Error(`Batch Email Failed: ${error.message}`);
             } else {
                 console.log(`Batch successfully sent ${batchEmails.length} emails.`);
             }
 
         } catch (err) {
             console.error('Failed to send batch emails:', err);
+            // RE-THROW ERROR
+            throw err;
         }
     }
 
@@ -81,22 +85,30 @@ export async function sendOptOutEmails({
     }] : [];
 
     try {
-        await resend.emails.send({
+        const { error } = await resend.emails.send({
             from: 'DataGhost <support@dataghost.me>',
             to: [userEmail],
             subject: 'Protocol Initiated: Your removal requests have been sent',
             text: `We just blasted ${companies.length} opt-out requests on your behalf.\n\nOur Ghost Worker is now processing form-based submissions in the background (e.g., BeenVerified, Whitepages).\n\nYou'll receive CCs from each data broker as they process your removal (usually within 7-45 days).\n\n${checklistPdfBuffer ? 'Attached is your manual removal checklist for brokers requiring specific forms.\n\n' : ''}You're now being ghosted. 👻\n\n- The DataGhost Team`,
             attachments,
         });
+
+        if (error) throw error;
+
     } catch (finalErr) {
         console.error('Failed to send confirmation email:', finalErr);
+        // We might choose NOT to throw here if the batch sent successfully,
+        // but for strictness, we can throw. 
+        // For now, let's allow confirmation failure if batch succeeded, 
+        // OR throw to be safe. Let's throw.
+        throw finalErr;
     }
 }
 
 export async function sendVerificationEmail(email: string, code: string) {
-    if (!resend) return;
+    if (!resend) throw new Error('Resend API missing');
 
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
         from: 'DataGhost <support@dataghost.me>',
         to: [email],
         subject: 'Your Verification Code',
@@ -113,4 +125,6 @@ export async function sendVerificationEmail(email: string, code: string) {
     `,
         text: `Your Verification Code\n\nYour verification code is: ${code}\n\nThis code will expire in 30 minutes.\n\nIf you didn't request this code, please ignore this email.`
     });
+
+    if (error) throw error;
 }
