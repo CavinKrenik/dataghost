@@ -3,9 +3,6 @@ import { Resend } from 'resend';
 const apiKey = process.env.RESEND_API_KEY;
 const resend = apiKey ? new Resend(apiKey) : null;
 
-// Helper to strictly respect rate limits (Sleep function)
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export async function sendOptOutEmails({
     fullName,
     city,
@@ -34,48 +31,50 @@ export async function sendOptOutEmails({
         return;
     }
 
-    let sentCount = 0;
-    let errorCount = 0;
+    // 1. Prepare the Batch (Instant processing)
+    // We map the companies to an array of email objects.
+    const batchEmails = companies.map((company) => {
+        const personalizedSubject = company.subject
+            .replace(/{{name}}/g, fullName)
+            .replace(/{{fullName}}/g, fullName)
+            .replace(/{{city}}/g, city)
+            .replace(/{{state}}/g, state);
 
-    // FIX 1: Sequential Loop to respect the 2 req/s limit.
-    for (const company of companies) {
+        const personalizedBody = company.body
+            .replace(/{{name}}/g, fullName)
+            .replace(/{{city}}/g, city)
+            .replace(/{{state}}/g, state)
+            .replace(/{{email}}/g, userEmail)
+            .replace(/{{age_range}}/g, ageRange);
+
+        return {
+            from: 'DataGhost <support@dataghost.me>',
+            to: [company.email],
+            cc: [userEmail], // User gets a copy
+            subject: personalizedSubject,
+            text: personalizedBody,
+        };
+    });
+
+    if (batchEmails.length > 0) {
         try {
-            const personalizedSubject = company.subject
-                .replace(/{{name}}/g, fullName)
-                .replace(/{{fullName}}/g, fullName)
-                .replace(/{{city}}/g, city)
-                .replace(/{{state}}/g, state);
+            // 2. Send Batch (One single API call, <2 seconds)
+            // This avoids the 40s loop and fixes the 502 Timeout.
+            const { data, error } = await resend.batch.send(batchEmails);
 
-            const personalizedBody = company.body
-                .replace(/{{name}}/g, fullName)
-                .replace(/{{city}}/g, city)
-                .replace(/{{state}}/g, state)
-                .replace(/{{email}}/g, userEmail)
-                .replace(/{{age_range}}/g, ageRange);
-
-            // FIX 2: Changed 'noreply' to 'support' to increase deliverability trust.
-            await resend.emails.send({
-                from: 'DataGhost <support@dataghost.me>',
-                to: [company.email],
-                cc: [userEmail],
-                subject: personalizedSubject,
-                text: personalizedBody,
-            });
-
-            sentCount++;
-
-            // FIX 3: Wait 600ms between sends (approx 1.6 req/s).
-            await wait(600);
+            if (error) {
+                console.error('Batch Email Error:', error);
+            } else {
+                console.log(`Batch successfully sent ${batchEmails.length} emails.`);
+            }
 
         } catch (err) {
-            console.error(`Failed to send to ${company.name}:`, err);
-            errorCount++;
-            // Cool down on error
-            await wait(1000);
+            console.error('Failed to send batch emails:', err);
         }
     }
 
-    // Final Confirmation Email to User
+    // 3. Send Final Confirmation to User (Separate single call)
+    // Only this email gets the PDF attachment (if any)
     const attachments = checklistPdfBuffer ? [{
         content: checklistPdfBuffer,
         filename: 'DataGhost_Manual_Removal_Checklist.pdf',
@@ -83,10 +82,10 @@ export async function sendOptOutEmails({
 
     try {
         await resend.emails.send({
-            from: 'DataGhost <support@dataghost.me>', // Updated here too
+            from: 'DataGhost <support@dataghost.me>',
             to: [userEmail],
             subject: 'Protocol Initiated: Your removal requests have been sent',
-            text: `We just blasted ${sentCount} opt-out requests on your behalf.\n\nOur Ghost Worker is now processing form-based submissions in the background (e.g., BeenVerified, Whitepages).\n\nYou'll receive CCs from each data broker as they process your removal (usually within 7-45 days).\n\n${checklistPdfBuffer ? 'Attached is your manual removal checklist for brokers requiring specific forms.\n\n' : ''}You're now being ghosted. 👻\n\n- The DataGhost Team`,
+            text: `We just blasted ${companies.length} opt-out requests on your behalf.\n\nOur Ghost Worker is now processing form-based submissions in the background (e.g., BeenVerified, Whitepages).\n\nYou'll receive CCs from each data broker as they process your removal (usually within 7-45 days).\n\n${checklistPdfBuffer ? 'Attached is your manual removal checklist for brokers requiring specific forms.\n\n' : ''}You're now being ghosted. 👻\n\n- The DataGhost Team`,
             attachments,
         });
     } catch (finalErr) {
@@ -98,7 +97,7 @@ export async function sendVerificationEmail(email: string, code: string) {
     if (!resend) return;
 
     await resend.emails.send({
-        from: 'DataGhost <support@dataghost.me>', // Updated here too
+        from: 'DataGhost <support@dataghost.me>',
         to: [email],
         subject: 'Your Verification Code',
         html: `
