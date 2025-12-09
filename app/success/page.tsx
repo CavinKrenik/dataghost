@@ -42,13 +42,8 @@ export default function SuccessPage() {
         </p>
         <p className="text-sm text-ghost-muted mt-4">
           <strong className="text-white">Note:</strong> A small number of brokers (like Acxiom) may reply asking for a signed form or ID.
-          This is a standard stalling tactic. We provide a guide on how to handle these specific cases in your confirmation email.
+          This is a standard stalling tactic.
         </p>
-      </div>
-      <div className="mt-6">
-        <Link href="/comparison" className="text-ghost-cyan hover:underline font-medium text-lg">
-          See how you just beat every subscription service →
-        </Link>
       </div>
       <Link
         href="/"
