@@ -24,7 +24,6 @@ const brokers = [
     "SearchPeopleFree",
     "SearchQuarry",
     "SmartBackgroundChecks",
-    "Spytox",
     "TruePeopleSearch",
     "TruthFinder",
     "UnMask",
