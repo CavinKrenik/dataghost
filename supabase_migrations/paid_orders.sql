@@ -30,5 +30,6 @@ alter table public.paid_orders enable row level security;
 -- Policies (Service Role only access)
 create policy "Service role can manage paid_orders"
   on public.paid_orders
+  to service_role
   using ( true )
   with check ( true );
