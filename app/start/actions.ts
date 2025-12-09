@@ -4,6 +4,7 @@ import { US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
 import ALL_BROKERS_JSON from '@/data/brokers.json';
+import { z } from 'zod';
 
 export type State = {
     success?: boolean;
@@ -17,6 +18,15 @@ export type State = {
 async function createRemovalJob(data: any): Promise<any> { return { id: 'STUB_JOB_ID' }; }
 const getBrokerList = () => ALL_BROKERS_JSON;
 
+const FormSchema = z.object({
+    fullName: z.string().min(1, "Full name is required").trim(),
+    city: z.string().min(1, "City is required").trim(),
+    state: z.string().min(1, "State is required").trim(),
+    ageRange: z.string().min(1, "Age range is required"),
+    email: z.string().email("Invalid email address"),
+    postcode: z.string().optional().default("00000"),
+});
+
 export async function startGhosting(prevState: State | undefined, formData: FormData): Promise<State> {
     const rawData = {
         fullName: formData.get('fullName') as string,
@@ -24,15 +34,17 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         state: formData.get('state') as string,
         ageRange: formData.get('ageRange') as string,
         email: formData.get('email') as string,
-        country: 'US',
         postcode: formData.get('postcode') as string || '00000',
     };
 
-    if (!rawData.fullName || !rawData.email.includes('@')) {
-        return { success: false, error: 'Invalid input.' };
+    const validatedFields = FormSchema.safeParse(rawData);
+
+    if (!validatedFields.success) {
+        return { success: false, error: 'Invalid input. Please check your details.' };
     }
 
-    const { fullName, city, state, ageRange, email, country } = rawData;
+    const { fullName, city, state, ageRange, email, postcode } = validatedFields.data;
+    const country = 'US';
 
     try {
         const supabase = createAdminClient();

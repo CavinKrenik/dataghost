@@ -14,5 +14,6 @@ alter table public.jobs enable row level security;
 -- Create policies (Service Role only by default)
 create policy "Service role can manage all jobs"
   on public.jobs
+  to service_role
   using ( true )
   with check ( true );
