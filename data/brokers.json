@@ -156,10 +156,10 @@
     "subject": "Opt-Out Request"
   },
   {
-    "name": "TowerData",
+    "name": "AtData (formerly TowerData)",
     "type": "email",
-    "email": "privacy@towerdata.com",
-    "subject": "Data Deletion Request"
+    "email": "privacy@atdata.com",
+    "subject": "Data Deletion Request - {{fullName}}"
   },
   {
     "name": "Versium",
