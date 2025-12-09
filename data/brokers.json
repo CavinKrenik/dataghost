@@ -30,12 +30,6 @@
     "subject": "Opt-Out Request – {{fullName}}"
   },
   {
-    "name": "BackgroundChecks.com",
-    "type": "email",
-    "email": "privacy@backgroundchecks.com",
-    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
-  },
-  {
     "name": "Checkr",
     "type": "email",
     "email": "privacy@checkr.com",
@@ -72,12 +66,6 @@
     "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
   },
   {
-    "name": "Ofsearch",
-    "type": "email",
-    "email": "contactus@ofsearch.org",
-    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
-  },
-  {
     "name": "Acxiom",
     "type": "email",
     "email": "optout@acxiom.com",
@@ -87,12 +75,6 @@
     "name": "Epsilon",
     "type": "email",
     "email": "privacy@epsilon.com",
-    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
-  },
-  {
-    "name": "Oracle Data Cloud",
-    "type": "email",
-    "email": "privacy@oracle.com",
     "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
   },
   {
@@ -112,12 +94,6 @@
     "type": "email",
     "email": "privacy@thetradedesk.com",
     "subject": "Opt-Out Request"
-  },
-  {
-    "name": "BidSwitch",
-    "type": "email",
-    "email": "privacy@bidswitch.com",
-    "subject": "Data Subject Access Request - Opt Out"
   },
   {
     "name": "Comscore",
@@ -166,12 +142,6 @@
     "type": "email",
     "email": "privacy@quantcast.com",
     "subject": "Opt-Out Request"
-  },
-  {
-    "name": "LiveRamp",
-    "type": "email",
-    "email": "consumeroffline@liveramp.com",
-    "subject": "Do Not Sell My Personal Information"
   },
   {
     "name": "Nielsen",
