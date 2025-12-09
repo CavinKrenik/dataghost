@@ -12,7 +12,7 @@ export async function sendRemovalEmail({
   html: string;
 }) {
   await resend.emails.send({
-    from: "DataGhost Removals <noreply@dataghost.me>",
+    from: "DataGhost Removals <support@dataghost.me>",
     to,
     cc: cc || undefined,
     subject,
