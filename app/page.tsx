@@ -5,7 +5,7 @@ import { LandingInfo } from "@/components/LandingInfo";
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-ghost-navy text-ghost-text relative">
-      {}
+      { }
       <section className="relative bg-holo px-6 pt-16 pb-24 md:pt-28 md:pb-32 lg:pt-40 lg:pb-48 text-center overflow-hidden">
         <div className="flex justify-center mb-6 md:mb-8">
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[520px] lg:h-[520px]">
@@ -48,7 +48,7 @@ export default function HomePage() {
           <span>Data deleted after 45 days</span>
         </div>
       </section>
-      {}
+      { }
       <section className="px-6 py-16 bg-ghost-bg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">How We Handle Your Data</h2>
@@ -87,11 +87,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {}
+      { }
       <section className="px-6 py-12 flex flex-col items-center">
-        {}
+        { }
         <div className="max-w-2xl text-center mb-8">
-          <p className="text-sm text-gray-500 leading-relaxed">
+          <p className="text-sm text-gray-400 leading-relaxed">
             DataGhost is a fully automated opt-out submission tool. We are not lawyers and do not provide legal advice. While we successfully remove data from 70+ brokers for 98%+ of users, we cannot legally guarantee removal from every single site due to varying broker policies.
           </p>
         </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
           </p>
         </div>
       </section>
-      {}
+      { }
       <section className="px-6 py-12 max-w-5xl mx-auto">
         <h3 className="text-center text-lg lg:text-xl font-semibold mb-8 text-ghost-muted uppercase tracking-widest">
           <span className="text-ghost-cyan mr-2">👻</span> Recent Ghosts
@@ -143,7 +143,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {}
+      { }
       <section className="px-6 py-16 bg-ghost-navy/50">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">FAQ</h2>
