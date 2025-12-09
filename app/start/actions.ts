@@ -5,13 +5,9 @@ import { US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
-
-// NOTE: This utility function is usually placed in utils.ts or a separate file, 
-// but is defined here for completeness in the Server Action file.
-const getBrokerList = () => {
-    // We assume the JSON syntax is correct now and load it directly
-    return require('@/data/brokers.json');
-};
+// NOTE: For ultimate stability, we directly import the JSON data at the top-level
+// This prevents a runtime crash caused by 'require()' inside a serverless function.
+import ALL_BROKERS_JSON from '@/data/brokers.json';
 
 
 export type State = {
@@ -82,12 +78,13 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             }
         }
 
-        // 4. Get and Filter Brokers
+        // 4. Get and Filter Brokers (USING THE NEW, STABLE IMPORT)
         let emailBrokers: { name: string, email: string, subject?: string }[] = [];
         let formBrokers: { name: string, url?: string }[] = [];
 
         try {
-            const allBrokers = getBrokerList();
+            // **FIXED:** Using the stable top-level import
+            const allBrokers = ALL_BROKERS_JSON;
 
             emailBrokers = allBrokers
                 .filter((b: any) => b.type === 'email' && b.email)
@@ -98,6 +95,7 @@ export async function startGhosting(prevState: State | undefined, formData: Form
                 .map((b: any) => ({ name: b.name, url: b.url }));
 
         } catch (e) {
+            // This catch block should now never run, but remains for safety
             console.error('CRITICAL: FAILED TO LOAD BROKERS.JSON:', e);
             return { success: false, error: 'Failed to load broker list from server.' };
         }
@@ -117,7 +115,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         // PDF Generation (BYPASSED)
         let pdfBase64: string | undefined;
         let pdfBuffer: Buffer | undefined;
-        // ... (PDF logic remains commented out)
 
         // 5. Send Emails (RESEND) - HIGHLY PROTECTED
         try {
@@ -132,7 +129,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             });
         } catch (emailErr) {
             console.error('ERROR: EMAIL SEND FAILED (Non-critical):', emailErr);
-            // The job continues even if the email fails, preventing a 500 error.
         }
 
         // 6. Trigger Worker (The successful part)
@@ -162,14 +158,9 @@ export async function startGhosting(prevState: State | undefined, formData: Form
 
         } catch (jobErr) {
             console.error('ERROR: FAILED TO CREATE JOB RECORD (DB MIGRATION ISSUE LIKELY):', jobErr);
-            // Job record creation is a non-critical error for the user's success page
         }
 
         // 8. Final Return
-        // The return must be clean and fast for the browser to register success.
-        // We explicitly ignore revalidatePath to avoid unnecessary error
-        // revalidatePath('/'); 
-
         return {
             success: true,
             count: companies.length,
@@ -186,7 +177,6 @@ async function triggerWorker(userData: any) {
     const WORKER_URL = process.env.WORKER_URL || 'http://localhost:8080/nuke-data';
 
     try {
-        // We do not await this fetch because we want the serverless function to complete quickly.
         fetch(WORKER_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
