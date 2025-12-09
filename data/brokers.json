@@ -214,5 +214,17 @@
     "type": "email",
     "email": "privacy@tappx.com",
     "subject": "Data Deletion Request"
+  },
+  {
+    "name": "BidSwitch",
+    "type": "email",
+    "email": "info@bidswitch.net",
+    "subject": "Data Subject Access Request - Opt Out"
+  },
+  {
+    "name": "LiveRamp",
+    "type": "email",
+    "email": "consumercare@liveramp.com",
+    "subject": "Do Not Sell My Personal Information"
   }
 ]
