@@ -7,16 +7,19 @@ export const metadata: Metadata = {
     // OPTIMIZED: 138 characters
     description: "See why DataGhost is the winner. Only we offer a $49 one-time payment, weekly re-scans, and permanent data deletion. No recurring fees.",
     alternates: { canonical: "https://dataghost.me/comparison" },
+    // 3. FIX: Update OpenGraph to match the main title
     openGraph: {
-        title: "DataGhost vs DeleteMe vs Incogni vs Optery vs Kanary – 2025 Comparison (No Subscription Winner)",
-        description: "Side-by-side 2025 comparison. Only DataGhost offers one-time $49 payment, weekly re-scans, and permanent data deletion. No recurring fees ever.",
+        title: "DataGhost vs DeleteMe & Incogni: 2025 Pricing Comparison", // <--- CHANGED
+        description: "See why DataGhost is the winner. Only we offer a $49 one-time payment, weekly re-scans, and permanent data deletion. No recurring fees.", // <--- CHANGED
         url: "https://dataghost.me/comparison",
         images: "/opengraph-image.jpg",
     },
+
+    // 4. FIX: Update Twitter to match the main title
     twitter: {
         card: "summary_large_image",
-        title: "DataGhost vs DeleteMe vs Incogni vs Optery vs Kanary – 2025 Comparison (No Subscription Winner)",
-        description: "Side-by-side 2025 comparison. Only DataGhost offers one-time $49 payment, weekly re-scans, and permanent data deletion. No recurring fees ever.",
+        title: "DataGhost vs DeleteMe & Incogni: 2025 Pricing Comparison", // <--- CHANGED
+        description: "See why DataGhost is the winner. Only we offer a $49 one-time payment, weekly re-scans, and permanent data deletion. No recurring fees.", // <--- CHANGED
         images: ["/opengraph-image.jpg"],
     },
 };
