@@ -85,9 +85,9 @@ export async function startGhosting(prevState: State | undefined, formData: Form
         let pdfBuffer: Buffer | undefined;
         if (formBrokers.length > 0) {
             try {
-                const { generateChecklistPDF } = await import('@/lib/pdf-generator');
-                pdfBuffer = await generateChecklistPDF(fullName, formBrokers);
-                pdfBase64 = pdfBuffer.toString('base64');
+                // const { generateChecklistPDF } = await import('@/lib/pdf-generator');
+                // pdfBuffer = await generateChecklistPDF(fullName, formBrokers);
+                // pdfBase64 = pdfBuffer.toString('base64');
             } catch (err) {
 
             }
