@@ -1,15 +1,10 @@
 'use server';
 
-// The following line is the fix: revalidatePath is from 'next/cache'
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation'; // redirect() is from 'next/navigation'
-
+import { revalidatePath } from 'next/cache'; // We keep this for future use
 // import { createRemovalJob } from '@/lib/db';
 import { US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
-
-// Stable JSON import
 import ALL_BROKERS_JSON from '@/data/brokers.json';
 
 
@@ -170,12 +165,17 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             console.error('ERROR: FAILED TO CREATE JOB RECORD (STUBBED LOGIC):', jobErr);
         }
 
-        // 8. Final Redirect (The successful step)
+        // 8. Final Return: Return state object directly instead of using redirect()
         const emailCount = companies.length;
         const formCount = formBrokers.length;
 
-        // CRITICAL FIX: Redirect now to prevent 500 error and pass counts.
-        redirect(`/success?emails=${emailCount}&forms=${formCount}`);
+        // The front-end client component will now read this state object and redirect manually.
+        return {
+            success: true,
+            count: emailCount,
+            manualBrokersCount: formCount,
+            pdfBase64
+        };
 
 
     } catch (error: any) {

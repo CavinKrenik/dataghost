@@ -2,18 +2,21 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { startGhosting } from './actions';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import { checkEmailPayment } from './verify-actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 export default function StartPage() {
-    const [step, setStep] = useState<1 | 2 | 3>(1); 
+    const [step, setStep] = useState<1 | 2 | 3>(1);
     const [email, setEmail] = useState('');
     const [checkingPayment, setCheckingPayment] = useState(false);
     const [paymentError, setPaymentError] = useState<string | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [result, setResult] = useState<{ count: number; manualBrokersCount: number; pdfBase64?: string } | null>(null);
+    const router = useRouter(); // Initialize router
+
     async function handleCheckPayment(e: React.FormEvent) {
         e.preventDefault();
         setCheckingPayment(true);
@@ -40,12 +43,10 @@ export default function StartPage() {
             }
             const res = await startGhosting(undefined, formData);
             if (res.success) {
-                setResult({
-                    count: res.count || 0,
-                    manualBrokersCount: res.manualBrokersCount || 0,
-                    pdfBase64: res.pdfBase64
-                });
-                setStep(3);
+                // MANUAL REDIRECT TO SUCCESS PAGE
+                const emailCount = res.count || 0;
+                const formCount = res.manualBrokersCount || 0;
+                router.push(`/success?emails=${emailCount}&forms=${formCount}`);
             } else {
                 setSubmitError(res.error || 'Submission failed.');
             }
@@ -57,7 +58,7 @@ export default function StartPage() {
     }
     return (
         <main className="min-h-screen bg-ghost-navy text-ghost-text relative bg-holo flex flex-col items-center justify-center p-6">
-            {}
+            { }
             <div className="mb-8">
                 <Image
                     src="/ghost.png"
@@ -69,7 +70,7 @@ export default function StartPage() {
                 />
             </div>
             <div className="max-w-xl w-full bg-ghost-navy-light/80 backdrop-blur-md border border-ghost-grid rounded-3xl p-8 shadow-card">
-                {}
+                { }
                 {step === 1 && (
                     <div className="space-y-6">
                         <div className="text-center">
@@ -107,7 +108,7 @@ export default function StartPage() {
                         </form>
                     </div>
                 )}
-                {}
+                { }
                 {step === 2 && (
                     <div className="space-y-6">
                         <div className="text-center mb-6">
@@ -121,7 +122,7 @@ export default function StartPage() {
                             }}
                             className="space-y-5"
                         >
-                            {}
+                            { }
                             <input type="hidden" name="email" value={email} />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div className="space-y-2">
@@ -211,7 +212,7 @@ export default function StartPage() {
                         </form>
                     </div>
                 )}
-                {}
+                { }
                 {step === 3 && result && (
                     <div className="text-center py-4 space-y-6 animate-in fade-in zoom-in duration-500">
                         <div className="mx-auto w-20 h-20 bg-ghost-cyan/20 rounded-full flex items-center justify-center mb-6 border border-ghost-cyan shadow-glow">
