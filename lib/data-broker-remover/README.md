@@ -1,191 +1,82 @@
-# Data Broker Remover Tool - Setup Guide
+# DataGhost 👻
 
-## Overview
+> **"Stateful but Stateless."** The simplest, most transparent way to disappear from data brokers.
 
-The Data Broker Remover tool is integrated into the Visible frontend as a self-contained module. It uses AWS SES for sending emails and DynamoDB for storing verification data.
+DataGhost is a privacy tool that removes user data from 70+ data brokers for a **one-time fee of $49**. Unlike competitors (DeleteMe, Incogni) that require subscriptions, DataGhost executes a "nuclear option": it blasts opt-out requests, confirms removal, and then permanently deletes its own records of the user after 45 days.
 
-## Architecture
+**Live at:** [https://dataghost.me](https://dataghost.me)
 
-- **Frontend**: React components in Next.js 16
-- **Backend**: Server Actions for AWS service integration
-- **Storage**: DynamoDB for email verification tracking
-- **Email**: AWS SES for sending verification codes and removal requests
-- **Privacy**: Email addresses are hashed (SHA256) before storage
+## Tech Stack
 
-## Required AWS Services
+* **Frontend:** [Next.js 14](https://nextjs.org) (App Router) + Tailwind CSS
+* **Database:** [Supabase](https://supabase.com) (PostgreSQL)
+* **Email:** [Resend](https://resend.com) (Transactional & Batch sending)
+* **Payments:** [Lemon Squeezy](https://lemonsqueezy.com) (Merchant of Record)
+* **Hosting:** Netlify (Frontend)
 
-### 1. AWS SES (Simple Email Service)
+## The Ghost Protocol (Architecture)
 
-**Email Templates Required:**
+The system operates on a distributed architecture to handle long-running automation tasks without blocking the user interface.
 
-1. **VerificationCode** - Sends verification code to users
-   - Template variables: `{{code}}`
-   - From: `noreply@visiblelabs.org`
+### Phase 1: Initiation
+1.  **Payment:** User pays $49. A webhook (`/api/webhook`) verifies the signature using constant-time comparison to prevent fraud.
+2.  **Onboarding:** User enters minimal PII (Name, City, State, Age).
+3.  **The "Blast":** The server immediately sends legal opt-out emails to ~40 brokers (e.g., Spokeo, Epsilon). **The user is CC'd on every email** for absolute transparency.
 
-2. **CompanyEmail** - Sends removal requests to data brokers
-   - Template variables: `{{name}}`, `{{street}}`, `{{city}}`, `{{country}}`, `{{postcode}}`, `{{email}}`, `{{companyName}}`
-   - From: `requests@visiblelabs.org`
-   - Reply-To: User's email address
+### Phase 2: The "Haunt" (Background Automation)
+1.  **Trigger:** The Next.js backend triggers the remote **Worker Service** via a secured HTTP POST.
+2.  **Handoff:** The request uses a "Fire-and-Forget" pattern. The frontend waits only for a handshake (HTTP 202) to prevent UI timeouts, ensuring the user sees the Success page immediately.
+3.  **Execution:** The Worker (running Playwright) navigates to "hard" targets (e.g., BeenVerified, Whitepages) to fill out complex removal forms.
 
-**Setup Steps:**
-1. Verify sender email addresses in SES
-2. Create email templates using the AWS SES console or CLI
-3. Move out of sandbox mode if needed (for production)
+### Phase 3: The Purge
+* **Retention:** Data is held for exactly 45 days to allow for weekly re-scans.
+* **Deletion:** On Day 46, a cron job permanently wipes user data from Supabase. No backups. No logs.
 
-### 2. AWS DynamoDB
+## Local Development
 
-**Table Schema:**
-- **Table Name**: `data-broker-remover-users` (configurable)
-- **Primary Key**: `id` (String) - SHA256 hash of email
-- **Attributes**:
-  - `code` (String) - Verification code
-  - `verified` (Boolean) - Email verification status
-  - `lastSent` (Number) - Unix timestamp of last email send
-  - `dateDate` (Number) - Day of month for tracking
+### Prerequisites
+* Node.js 18+
+* Supabase Project
+* Resend API Key
+* Lemon Squeezy Store ID
 
-**Setup Steps:**
-1. Create DynamoDB table with on-demand billing
-2. Set up appropriate IAM permissions for the application
+### Installation
 
-### 3. IAM Permissions
+1.  **Clone & Install**
+    ```bash
+    git clone [https://github.com/your-username/dataghost.git](https://github.com/your-username/dataghost.git)
+    cd dataghost
+    npm install
+    ```
 
-The application needs permissions for:
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ses:SendTemplatedEmail",
-        "ses:SendBulkTemplatedEmail"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "dynamodb:GetItem",
-        "dynamodb:PutItem",
-        "dynamodb:UpdateItem"
-      ],
-      "Resource": "arn:aws:dynamodb:REGION:ACCOUNT:table/TABLE_NAME"
-    }
-  ]
-}
-```
+2.  **Environment Setup**
+    Copy `.env.local.example` to `.env.local` and fill in your secrets.
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=...
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+    SUPABASE_SERVICE_ROLE_KEY=...
+    RESEND_API_KEY=re_...
+    WORKER_URL=http://localhost:8080
+    CRON_SECRET=your_shared_secret
+    ```
 
-## Environment Variables
+3.  **Run Development Server**
+    ```bash
+    npm run dev
+    ```
 
-Add these to your `.env.local` file:
+##  Security Features
 
-```bash
-# AWS Configuration
-VITE_AWS_REGION=eu-west-2
-VITE_TABLE_NAME=data-broker-remover-users
+* **CSP:** Strict Content Security Policy with nonces in `middleware.ts`.
+* **RLS:** Supabase Row Level Security ensures users (and the service role) can only access authorized data.
+* **PII Minimization:** We do not store credit card info. User PII is stored temporarily and encrypted at rest.
 
-# Data Broker Email List (format: Name,email:Name,email:...)
-VITE_COMPANIES=BidSwitch,contact@bidswitch.com:VUUKLE,privacy@vuukle.com:Bookyourdata,opt-out@bookyourdata.com
-```
+## 🔍 SEO & Metadata
 
-## Data Broker Email List
+This project is optimized to compete with high-DR incumbents.
+* **Metadata:** Dynamic generation in `layout.tsx` ensures optimal title/description length for SERPs.
+* **JSON-LD:** Rich snippets for `Service`, `Offer`, and `FAQPage`.
+* **Sitemap:** Automated `sitemap.ts` prioritizes money pages.
 
-The `VITE_COMPANIES` environment variable contains the list of data brokers and their contact emails. Format:
-
-```
-Name1,email1@domain.com:Name2,email2@domain.com:Name3,email3@domain.com
-```
-
-Update this list to add or remove data brokers.
-
-## Testing
-
-### Local Development Testing
-
-1. **Test Email Verification:**
-   ```bash
-   # Use a verified email address in SES (sandbox mode)
-   ```
-
-2. **Test Email Sending:**
-   ```bash
-   # Ensure SES templates are created
-   # Verify sender addresses
-   ```
-
-### Production Deployment
-
-1. Move SES out of sandbox mode
-2. Verify production domain
-3. Set up production DynamoDB table
-4. Update environment variables
-
-## Rate Limiting
-
-- Users can only send removal requests once every 45 days
-- Email addresses are hashed and stored only for rate limiting
-- Rate limit is based on hashed email to prevent spam
-
-## Privacy & Data Handling
-
-- **Email Storage**: SHA256 hashed, deleted after 45 days
-- **User Details**: NOT stored - only used to generate email templates
-- **Verification Codes**: Temporary, stored only during verification process
-
-## Open Source Considerations
-
-This tool is designed to be extractable as open source:
-
-1. **Self-Contained**: All code in `lib/data-broker-remover/`, `components/data-broker-remover/`, `actions/data-broker-remover/`
-2. **Configurable**: AWS services and broker list via environment variables
-3. **Documented**: Clear setup instructions and requirements
-4. **Independent**: No dependencies on Visible-specific backend services
-
-## Troubleshooting
-
-### Email Not Sending
-- Verify SES sender addresses are verified
-- Check SES is out of sandbox mode (production)
-- Verify IAM permissions are correct
-
-### Verification Code Not Received
-- Check SES email templates are created
-- Verify sender email is verified in SES
-- Check CloudWatch logs for errors
-
-### Rate Limit Issues
-- Check DynamoDB table has correct schema
-- Verify 45-day calculation is working correctly
-- Check lastSent timestamp in DynamoDB
-
-## File Structure
-
-```
-apps/frontend/
-├── lib/data-broker-remover/
-│   ├── types.ts              # TypeScript interfaces
-│   ├── broker-list.ts        # Data broker names for UI
-│   ├── aws-clients.ts        # AWS SDK client configuration
-│   └── README.md            # This file
-├── components/data-broker-remover/
-│   ├── DataBrokerWizard.tsx  # Main wizard component
-│   ├── EmailStep.tsx         # Step 1: Email entry
-│   ├── VerifyStep.tsx        # Step 2: Verification
-│   ├── DetailsStep.tsx       # Step 3: User details
-│   ├── ReviewStep.tsx        # Step 4: Review & send
-│   └── DataBrokerInfo.tsx    # FAQ and broker list
-├── actions/data-broker-remover/
-│   ├── send-code.ts          # Send verification code
-│   ├── verify-code.ts        # Verify code
-│   └── send-emails.ts        # Send removal emails
-└── app/tools/data-broker-remover/
-    └── page.tsx              # Tool page
-```
-
-## Support
-
-For issues or questions:
-- Check AWS CloudWatch logs
-- Verify environment variables are set
-- Check DynamoDB table permissions
-- Review SES sending statistics
+---
+*Built by Cavin Krenik.*
