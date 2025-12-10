@@ -124,25 +124,6 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             console.error('WORKER TRIGGER LOGIC EXCEPTION:', workerError.message);
         }
 
-        // REDIRECT TO SUCCESS with params
-        // We use redirect() from next/navigation which throws a NEXT_REDIRECT error
-        // so it must be outside the try/catch or rethrown.
-        // However, in server actions, we can just return the redirect object or use `redirect` function
-        // But the signature is `Promise<State>`, so we should check how the client handles it.
-        // "Convert SuccessPage to a Client Component ... Use useSearchParams"
-        // The previous code returned a state object.
-        // If we change this to `redirect`, we change the function signature?
-        // Ah, the user didn't ask to change the RETURN type of startGhosting, just the logic.
-        // BUT, the Success Page now relies on URL params.
-        // So the client component calling this action needs to handle the redirect.
-        // OR we can import `redirect` and use it.
-
-        // Wait, `startGhosting` is likely called by `useFormState`.
-        // `redirect` in Server Actions works by throwing an error that Next.js catches.
-
-        // Success - Redirecting
-        // We import redirect at top-level to use it here or just import at file level.
-        // Since we are inside the 'try', we have access to companies and formBrokers.
         const { redirect } = await import('next/navigation');
         redirect(`/success?emails=${companies.length}&forms=${formBrokers.length}`);
 
