@@ -1,6 +1,6 @@
 'use server';
 import crypto from 'crypto';
-import { getDataBrokerUser, upsertDataBrokerUser } from '@/lib/db';
+import { getDataBrokerUser, upsertDataBrokerUser } from '@/lib/db.server';
 import { VerifyCodeResponse } from '@/lib/data-broker-remover/types';
 export async function verifyCode(email: string, code: string): Promise<VerifyCodeResponse> {
   try {

@@ -1,7 +1,7 @@
 'use server';
 import crypto from 'crypto';
 import dayjs from 'dayjs';
-import { getDataBrokerUser, upsertDataBrokerUser } from '@/lib/db';
+import { getDataBrokerUser, upsertDataBrokerUser } from '@/lib/db.server';
 import { sendVerificationEmail } from '@/lib/email-sending';
 import { SendCodeResponse } from '@/lib/data-broker-remover/types';
 export async function sendVerificationCode(email: string): Promise<SendCodeResponse> {

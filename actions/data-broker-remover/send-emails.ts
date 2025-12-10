@@ -1,7 +1,7 @@
 "use server";
 import crypto from "crypto";
 import dayjs from "dayjs";
-import { getDataBrokerUser, upsertDataBrokerUser } from "@/lib/db";
+import { getDataBrokerUser, upsertDataBrokerUser } from "@/lib/db.server";
 import {
   getBrokerList,
   US_ONLY_BROKERS,

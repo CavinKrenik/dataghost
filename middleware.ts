@@ -2,13 +2,13 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  // Generate a random nonce for CSP
+  // 1. Generate Nonce for CSP
   const nonce = crypto.randomUUID();
 
-  // Define CSP Header
-  // Note: We use process.env.NODE_ENV to optionally allow unsafe-eval in dev if needed, 
-  // though strict-dynamic + nonce usually handles scripts well.
-  // We include connect-src for Supabase integration if needed client-side.
+  // 2. Define Strict CSP Header
+  // - script-src: 'nonce-...' 'strict-dynamic' allows trusted scripts to load others.
+  // - style-src: 'unsafe-inline' is required for Tailwind CSS in App Router.
+  // - connect-src: verified to include Supabase URL.
   const cspHeader = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ""};
@@ -28,6 +28,7 @@ export async function middleware(request: NextRequest) {
     .replace(/\s{2,}/g, " ")
     .trim();
 
+  // 3. Set Request Headers (for Next.js to read nonce)
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", contentSecurityPolicyHeaderValue);
@@ -38,9 +39,10 @@ export async function middleware(request: NextRequest) {
     },
   });
 
+  // 4. Set Response Headers (for Browser)
   response.headers.set("Content-Security-Policy", contentSecurityPolicyHeaderValue);
 
-  // Supabase Auth Logic
+  // 5. Supabase Auth Integration
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -53,12 +55,15 @@ export async function middleware(request: NextRequest) {
           cookiesToSet.forEach(({ name, value, options }) =>
             request.cookies.set(name, value)
           );
+
+          // Helper to copy headers/cookies to new response if Supabase refreshes session
           response = NextResponse.next({
             request: {
               headers: requestHeaders,
             },
           });
           response.headers.set("Content-Security-Policy", contentSecurityPolicyHeaderValue);
+
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options)
           );

@@ -1,6 +1,6 @@
 'use server';
 
-import { createRemovalJob } from '@/lib/db';
+import { createRemovalJob } from '@/lib/db.server';
 import { US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
