@@ -45,6 +45,13 @@ export async function startGhosting(prevState: State | undefined, formData: Form
     const { fullName, city, state, ageRange, email, postcode } = validatedFields.data;
     const country = 'US';
 
+    // Hoist variables for redirect scope
+    let emailCount = 0;
+    let formCount = 0;
+
+    // Success flag to trigger redirect
+    let shouldRedirect = false;
+
     try {
         const supabase = createAdminClient();
 
@@ -73,6 +80,10 @@ export async function startGhosting(prevState: State | undefined, formData: Form
 
         const emailBrokers = filteredBrokers.filter((b: any) => b.type === 'email' && b.email).map((b: any) => ({ name: b.name, email: b.email, subject: b.subject }));
         const formBrokers = filteredBrokers.filter((b: any) => b.type === 'form');
+
+        // Update counts for redirect
+        emailCount = emailBrokers.length;
+        formCount = formBrokers.length;
 
         const companies = emailBrokers.map((broker) => ({
             name: broker.name,
@@ -124,21 +135,20 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             console.error('WORKER TRIGGER LOGIC EXCEPTION:', workerError.message);
         }
 
-        const { redirect } = await import('next/navigation');
-        redirect(`/success?emails=${companies.length}&forms=${formBrokers.length}`);
-
-        // This return is unreachable due to redirect(), but satisfies TS if it didn't know about redirect's behavior
-        return { success: true };
+        shouldRedirect = true;
 
     } catch (error: any) {
-        // NEXT_REDIRECT throws an error that looks like 'NEXT_REDIRECT', we must rethrow it
-        if (error.message === 'NEXT_REDIRECT' || error.digest?.startsWith('NEXT_REDIRECT')) {
-            throw error;
-        }
-
         console.error('CRITICAL FAILURE:', error.message);
         return { success: false, error: 'Server error during ghosting.' };
     }
+
+    // Redirect must happen outside of try/catch
+    if (shouldRedirect) {
+        const { redirect } = await import('next/navigation');
+        redirect(`/success?emails=${emailCount}&forms=${formCount}`);
+    }
+
+    return { success: true };
 }
 
 // Refactored Helper: Non-blocking Worker Trigger

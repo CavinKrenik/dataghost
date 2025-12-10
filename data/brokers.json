@@ -226,5 +226,169 @@
     "type": "email",
     "email": "consumercare@liveramp.com",
     "subject": "Do Not Sell My Personal Information"
+  },
+  {
+    "name": "PeopleConnect",
+    "type": "form"
+  },
+  {
+    "name": "TruePeopleSearch",
+    "type": "form"
+  },
+  {
+    "name": "BeenVerified",
+    "type": "form"
+  },
+  {
+    "name": "PeopleFinders",
+    "type": "form"
+  },
+  {
+    "name": "FastPeopleSearch",
+    "type": "form"
+  },
+  {
+    "name": "TruthFinder",
+    "type": "form"
+  },
+  {
+    "name": "InstantCheckmate",
+    "type": "form"
+  },
+  {
+    "name": "Whitepages",
+    "type": "form"
+  },
+  {
+    "name": "MyLife",
+    "type": "form"
+  },
+  {
+    "name": "Radaris",
+    "type": "form"
+  },
+  {
+    "name": "Nuwber",
+    "type": "form"
+  },
+  {
+    "name": "FamilyTreeNow",
+    "type": "form"
+  },
+  {
+    "name": "PeekYou",
+    "type": "form"
+  },
+  {
+    "name": "Clustrmaps",
+    "type": "form"
+  },
+  {
+    "name": "Xlek",
+    "type": "form"
+  },
+  {
+    "name": "UnMask",
+    "type": "form"
+  },
+  {
+    "name": "NeighborWho",
+    "type": "form"
+  },
+  {
+    "name": "PrivateEye",
+    "type": "form"
+  },
+  {
+    "name": "IdStrong",
+    "type": "form"
+  },
+  {
+    "name": "CheckPeople",
+    "type": "form"
+  },
+  {
+    "name": "CocoFinder",
+    "type": "form"
+  },
+  {
+    "name": "NumLookup",
+    "type": "form"
+  },
+  {
+    "name": "SearchPeopleFree",
+    "type": "form"
+  },
+  {
+    "name": "SmartBackgroundChecks",
+    "type": "form"
+  },
+  {
+    "name": "Veripages",
+    "type": "form"
+  },
+  {
+    "name": "VoterRecords",
+    "type": "form"
+  },
+  {
+    "name": "AdvancedBackgroundChecks",
+    "type": "form"
+  },
+  {
+    "name": "Cyberbackgroundchecks",
+    "type": "form"
+  },
+  {
+    "name": "PeopleByName",
+    "type": "form"
+  },
+  {
+    "name": "USPhoneBook",
+    "type": "form"
+  },
+  {
+    "name": "PeopleSearchNow",
+    "type": "form"
+  },
+  {
+    "name": "SearchQuarry",
+    "type": "form"
+  },
+  {
+    "name": "Acxiom",
+    "type": "form"
+  },
+  {
+    "name": "Epsilon",
+    "type": "form"
+  },
+  {
+    "name": "Oracle Data Cloud",
+    "type": "form"
+  },
+  {
+    "name": "Experian",
+    "type": "form"
+  },
+  {
+    "name": "Equifax",
+    "type": "form"
+  },
+  {
+    "name": "TransUnion",
+    "type": "form"
+  },
+  {
+    "name": "LexisNexis",
+    "type": "form"
+  },
+  {
+    "name": "National Public Data",
+    "type": "form"
+  },
+  {
+    "name": "BeenVerified Property",
+    "type": "form"
   }
 ]
