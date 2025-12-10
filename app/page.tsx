@@ -130,15 +130,15 @@ export default function HomePage() {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
-            <p className="text-ghost-text italic mb-4">“Found me on 52 sites. Most gone in 2 weeks. Best $49 I ever spent.”</p>
+            <p className="text-ghost-text italic mb-4">“Best $49 I ever spent. Great new approach.”</p>
             <p className="text-ghost-cyan font-semibold text-sm">– Victoria</p>
           </div>
           <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
-            <p className="text-ghost-text italic mb-4">“No account, no BS, just results. Spokeo & BeenVerified finally dead.”</p>
+            <p className="text-ghost-text italic mb-4">“No account, no BS, just results.”</p>
             <p className="text-ghost-cyan font-semibold text-sm">– Braden</p>
           </div>
           <div className="bg-ghost-card/50 border border-ghost-border/50 p-6 rounded-xl w-full max-w-md mx-auto md:max-w-none">
-            <p className="text-ghost-text italic mb-4">“Worked perfectly. Got all the confirmation emails. Worth double.”</p>
+            <p className="text-ghost-text italic mb-4">“Inbox flooded with confirmation emails. Worth double.”</p>
             <p className="text-ghost-cyan font-semibold text-sm">– Sarah</p>
           </div>
         </div>
