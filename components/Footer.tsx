@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { BarChart3 } from "lucide-react";
+import { BarChart3, Cpu } from "lucide-react";
 export default function Footer() {
     return (
         <footer className="border-t border-cyan-900/40 mt-16">
@@ -20,14 +20,14 @@ export default function Footer() {
                         hello@dataghost.me
                     </a>
                     {/* Touch Target Fix: Added py-2 */}
-                    <a
-                        href="https://github.com/cavinkrenik/dataghost"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    {/* Touch Target Fix: Added py-2 */}
+                    <Link
+                        href="/how-it-works"
                         className="text-xs text-slate-500 hover:text-white transition-colors flex items-center gap-1 mt-1 py-2"
                     >
-                        <span>View on GitHub</span>
-                    </a>
+                        <Cpu className="w-3 h-3" />
+                        <span>Architecture (How it Works)</span>
+                    </Link>
                 </div>
                 { }
                 <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm">
