@@ -10,6 +10,8 @@ export default function robots(): MetadataRoute.Robots {
                 '/success',
                 '/debug-user',
                 '/_next/',
+                '/start',
+                '/payment',
             ],
         },
         sitemap: 'https://dataghost.me/sitemap.xml',
