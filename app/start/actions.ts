@@ -1,5 +1,6 @@
 'use server';
 
+import { createRemovalJob } from '@/lib/db';
 import { US_ONLY_BROKERS } from '@/lib/data-broker-remover/utils';
 import { sendOptOutEmails } from '@/lib/email-sending';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -14,8 +15,6 @@ export type State = {
     manualBrokersCount?: number;
 };
 
-// Stubbed job creation (keep as is)
-async function createRemovalJob(data: any): Promise<any> { return { id: 'STUB_JOB_ID' }; }
 const getBrokerList = () => ALL_BROKERS_JSON;
 
 const FormSchema = z.object({
@@ -92,14 +91,48 @@ export async function startGhosting(prevState: State | undefined, formData: Form
             return { success: false, error: 'Payment confirmed, but email system is busy. Please contact support@dataghost.me.' };
         }
 
-        // 5. Trigger Worker (Authenticated)
-        // (Using void to ignore the promise so Next.js doesn't complain about unawaited async)
-        void triggerWorker({ fullName, city, state, ageRange, email, postcode: rawData.postcode });
+        // 5. Trigger Worker (Authenticated & Tracked)
+        try {
+            // Create job record first
+            const jobData = {
+                status: 'queued',
+                user_email: email,
+                worker_data: {
+                    fullName,
+                    city,
+                    state,
+                    ageRange,
+                    postcode: rawData.postcode
+                }
+            };
+
+            const job = await createRemovalJob(jobData);
+
+            if (!job?.id) {
+                throw new Error('Failed to create job record');
+            }
+
+            // Trigger worker with jobId
+            await triggerWorker({
+                jobId: job.id,
+                ...jobData.worker_data,
+                email // pass email for worker reference if needed, though it's in DB
+            });
+
+        } catch (workerError: any) {
+            console.error('WORKER TRIGGER FAILED:', workerError.message); // Log message only, avoid full object
+            // We still return success because emails were sent, but maybe warn? 
+            // Request says "throw an error so the frontend knows the process failed"
+            // But we already sent emails... 
+            // "If the worker returns a non-200 status, throw an error so the frontend knows the process failed."
+            // Assuming this means return an error state.
+            return { success: false, error: 'Request processed, but background worker failed to start. Please contact support.' };
+        }
 
         return { success: true, count: companies.length, manualBrokersCount: formBrokers.length };
 
     } catch (error: any) {
-        console.error('CRITICAL FAILURE:', error);
+        console.error('CRITICAL FAILURE:', error.message);
         return { success: false, error: 'Server error during ghosting.' };
     }
 }
@@ -108,13 +141,20 @@ async function triggerWorker(userData: any) {
     const WORKER_URL = process.env.WORKER_URL || 'http://localhost:8080/nuke-data';
 
     try {
-        fetch(WORKER_URL, {
+        const response = await fetch(WORKER_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${process.env.CRON_SECRET}`
             },
             body: JSON.stringify(userData),
-        }).catch(err => console.error('Worker Fetch Error:', err));
-    } catch (e) { console.error('Worker Network Error:', e); }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Worker responded with ${response.status}: ${response.statusText}`);
+        }
+    } catch (e: any) {
+        // Rethrow to be caught by the caller
+        throw new Error(`Worker Connection Failed: ${e.message}`);
+    }
 }

@@ -3,13 +3,22 @@ const supabase = createClient(
   process.env.SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
-export async function createRemovalJob(data: any) {
+export async function createRemovalJob(data: {
+  status: string;
+  user_email: string;
+  worker_data: any;
+}) {
   const { data: job, error } = await supabase
     .from("jobs")
     .insert(data)
     .select()
     .single();
-  if (error) throw error;
+
+  if (error) {
+    console.error("Error creating removal job:", error);
+    throw new Error("Failed to create removal job");
+  }
+
   return job;
 }
 export async function updateJob(id: string, updates: any) {
@@ -39,7 +48,7 @@ export async function getDataBrokerUser(emailHash: string) {
     .select("*")
     .eq("id", emailHash)
     .single();
-  if (error && error.code !== 'PGRST116') throw error; 
+  if (error && error.code !== 'PGRST116') throw error;
   return data;
 }
 export async function upsertDataBrokerUser(data: {
