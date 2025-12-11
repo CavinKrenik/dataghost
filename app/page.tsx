@@ -5,7 +5,7 @@ import { LandingInfo } from "@/components/LandingInfo";
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-ghost-navy text-ghost-text relative">
-      { }
+
       <section className="relative bg-holo px-6 pt-16 pb-24 md:pt-28 md:pb-32 lg:pt-40 lg:pb-48 text-center overflow-hidden">
         <div className="flex justify-center mb-6 md:mb-8">
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[520px] lg:h-[520px]">
@@ -48,7 +48,7 @@ export default function HomePage() {
           <span>Data deleted after 45 days</span>
         </div>
       </section>
-      { }
+
       <section className="px-6 py-16 bg-ghost-bg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">How We Handle Your Data</h2>
@@ -87,9 +87,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      { }
+
       <section className="px-6 py-12 flex flex-col items-center">
-        { }
+
         <div className="max-w-2xl text-center mb-8">
           <p className="text-sm text-gray-400 leading-relaxed">
             DataGhost is an automation service that submits opt-out requests on your behalf. We are not attorneys and do not provide legal advice. Because each data broker maintains its own compliance and verification policies, we cannot guarantee removal from every broker.
