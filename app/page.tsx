@@ -92,7 +92,7 @@ export default function HomePage() {
         { }
         <div className="max-w-2xl text-center mb-8">
           <p className="text-sm text-gray-400 leading-relaxed">
-            DataGhost is a fully automated opt-out submission tool. We are not lawyers and do not provide legal advice. While we successfully remove data from 70+ brokers for 98%+ of users, we cannot legally guarantee removal from every single site due to varying broker policies.
+            DataGhost is an automation service that submits opt-out requests on your behalf. We are not attorneys and do not provide legal advice. Because each data broker maintains its own compliance and verification policies, we cannot guarantee removal from every broker.
           </p>
         </div>
         <div className="bg-ghost-card border border-ghost-border p-8 rounded-2xl shadow-glow max-w-md w-full text-center relative overflow-hidden">
@@ -123,9 +123,6 @@ export default function HomePage() {
           </p>
         </div>
       </section>
-      { }
-
-      { }
       <section className="px-6 py-16 bg-ghost-navy/50">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">FAQ</h2>
