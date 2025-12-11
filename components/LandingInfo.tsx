@@ -51,7 +51,6 @@ const brokers = [
     "Spokeo",
     "That'sThem",
     "TransUnion",
-    "USSearch",
     "ZoomInfo",
     "BidSwitch",
     "Comscore",

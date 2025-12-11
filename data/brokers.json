@@ -18,12 +18,6 @@
     "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
   },
   {
-    "name": "USSearch",
-    "type": "email",
-    "email": "support@ussearch.com",
-    "subject": "CCPA/GDPR Deletion Request – {{fullName}}"
-  },
-  {
     "name": "That'sThem",
     "type": "email",
     "email": "optout@thatsthem.com",
