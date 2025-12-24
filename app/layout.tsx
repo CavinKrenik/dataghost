@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@dataghost",
+    site: "@DataghostMe",
     title: "DataGhost – Best One-Time Data Removal Service 2025 ($49 Forever)",
     description:
       "Remove your data from 70+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
@@ -95,7 +95,7 @@ const jsonLd = {
         width: 512,
         height: 512,
       },
-      sameAs: ["https://x.com/dataghost", "https://www.facebook.com/dataghost"],
+      sameAs: ["https://x.com/DataghostMe", "https://instagram.com/dataghost.me"],
       description:
         "DataGhost is the best one-time data removal service of 2025. We remove your personal information from 70+ data brokers for a single $49 payment. No subscriptions.",
       contactPoint: [

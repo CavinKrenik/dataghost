@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { BarChart3, Cpu } from "lucide-react";
+import { BarChart3, Cpu, Twitter, Instagram } from "lucide-react";
 export default function Footer() {
     return (
         <footer className="border-t border-cyan-900/40 mt-16">
@@ -28,6 +28,26 @@ export default function Footer() {
                         <Cpu className="w-3 h-3" />
                         <span>Architecture (How it Works)</span>
                     </Link>
+                    <div className="flex gap-4 mt-2 pl-0.5">
+                        <a
+                            href="https://x.com/DataghostMe"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-slate-500 hover:text-cyan-400 transition-colors"
+                            aria-label="X (Twitter)"
+                        >
+                            <Twitter className="w-4 h-4" />
+                        </a>
+                        <a
+                            href="https://instagram.com/dataghost.me"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-slate-500 hover:text-cyan-400 transition-colors"
+                            aria-label="Instagram"
+                        >
+                            <Instagram className="w-4 h-4" />
+                        </a>
+                    </div>
                 </div>
                 { }
                 <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm">
