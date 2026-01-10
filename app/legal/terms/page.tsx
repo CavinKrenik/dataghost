@@ -33,7 +33,7 @@ export default function TermsPage() {
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">3. Payment</h2>
                     <p className="leading-relaxed">
-                        <strong>Billing:</strong> Services are billed as a one-time payment via our payment processor, Lemon Squeezy.
+                        <strong>Billing:</strong> Services are billed as a one-time payment via our payment processor, Stripe.
                     </p>
                     <p className="mt-2 leading-relaxed">
                         <strong>No Subscription:</strong> This is a one-time purchase. There are no recurring fees or automatic renewals.

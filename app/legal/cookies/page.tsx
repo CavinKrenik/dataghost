@@ -23,7 +23,7 @@ export default function CookiePage() {
                         We use cookies solely for essential functionality, not for tracking or advertising. Our use is limited to:
                     </p>
                     <ul className="mt-2 list-disc pl-5 space-y-2">
-                        <li><strong>Essential Cookies:</strong> Necessary for the website to function, such as securely managing your user session (if applicable) and processing your purchase via Lemon Squeezy. These cannot be disabled.</li>
+                        <li><strong>Essential Cookies:</strong> Necessary for the website to function, such as securely managing your user session (if applicable) and processing your purchase via Stripe. These cannot be disabled.</li>
                         <li><strong>Functionality Cookies:</strong> Remember basic preferences to improve your experience.</li>
                     </ul>
                 </section>
@@ -36,7 +36,7 @@ export default function CookiePage() {
                     <ul className="mt-2 list-disc pl-5 space-y-2">
                         <li><strong>Supabase:</strong> For database security and authentication session management.</li>
                         <li><strong>Netlify:</strong> For site performance and load balancing.</li>
-                        <li><strong>Lemon Squeezy:</strong> For secure checkout and payment processing (PCI-DSS compliant).</li>
+                        <li><strong>Stripe:</strong> For secure checkout and payment processing (PCI-DSS compliant).</li>
                     </ul>
                 </section>
 

@@ -9,7 +9,7 @@ Live at → https://dataghost.me
 
 ## How It Works (The "Stateful" Flow)
 
-1. **User Pays:** $49 via Lemon Squeezy (one-time).
+1. **User Pays:** $49 via Stripe (one-time).
 2. **Onboarding:** User enters Name, City, State, Age Range, Email.
 3. **Immediate Action (Next.js):**
    - Creates a **"Pending Job"** in Supabase (Stateful tracking).
@@ -29,7 +29,7 @@ Live at → https://dataghost.me
 - **Backend:** Server Actions + Supabase (Postgres)
 - **Worker:** Node.js + Playwright (Microservice on Railway)
 - **Email:** Resend (Transactional + Throttling enabled)
-- **Payments:** Lemon Squeezy (Merchant of Record)
+- **Payments:** Stripe
 - **Hosting:** Netlify (Frontend) + Railway (Worker)
 
 ## Env Vars
@@ -37,7 +37,7 @@ Live at → https://dataghost.me
 ```env
 # App Secrets
 RESEND_API_KEY=re_...
-LEMON_SQUEEZY_WEBHOOK_SECRET=...
+STRIPE_WEBHOOK_SECRET=...
 
 # Supabase (Database)
 NEXT_PUBLIC_SUPABASE_URL=https://...

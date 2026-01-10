@@ -146,7 +146,7 @@ export default function HowItWorksPage() {
             <section className="py-20 px-4 text-center">
                 <h3 className="text-sm font-bold text-ghost-cyan uppercase tracking-widest mb-8">The Stack</h3>
                 <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
-                    {["Next.js 14", "TypeScript", "Tailwind CSS", "Supabase RLS", "PostgreSQL", "Node.js", "Express", "Playwright", "Resend API", "Lemon Squeezy", "Railway", "Netlify"].map((tech) => (
+                    {["Next.js 14", "TypeScript", "Tailwind CSS", "Supabase RLS", "PostgreSQL", "Node.js", "Express", "Playwright", "Resend API", "Stripe", "Railway", "Netlify"].map((tech) => (
                         <span key={tech} className="px-4 py-2 bg-ghost-navy border border-white/10 rounded-md text-gray-300 text-sm">
                             {tech}
                         </span>

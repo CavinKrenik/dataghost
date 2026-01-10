@@ -33,7 +33,7 @@ export default function HomePage() {
         </div>
         <div className="mt-10 flex flex-col items-center gap-4">
           <Link
-            href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
+            href="https://buy.stripe.com/fZucN53Uv2iN75feUQ6kg00"
             className="bg-ghost-cyan text-black px-10 py-4 rounded-full font-semibold shadow-glow hover:opacity-90 transition text-lg"
           >
             Ghost My Data – $49 one-time (no subscription)
@@ -113,7 +113,7 @@ export default function HomePage() {
             </li>
           </ul>
           <Link
-            href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
+            href="https://buy.stripe.com/fZucN53Uv2iN75feUQ6kg00"
             className="block w-full bg-ghost-cyan text-black px-6 py-3 rounded-lg font-bold hover:opacity-90 transition shadow-[0_0_15px_rgba(0,229,255,0.3)]"
           >
             Ghost My Data Now – $49

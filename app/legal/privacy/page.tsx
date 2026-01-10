@@ -30,7 +30,7 @@ export default function PrivacyPage() {
                     </p>
                     <ul className="mt-2 list-disc pl-5 space-y-2">
                         <li><strong>Personal Information:</strong> Name, email address, phone number, date of birth, and home addresses. This data is required to identify your records on data broker sites.</li>
-                        <li><strong>Payment Data:</strong> Payment history (processed via Lemon Squeezy).</li>
+                        <li><strong>Payment Data:</strong> Payment history (processed via Stripe).</li>
                         <li><strong>Technical Data:</strong> IP address, browser type, and device information for security and analytics.</li>
                         <li><strong>Scan Results:</strong> Data found on public data broker databases during our scans.</li>
                     </ul>
@@ -64,7 +64,7 @@ export default function PrivacyPage() {
                     <ul className="mt-2 list-disc pl-5 space-y-2">
                         <li><strong>Supabase:</strong> Database and authentication services.</li>
                         <li><strong>Netlify:</strong> Hosting and serverless functions.</li>
-                        <li><strong>Lemon Squeezy:</strong> Payment processing and billing (Merchant of Record).</li>
+                        <li><strong>Stripe:</strong> Payment processing and billing.</li>
                     </ul>
                     <p className="mt-2 leading-relaxed">
                         We do <strong>not</strong> sell your data to third parties.

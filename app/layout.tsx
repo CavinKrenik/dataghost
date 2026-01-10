@@ -239,7 +239,7 @@ export default async function RootLayout({
                   </Link>
                 </Button>
                 <Link
-                  href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
+                  href="https://buy.stripe.com/fZucN53Uv2iN75feUQ6kg00"
                   className="bg-ghost-cyan text-black px-4 py-2 md:px-5 md:py-2 rounded-full font-semibold hover:opacity-90 transition shadow-glow text-xs md:text-sm whitespace-nowrap"
                 >
                   Ghost My Data – $49

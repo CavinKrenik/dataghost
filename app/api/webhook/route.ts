@@ -1,33 +1,34 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/admin';
-import crypto from 'crypto';
-const webhookSecret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET!;
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-12-15.clover',
+});
+
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+
 export async function POST(req: Request) {
   try {
     const rawBody = await req.text();
-    const signature = req.headers.get('x-signature') || '';
-    const hmac = crypto.createHmac('sha256', webhookSecret);
-    const digest = hmac.update(rawBody).digest('hex');
+    const signature = req.headers.get('stripe-signature') || '';
 
-    // --- SECURITY FIX START ---
-    const signatureBuffer = Buffer.from(signature);
-    const digestBuffer = Buffer.from(digest);
-
-    // Constant-time comparison to prevent timing attacks
-    const isValid = signatureBuffer.length === digestBuffer.length &&
-      crypto.timingSafeEqual(signatureBuffer, digestBuffer);
-
-    if (!isValid) {
+    // Verify the webhook signature
+    let event: Stripe.Event;
+    try {
+      event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
+    } catch (err) {
+      console.error('Webhook signature verification failed:', err);
       return new NextResponse('Invalid signature', { status: 400 });
     }
-    // --- SECURITY FIX END ---
-    const payload = JSON.parse(rawBody);
 
-    if (payload.meta.event_name === 'order_created') {
-      const order = payload.data.attributes;
-      const email = (order.user_email || '').toString().toLowerCase().trim();
-      const orderId = payload.data.id;
-      if (order.status === 'paid' && email) {
+    // Handle checkout.session.completed event
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object as Stripe.Checkout.Session;
+      const email = (session.customer_email || session.customer_details?.email || '').toLowerCase().trim();
+      const orderId = session.id;
+
+      if (session.payment_status === 'paid' && email) {
         const supabase = createAdminClient();
         const { error } = await supabase
           .from('paid_orders')
@@ -35,20 +36,22 @@ export async function POST(req: Request) {
             email,
             order_id: orderId,
             status: 'paid',
-            amount: order.total,
+            amount: session.amount_total,
             created_at: new Date().toISOString(),
           });
-        if (error && !error.message.includes('duplicate key')) {
 
+        if (error && !error.message.includes('duplicate key')) {
+          console.error('DB error:', error);
           return new NextResponse('DB error', { status: 500 });
         }
 
         return NextResponse.json({ success: true });
       }
     }
+
     return NextResponse.json({ received: true });
   } catch (err) {
-
-    return new NextResponse('Crash', { status: 500 });
+    console.error('Webhook error:', err);
+    return new NextResponse('Webhook error', { status: 500 });
   }
 }

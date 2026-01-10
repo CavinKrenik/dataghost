@@ -11,7 +11,7 @@ DataGhost is a privacy tool that removes user data from 70+ data brokers for a *
 * **Frontend:** [Next.js 14](https://nextjs.org) (App Router) + Tailwind CSS
 * **Database:** [Supabase](https://supabase.com) (PostgreSQL)
 * **Email:** [Resend](https://resend.com) (Transactional & Batch sending)
-* **Payments:** [Lemon Squeezy](https://lemonsqueezy.com) (Merchant of Record)
+* **Payments:** [Stripe](https://stripe.com)
 * **Hosting:** Netlify (Frontend)
 
 ## The Ghost Protocol (Architecture)
@@ -38,7 +38,7 @@ The system operates on a distributed architecture to handle long-running automat
 * Node.js 18+
 * Supabase Project
 * Resend API Key
-* Lemon Squeezy Store ID
+* Stripe API Keys
 
 ### Installation
 

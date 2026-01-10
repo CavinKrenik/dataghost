@@ -44,7 +44,7 @@ export default function RefundPage() {
                 <section>
                     <h2 className="mb-4 text-xl font-semibold text-ghost-cyan">4. Payment Processing</h2>
                     <p className="leading-relaxed">
-                        All payments and refunds are processed securely through our Merchant of Record, <strong>Lemon Squeezy</strong>. Refunds, when approved, will be credited back to your original method of payment within 5-10 business days.
+                        All payments and refunds are processed securely through <strong>Stripe</strong>. Refunds, when approved, will be credited back to your original method of payment within 5-10 business days.
                     </p>
                 </section>
             </div>

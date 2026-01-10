@@ -46,7 +46,7 @@ export default function Footer() {
                             <Cpu className="w-3.5 h-3.5" />
                             Architecture
                         </Link>
-                        <Link href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1" className="text-sm text-slate-400 hover:text-cyan-300 transition-colors">
+                        <Link href="https://buy.stripe.com/fZucN53Uv2iN75feUQ6kg00" className="text-sm text-slate-400 hover:text-cyan-300 transition-colors">
                             Pricing
                         </Link>
                     </div>

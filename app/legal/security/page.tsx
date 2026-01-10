@@ -45,7 +45,7 @@ export default function SecurityPage() {
                     <ul className="mt-2 list-disc pl-5 space-y-2">
                         <li><strong>Supabase:</strong> For secure, compliant database hosting.</li>
                         <li><strong>Netlify:</strong> For secure, distributed application hosting.</li>
-                        <li><strong>Lemon Squeezy:</strong> For PCI-DSS compliant payment processing. We do not store your credit card information on our servers.</li>
+                        <li><strong>Stripe:</strong> For PCI-DSS compliant payment processing. We do not store your credit card information on our servers.</li>
                     </ul>
                 </section>
                 <section>

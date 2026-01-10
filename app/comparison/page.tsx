@@ -181,7 +181,7 @@ export default function Comparison() {
                 { }
                 <div className="text-center mt-12 md:mt-20">
                     <a
-                        href="https://dataghost.lemonsqueezy.com/buy/9f83b3ac-bdcf-41f9-a25f-3e524d7d9d2b?embed=1"
+                        href="https://buy.stripe.com/fZucN53Uv2iN75feUQ6kg00"
                         className="inline-block px-10 py-6 md:px-16 md:py-8 text-xl md:text-3xl font-black bg-gradient-to-r from-cyan-600 to-purple-600 rounded-2xl hover:scale-105 transition shadow-2xl shadow-cyan-900/50 text-white"
                     >
                         Yes — Ghost Me for $49 One-Time
