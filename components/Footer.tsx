@@ -46,7 +46,7 @@ export default function Footer() {
                             <Cpu className="w-3.5 h-3.5" />
                             Architecture
                         </Link>
-                        <Link href="https://buy.stripe.com/bJecN6ekeeWg53P4AA6oo00" className="text-sm text-slate-400 hover:text-cyan-300 transition-colors">
+                        <Link href="https://buy.stripe.com/6oU4gA0to6pKbsdffe6oo01" className="text-sm text-slate-400 hover:text-cyan-300 transition-colors">
                             Pricing
                         </Link>
                     </div>

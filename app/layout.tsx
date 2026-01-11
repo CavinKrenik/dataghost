@@ -239,7 +239,7 @@ export default async function RootLayout({
                   </Link>
                 </Button>
                 <Link
-                  href="https://buy.stripe.com/bJecN6ekeeWg53P4AA6oo00"
+                  href="https://buy.stripe.com/6oU4gA0to6pKbsdffe6oo01"
                   className="bg-ghost-cyan text-black px-4 py-2 md:px-5 md:py-2 rounded-full font-semibold hover:opacity-90 transition shadow-glow text-xs md:text-sm whitespace-nowrap"
                 >
                   Ghost My Data – $49

@@ -23,7 +23,7 @@ export function StickyCTA() {
                     <p className="text-xs text-ghost-muted">One-time $49 · No account</p>
                 </div>
                 <Link
-                    href="https://buy.stripe.com/bJecN6ekeeWg53P4AA6oo00"
+                    href="https://buy.stripe.com/6oU4gA0to6pKbsdffe6oo01"
                     className="bg-ghost-cyan text-black px-5 py-2.5 rounded-full font-bold text-sm shadow-glow whitespace-nowrap"
                 >
                     Get Started
