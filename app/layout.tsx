@@ -167,14 +167,6 @@ const jsonLd = {
             text: "Data brokers are companies that scrape and sell your personal information. DataGhost targets the worst offenders including Spokeo, Intelius, BeenVerified, PeopleFinders, FastPeopleSearch, TruePeopleSearch, and 70+ others.",
           },
         },
-        {
-          "@type": "Question",
-          name: "Who built DataGhost?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "DataGhost is an independent privacy tool built by Cavin Krenik. It is a standalone service with its own infrastructure, strict privacy policies, and dedicated support, designed to give you control over your data.",
-          },
-        },
       ],
     },
     {
