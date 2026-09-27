@@ -27,7 +27,7 @@ export default function HomePage() {
         </h1>
         <div className="mt-4">
           <Link href="/comparison" className="text-ghost-cyan hover:underline font-semibold text-lg flex items-center justify-center gap-2">
-            See how we destroy Incogni, DeleteMe, Optery, and Kanary
+            Compare DataGhost with Incogni, DeleteMe, Optery, and Kanary
             <span className="text-xl">→</span>
           </Link>
         </div>
@@ -118,9 +118,6 @@ export default function HomePage() {
           >
             Ghost My Data Now – $49
           </Link>
-          <p className="mt-3 text-xs text-ghost-muted">
-            Launch pricing — goes to $79 soon
-          </p>
         </div>
       </section>
       <section className="px-6 py-16 bg-ghost-navy/50">
