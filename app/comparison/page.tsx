@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-    title: "DataGhost vs Data Removal Subscriptions: 2027 Comparison",
+    title: "DataGhost vs Data Removal Subscriptions",
 
     description: "Compare DataGhost's $49 one-time service with Incogni, DeleteMe, Optery, and Kanary. See annual prices, coverage, and data retention policies.",
     alternates: { canonical: "https://dataghost.me/comparison" },
     openGraph: {
-        title: "DataGhost vs Data Removal Subscriptions: 2027 Comparison",
+        title: "DataGhost vs Data Removal Subscriptions",
         description: "Compare a $49 one-time service with annual subscriptions. Prices and coverage vary by plan.",
         url: "https://dataghost.me/comparison",
         images: "/opengraph-image.jpg",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
     twitter: {
         card: "summary_large_image",
-        title: "DataGhost vs Data Removal Subscriptions: 2027 Comparison",
+        title: "DataGhost vs Data Removal Subscriptions",
         description: "Compare a $49 one-time service with annual subscriptions. Prices and coverage vary by plan.",
         images: ["/opengraph-image.jpg"],
     },
@@ -93,7 +93,7 @@ export default function Comparison() {
                 { }
                 <div className="text-center mb-16 md:mb-20">
                     <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 bg-gradient-to-br from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight text-center">
-                        DataGhost vs The Subscription Services<br />2027 Comparison
+                        DataGhost vs The Subscription Services
                     </h1>
                     <p className="text-base md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
                         Compare a <span className="text-ghost-cyan font-bold">$49 one-time</span> service with ongoing subscriptions.
