@@ -27,7 +27,7 @@ export default function HomePage() {
         </h1>
         <div className="mt-4">
           <Link href="/comparison" className="text-ghost-cyan hover:underline font-semibold text-lg flex items-center justify-center gap-2">
-            See how we destroy Incogni, DeleteMe, Optery, and Kanary
+            Compare DataGhost with Incogni, DeleteMe, Optery, and Kanary
             <span className="text-xl">→</span>
           </Link>
         </div>
@@ -97,11 +97,11 @@ export default function HomePage() {
         </div>
         <div className="bg-ghost-card border border-ghost-border p-8 rounded-2xl shadow-glow max-w-md w-full text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ghost-cyan to-transparent opacity-50"></div>
-          <h2 className="text-2xl font-bold mb-6 text-white">Best One-Time Data Removal Service 2025 – $49</h2>
+          <h2 className="text-2xl font-bold mb-6 text-white">One-Time Data Removal for 2027 – $49</h2>
           <ul className="text-left space-y-3 mb-8 text-ghost-text/90">
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
-              <span>70+ brokers manually</span>
+              <span>Opt-out requests to 70+ broker targets</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-ghost-cyan mt-1">✓</span>
@@ -118,9 +118,6 @@ export default function HomePage() {
           >
             Ghost My Data Now – $49
           </Link>
-          <p className="mt-3 text-xs text-ghost-muted">
-            Launch pricing — goes to $79 soon
-          </p>
         </div>
       </section>
       <section className="px-6 py-16 bg-ghost-navy/50">

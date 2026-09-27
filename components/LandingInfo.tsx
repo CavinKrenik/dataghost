@@ -143,20 +143,6 @@ export function LandingInfo() {
                     This list evolves. As new brokers crawl out of the woodwork, we add them to our hit list.
                 </p>
             </SectionCard>
-            <SectionCard title="WHO BUILT DATAGHOST?">
-                <p>
-                    DataGhost was engineered by <strong>Cavin Krenik</strong>, a veteran commercial fisherman turned privacy engineer, currently completing his degree in Interactive Web Design.
-                </p>
-                <p className="pt-2">
-                    Why the pivot? Because years at sea teach you two things: <strong>reliability is everything</strong>, and <strong>you don't keep what you don't need.</strong>
-                </p>
-                <p className="pt-2">
-                    While studying design, I realized that <strong>good design isn't just pixels! It's respect.</strong> A subscription model for a one-time problem is bad design. I taught myself full-stack engineering to build a solution that is rugged, finite, and honest.
-                </p>
-                <p className="pt-3 text-[0.7rem] text-[#b8b0ff]">
-                    Legally clean. Ethically strict. Brutally transparent. We delete your data after 45 days because we exist to give you control, not to become another data hoarder.
-                </p>
-            </SectionCard>
         </section>
     );
 }

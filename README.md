@@ -23,7 +23,7 @@ Live at → https://dataghost.me
    - We re-scan weekly for 45 days.
    - **Day 46:** A hard-deletion cron job wipes the user data from our database permanently.
 
-## Tech Stack (2025 Architecture)
+## Tech Stack
 
 - **Frontend:** Next.js 14 (App Router) + Tailwind + shadcn/ui
 - **Backend:** Server Actions + Supabase (Postgres)
