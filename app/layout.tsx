@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
   // OPTIMIZED: 153 characters (Fits perfectly in the snippet)
   description:
-    "Remove personal info from Spokeo, Whitepages, and 70+ brokers for $49 one-time. No subscription, no account. The best 2025 alternative to DeleteMe.",
+    "Submit opt-out requests to 70+ data broker targets for $49 one-time. No subscription or account. Compare DataGhost with ongoing removal services in 2027.",
 
   keywords: [
     "data removal service",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://dataghost.me",
     siteName: "DataGhost",
-    title: "DataGhost – Best One-Time Data Removal Service 2025 ($49 Forever)",
+    title: "DataGhost – One-Time Data Removal Service 2027 ($49)",
     description:
-      "Remove your data from 70+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
+      "Opt-out requests to 70+ data broker targets, with weekly follow-ups for 45 days. One $49 payment, no subscription.",
     images: [
       {
         url: "/opengraph-image.jpg",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@DataghostMe",
-    title: "DataGhost – Best One-Time Data Removal Service 2025 ($49 Forever)",
+    title: "DataGhost – One-Time Data Removal Service 2027 ($49)",
     description:
-      "Remove your data from 70+ brokers once. No subscription. The clearest winner vs DeleteMe, Incogni, Optery, Kanary.",
+      "Opt-out requests to 70+ data broker targets, with weekly follow-ups for 45 days. One $49 payment, no subscription.",
     images: ["/opengraph-image.jpg"],
   },
   icons: {
@@ -99,7 +99,7 @@ const jsonLd = {
       },
       sameAs: ["https://x.com/DataghostMe", "https://instagram.com/dataghost.me"],
       description:
-        "DataGhost is the best one-time data removal service of 2025. We remove your personal information from 70+ data brokers for a single $49 payment. No subscriptions.",
+        "DataGhost submits opt-out requests to 70+ data broker targets for a single $49 payment, with follow-ups during a 45-day service window. No subscription.",
       contactPoint: [
         {
           "@type": "ContactPoint",
@@ -113,7 +113,7 @@ const jsonLd = {
       "@id": "https://dataghost.me/#website",
       url: "https://dataghost.me",
       name: "DataGhost",
-      description: "Remove your data from 70+ brokers ONCE for $49. No subscription. The best DeleteMe/Incogni alternative in 2025 – automatic + manual opt-outs, weekly rescans, full removal report.",
+      description: "Data removal service for 2027: opt-out requests to 70+ broker targets for $49 one-time, with weekly follow-ups for 45 days. No subscription.",
       publisher: {
         "@id": "https://dataghost.me/#organization",
       },
@@ -129,7 +129,7 @@ const jsonLd = {
       "name": "DataGhost One-Time Data Removal",
       "price": "49",
       "priceCurrency": "USD",
-      "description": "Remove your data from 70+ brokers forever. One payment, no subscription.",
+      "description": "Opt-out requests to 70+ broker targets with follow-ups for 45 days. One payment, no subscription.",
       "url": "https://dataghost.me",
       "seller": {
         "@id": "https://dataghost.me/#organization"
@@ -189,7 +189,7 @@ const jsonLd = {
         "@type": "Offer",
         "price": "49",
         "priceCurrency": "USD",
-        "description": "One-time permanent data removal from 70+ data brokers"
+        "description": "One-time opt-out requests to 70+ data broker targets with follow-ups for 45 days"
       },
       "areaServed": "Worldwide"
     }
