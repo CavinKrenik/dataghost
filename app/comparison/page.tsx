@@ -1,29 +1,24 @@
 import type { Metadata } from "next";
-import { Check, X, Shield, Zap, RefreshCw, Trash2, Database } from "lucide-react";
 export const metadata: Metadata = {
-    // OPTIMIZED: 56 characters
-    title: "DataGhost vs DeleteMe & Incogni: 2025 Pricing Comparison",
+    title: "DataGhost vs Data Removal Subscriptions: 2027 Comparison",
 
-    // OPTIMIZED: 138 characters
-    description: "See why DataGhost is the winner. Only we offer a $49 one-time payment, weekly re-scans, and permanent data deletion. No recurring fees.",
+    description: "Compare DataGhost's $49 one-time service with Incogni, DeleteMe, Optery, and Kanary. See annual prices, coverage, and data retention policies.",
     alternates: { canonical: "https://dataghost.me/comparison" },
-    // 3. FIX: Update OpenGraph to match the main title
     openGraph: {
-        title: "DataGhost vs DeleteMe & Incogni: 2025 Pricing Comparison", // <--- CHANGED
-        description: "See why DataGhost is the winner. Only we offer a $49 one-time payment, weekly re-scans, and permanent data deletion. No recurring fees.", // <--- CHANGED
+        title: "DataGhost vs Data Removal Subscriptions: 2027 Comparison",
+        description: "Compare a $49 one-time service with annual subscriptions. Prices and coverage vary by plan.",
         url: "https://dataghost.me/comparison",
         images: "/opengraph-image.jpg",
     },
 
-    // 4. FIX: Update Twitter to match the main title
     twitter: {
         card: "summary_large_image",
-        title: "DataGhost vs DeleteMe & Incogni: 2025 Pricing Comparison", // <--- CHANGED
-        description: "See why DataGhost is the winner. Only we offer a $49 one-time payment, weekly re-scans, and permanent data deletion. No recurring fees.", // <--- CHANGED
+        title: "DataGhost vs Data Removal Subscriptions: 2027 Comparison",
+        description: "Compare a $49 one-time service with annual subscriptions. Prices and coverage vary by plan.",
         images: ["/opengraph-image.jpg"],
     },
 };
-type ComparisonKey = "price" | "subscription" | "account" | "deletion" | "brokers";
+type ComparisonKey = "price" | "duration" | "account" | "deletion" | "brokers";
 
 interface Feature {
     name: string;
@@ -32,20 +27,20 @@ interface Feature {
 
 interface Competitor {
     name: string;
-    isPrimary?: boolean; // Make optional
+    isPrimary?: boolean;
     price: string;
-    subscription: string;
+    duration: string;
     account: string;
     deletion: string;
     brokers: string;
 }
 
 const FEATURES: Feature[] = [
-    { name: "Price", key: "price" },
-    { name: "Subscription Required", key: "subscription" },
+    { name: "Price (one person)", key: "price" },
+    { name: "Service period", key: "duration" },
     { name: "Account / Dashboard", key: "account" },
-    { name: "Data Deletion", key: "deletion" },
-    { name: "Brokers Covered", key: "brokers" },
+    { name: "Customer data retention", key: "deletion" },
+    { name: "Sites / broker targets", key: "brokers" },
 ];
 
 const COMPETITORS: Competitor[] = [
@@ -53,42 +48,42 @@ const COMPETITORS: Competitor[] = [
         name: "DataGhost",
         isPrimary: true,
         price: "$49 one-time",
-        subscription: "No",
+        duration: "45 days; weekly follow-ups",
         account: "No",
-        deletion: "✓ Yes (after 45 days)",
-        brokers: "70+",
+        deletion: "Deleted after 45 days",
+        brokers: "70+ opt-out targets",
     },
     {
         name: "Incogni",
-        price: "$99/year",
-        subscription: "Yes",
+        price: "$95.88/year (Standard)",
+        duration: "Ongoing subscription",
         account: "Yes",
-        deletion: "Retained indefinitely",
-        brokers: "70–200+",
+        deletion: "Up to 24 months after service ends; deletion can be requested",
+        brokers: "420+ on Standard",
     },
     {
         name: "DeleteMe",
         price: "$129/year",
-        subscription: "Yes",
+        duration: "Ongoing subscription",
         account: "Yes",
-        deletion: "Retained indefinitely",
-        brokers: "750+ (many DIY)",
+        deletion: "Membership period plus 6 months",
+        brokers: "30+ top sites on Standard; 969 on broader removal list",
     },
     {
         name: "Optery",
         price: "$39–$249/year",
-        subscription: "Yes",
+        duration: "Ongoing subscription",
         account: "Yes",
-        deletion: "Retained indefinitely",
-        brokers: "300+",
+        deletion: "Account deletion available; backups cleared within 7 days",
+        brokers: "380+ Core to 635+ Ultimate, with Expanded Reach",
     },
     {
         name: "Kanary",
-        price: "$180/year",
-        subscription: "Yes",
+        price: "$250–$500/year",
+        duration: "Ongoing subscription",
         account: "Yes",
-        deletion: "Retained indefinitely",
-        brokers: "100+",
+        deletion: "Account data deleted when you leave",
+        brokers: "Coverage varies by risk profile",
     },
 ];
 export default function Comparison() {
@@ -98,12 +93,13 @@ export default function Comparison() {
                 { }
                 <div className="text-center mb-16 md:mb-20">
                     <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 bg-gradient-to-br from-cyan-300 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight text-center">
-                        DataGhost vs The Subscription Services<br />2025 Comparison
+                        DataGhost vs The Subscription Services<br />2027 Comparison
                     </h1>
                     <p className="text-base md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                        Most services require recurring subscriptions and retain your data indefinitely.
-                        DataGhost is different: one powerful removal sweep for <span className="text-ghost-cyan font-bold">$49</span>.
+                        Compare a <span className="text-ghost-cyan font-bold">$49 one-time</span> service with ongoing subscriptions.
+                        Prices, coverage, and monitoring periods differ by plan.
                     </p>
+                    <p className="mt-5 text-sm text-gray-400">Competitor details checked September 26, 2026. Recheck before purchasing; taxes, promotions, and plan changes may affect prices.</p>
                 </div>
                 { }
                 <div className="md:hidden space-y-6">
@@ -112,7 +108,7 @@ export default function Comparison() {
                             <h3 className="text-lg font-bold text-white mb-4 border-b border-white/10 pb-2 flex items-center gap-2">
                                 <span className="text-ghost-cyan">
                                     {feature.key === 'price' && '$'}
-                                    {feature.key === 'subscription' && '↻'}
+                                    {feature.key === 'duration' && '↻'}
                                     {feature.key === 'account' && '👤'}
                                     {feature.key === 'deletion' && '🗑️'}
                                     {feature.key === 'brokers' && '📂'}
@@ -125,10 +121,7 @@ export default function Comparison() {
                                         <div className={`font-medium ${comp.isPrimary ? 'text-ghost-cyan font-bold' : 'text-zinc-500'}`}>
                                             {comp.name}
                                         </div>
-                                        <div className={`text-right font-medium ${comp.isPrimary ? 'text-ghost-cyan font-bold' :
-                                            (feature.key === 'subscription' || feature.key === 'account') && comp.name !== 'DataGhost' ? 'text-red-400' :
-                                                'text-zinc-300'
-                                            }`}>
+                                        <div className={`text-right font-medium ${comp.isPrimary ? 'text-ghost-cyan font-bold' : 'text-zinc-300'}`}>
                                             { }
                                             {comp[feature.key]}
                                         </div>
@@ -162,10 +155,8 @@ export default function Comparison() {
                                         {COMPETITORS.map((comp) => (
                                             <td key={`${comp.name}-${feature.key}`} className={`px-8 py-6 text-center ${comp.isPrimary ? 'bg-cyan-950/10' : ''}`}>
                                                 <span className={`text-lg font-semibold ${feature.key === 'price' && comp.isPrimary ? 'text-3xl text-ghost-cyan' :
-                                                    (feature.key === 'subscription' || feature.key === 'account') && comp.isPrimary ? 'text-ghost-cyan text-2xl' :
-                                                        (feature.key === 'subscription' || feature.key === 'account') && !comp.isPrimary ? 'text-red-500 text-2xl' :
-                                                            feature.key === 'deletion' && comp.isPrimary ? 'text-ghost-cyan' :
-                                                                'text-gray-300'
+                                                    (feature.key === 'duration' || feature.key === 'account' || feature.key === 'deletion') && comp.isPrimary ? 'text-ghost-cyan' :
+                                                        'text-gray-300'
                                                     }`}>
                                                     { }
                                                     {comp[feature.key]}
@@ -177,6 +168,10 @@ export default function Comparison() {
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div className="max-w-4xl mx-auto text-sm leading-relaxed text-gray-400">
+                    <p>Coverage counts use each provider&apos;s published definitions. A listed target or submitted request does not guarantee that a broker removes a record. DeleteMe&apos;s broader list describes sites where it has found and removed data; its Standard plan description names 30+ top sites. Optery&apos;s displayed counts include Expanded Reach.</p>
+                    <p className="mt-4">Sources: <a className="text-ghost-cyan underline" href="https://incogni.com/pricing">Incogni plans</a> and <a className="text-ghost-cyan underline" href="https://incogni.com/legal/privacy-policy">privacy policy</a>; <a className="text-ghost-cyan underline" href="https://joindeleteme.com/blog/choosing-your-deleteme-plan/">DeleteMe Standard plan</a>, <a className="text-ghost-cyan underline" href="https://joindeleteme.com/sites-we-remove-from/">site list</a>, and <a className="text-ghost-cyan underline" href="https://privacy.joindeleteme.com/policies?name=privacy-policy">privacy policy</a>; <a className="text-ghost-cyan underline" href="https://www.optery.com/pricing/">Optery plans</a> and <a className="text-ghost-cyan underline" href="https://www.optery.com/privacy-policy/">privacy policy</a>; <a className="text-ghost-cyan underline" href="https://www.kanary.com/pricing">Kanary plans</a>, <a className="text-ghost-cyan underline" href="https://www.kanary.com/remove-from-sites">coverage</a>, and <a className="text-ghost-cyan underline" href="https://www.kanary.com/privacy-and-security">privacy details</a>.</p>
                 </div>
                 { }
                 <div className="text-center mt-12 md:mt-20">
