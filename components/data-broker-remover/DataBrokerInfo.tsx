@@ -24,10 +24,9 @@ const FAQ_ITEMS = [
             We temporarily store your info for{' '}
             <strong className="text-ghost-cyan">exactly 45 days only</strong> so
             we can automatically re-remove your data every week if it reappears.
-            On day 46, a pg_cron job permanently deletes everything — no
-            backups, no logs, gone forever. We are the only service that
-            actually deletes your data automatically. Incogni, DeleteMe, Optery,
-            Kanary — they keep it forever.
+            On day 46, our scheduled cleanup deletes the temporary removal
+            profile. Other services have their own retention policies; see
+            their published terms for details.
           </li>
         </ol>
         <p className="text-warmgray/80 text-sm mt-4">
